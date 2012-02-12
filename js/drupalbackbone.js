@@ -1,19 +1,22 @@
 // A Child of Backbone.JS with Drupal Services defaults
 //
-// TODO Add configurable endpoint path, loaded via Drupal Behaviors
-// TODO Add Backbone.Collection Child for Views integration
 // TODO Move tests into unit testing library, Jasmine likely
+// TODO Add configurable endpoint path, loaded via Drupal Behaviors
+//   (will remove hard dependency on backbone_base feature)
+// TODO Add .NodeIndexCollection for node index Services resource.
+// TODO Add .ViewsCollection Child for Views integration
+// TODO Add .TaxonomyCollection with support for taxonomy listings.
+// TODO Add .SearchCollection with support for search results.
 
 (function($) {
+
   $(function() {
-    // DrupalBackbone Constructor, currently a no-op
-    DrupalBackbone = function() {};
+    // Drupal.Backbone Constructor, currently a no-op
+    Drupal.Backbone = function() {};
 
     // Extend the Model object with default Drupal Services settings and methods.
-    DrupalBackbone.Model = Backbone.Model.extend({
-      urlRoot: "/backbone_rest/node",
-      idAttribute: "nid", 
-
+    // These are defaults for interfacing with all Service module's providers.
+    Drupal.Backbone.Model = Backbone.Model.extend({
       // Use the Drupal Services REST format for nodes, /endpoint/{{nid}}.json.
       // We don't include the collection stuff here, since Drupal collections are
       // indpendent of their objects.
@@ -23,7 +26,13 @@
         if (this.isNew()) { return base; }
         // Add .json for format here.
         return base + (base.charAt(base.length - 1) === '/' ? '' : '/') + encodeURIComponent(this.id) + ".json";
-        },
+        }
+    });
+
+    // Node-specific settings for Drupal Services' node resource.
+    Drupal.Backbone.Node = Drupal.Backbone.Model.extend({
+      urlRoot: "/backbone/rest/node",
+      idAttribute: "nid", 
 
       // Override toJSON function to nest all attributes in a { node: ... } key
       // to make this work with the Services module implementation of node PUSH/PUT.
@@ -35,5 +44,6 @@
       }
     });
   });
+
 })(jQuery);
 

@@ -28,12 +28,23 @@ Installation
 [underscore]: http://documentcloud.github.com/underscore/
 
 
+Testing
+---
+
+This module uses the jQuery [QUnit][] library for JavaScript testing, via the [QUnit
+module][] for Drupal.  Currently CRUD operations are covered by basic tests, and
+thee's a bit of fancy footwork to handle testing of asynchronous AJAX callbacks.
+See the backbone.test.js file in the tests subdirectory of this module.
+
+[QUnit]: http://docs.jquery.com/QUnit
+[QUnit module]: http://drupal.org/project/qunit
+
+
 What's to come...
 ---
 
 We have a lot of plans and hopes for this module.  Here's the current docket:
 
-   * Unit tests w/ qUnit for CRUD operations.
    * Support for Views Services through Backbone collections.
    * Unit tests for views integration.
    * Example module using node listing (promote to front interface?)

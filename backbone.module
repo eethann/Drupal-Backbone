@@ -2,6 +2,7 @@
 /**
  * @file
  * Integration module for a version of Backbone.js for Drupal.
+ *
  */
 
 /**
@@ -61,4 +62,14 @@ function backbone_library() {
     ),
   );
   return $libraries;
+}
+
+/**
+ * Implements hook_library_alter().
+ */
+function backbone_library_alter(&$libraries, $module) {
+  // Add available JavaScript tests and dependencies.
+  if ($module == 'qunit') {
+    $libraries['qunit']['js'][drupal_get_path('module', 'backbone') . '/tests/backbone.test.js'] = array();
+  }
 }
