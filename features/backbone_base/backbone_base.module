@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Backbone Base feature.
+ */
+
+include_once('backbone_base.features.inc');
