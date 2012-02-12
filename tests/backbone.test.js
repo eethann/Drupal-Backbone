@@ -15,11 +15,13 @@
       expect(3);
 
       // Stop the test runner, we will restart when all of our async tests have completed.
+      // TODO: Look into adding an asyncTest interface for Drupal QUnit.
       stop();
 
       // Test baseic node CRUD.
       // Create a jQuery queue to make nested asyn easier. (Otherwise these
       // would need to be nested within eachother).
+      // TODO: Look into $.deffered for handling this more robustly.
       var crudQueue = $({});
       var newNid = null;
       
