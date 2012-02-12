@@ -1,0 +1,64 @@
+<?php
+/**
+ * @file
+ * Integration module for a version of Backbone.js for Drupal.
+ */
+
+/**
+ * Implements hook_help().
+ */
+function backbone_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#backbone':
+      return t("Extensions to the backbone.js client-side MVC framework to make building interactive user interfaces with Drupal a breeze and a snap and a cinch!");
+  }
+}
+
+/**
+ * Implements hook_init().
+ *
+ * Add backbone.js and dependency underscore.js to all pages.
+ *
+ * TODO Make this conditional by page/configurable.
+ */
+function backbone_init() {
+  drupal_add_library('backbone', 'drupalbackbone');
+}
+
+/**
+ * Implements hook_library().
+ */
+function backbone_library() {
+  $libraries['underscore'] = array(
+    'title' => 'Underscore.js',
+    'website' => 'http://documentcloud.github.com/underscore/',
+    'version' => '1.3.1',
+    'js' => array(
+      libraries_get_path('underscore') . '/underscore.js' => array(),
+    ),
+  );
+  $libraries['backbone'] = array(
+    'title' => 'Backbone.js',
+    'website' => 'http://documentcloud.github.com/backbone/',
+    'version' => '0.9.1',
+    'js' => array(
+      libraries_get_path('backbone') . '/backbone.js' => array(),
+    ),
+    'dependencies' => array(
+      // TODO add jQuery as dependency (?)
+      array('backbone', 'underscore'),
+    ),
+  );
+  $libraries['drupalbackbone'] = array(
+    'title' => 'drupalbackbone.js',
+    'website' => 'http://drupal.org/backbone',
+    'version' => '0.0.1',
+    'js' => array(
+      drupal_get_path('module', 'backbone') . '/js/drupalbackbone.js' => array(),
+    ),
+    'dependencies' => array(
+      array('backbone', 'backbone'),
+    ),
+  );
+  return $libraries;
+}

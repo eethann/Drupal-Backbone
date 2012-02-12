@@ -1,0 +1,6 @@
+name = Backbone
+description = Backbone.js for Drupal!
+dependencies[] = libraries
+package = Backbone
+core = 7.x
+files[] = backbone.module
