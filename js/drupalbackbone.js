@@ -30,7 +30,7 @@
     });
 
     // Node-specific settings for Drupal Services' node resource.
-    Drupal.Backbone.Node = Drupal.Backbone.Model.extend({
+    Drupal.Backbone.NodeModel = Drupal.Backbone.Model.extend({
       urlRoot: "/backbone/rest/node",
       idAttribute: "nid", 
 

@@ -45,7 +45,7 @@
       };
 
       // Create a node object to use in our testing.
-      newNode = new Drupal.Backbone.Node({
+      newNode = new Drupal.Backbone.NodeModel({
         'title': 'Backbone Test Node',
         'type': 'page'
       });
