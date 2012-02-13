@@ -1,6 +1,8 @@
 name = Backbone
 description = Backbone.js for Drupal!
 dependencies[] = libraries
+dependencies[] = services
+dependencies[] = rest_server
 ; Until REST endpoint path is configurable, base feature is required.
 dependencies[] = backbone_base
 package = Backbone

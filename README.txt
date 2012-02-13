@@ -20,6 +20,7 @@ Installation
    * Download the latest version of [Underscore.js][underscore] into the
      appropriate libraries/underscore directory (usuall
      sites/all/libraries/underscore).
+   * Enable Clean URLs for your site.
    * Download the latest version of [Backbone.js][backbone] into
      libraries/backbone.
    * Enable this module and it's dependencies.
