@@ -32,6 +32,9 @@
       });
 
       // Currently just sets the endpoint for all collections.
+      //
+      // TODO fix scoping issue that causes params to bleed between children of this object.
+      //  e.g. if you have two NodeViewCollections, setting limit on one sets on both.
       Drupal.Backbone.Collection = Backbone.Collection.extend({
         // Base endpoint, used to create full url for each collection.
         restEndpoint: "/backbone/rest",
