@@ -1,21 +1,30 @@
-// A Child of Backbone.JS with Drupal Services defaults
+// A Child of [Backbone.JS][backbone] with Drupal Services defaults
 //
-// TODO Add .NodeIndexCollection for node index Services resource.
-// TODO Add .ViewsCollection Child for Views integration
-// TODO Add .TaxonomyCollection with support for taxonomy listings.
-// TODO Add .SearchCollection with support for search results.
-// TODO Add configurable endpoint path, loaded via Drupal Behaviors
+// * TODO Add .TaxonomyCollection with support for taxonomy listings.
+// * TODO Add .SearchCollection with support for search results.
+// * TODO Add configurable endpoint path, loaded via Drupal Behaviors
 //   (will remove hard dependency on backbone_base feature)
+// * TODO Add .FieldViewCollection for working with field views.
+//
+// [backbone]: http://documentcloud.github.com/backbone
 
 (function($) {
 
+  // Attached to page via Drupal behaviors, for reasons
+  // of both perperness and so we can use Drupal JS setings.
   Drupal.behaviors.backbone = {
     attach: function() {
-      // Drupal.Backbone Constructor, currently a no-op
+      // Drupal.Backbone
+      // ---
+      //
+      // Starts with the Drupal.Backbone Constructor, currently a no-op
       Drupal.Backbone = function() {};
 
       // Base objects for Drupal Backbone implementation.
+      // ---
 
+      // ### Drupal.Backbone.Model
+      //
       // Extend the Model object with default Drupal Services settings and methods.
       // These are defaults for interfacing with all Service module's providers.
       Drupal.Backbone.Model = Backbone.Model.extend({
@@ -31,6 +40,8 @@
           }
       });
 
+      // ### Drupal.Backbone.Collection
+      //
       // Currently just sets the endpoint for all collections.
       //
       // TODO fix scoping issue that causes params to bleed between children of this object.
@@ -75,9 +86,18 @@
         }
       });
 
+      // ### Drupal.Backbone.View
+      //
       // Currently just a no-op, for later use once we get to Backbone views integration.
       Drupal.Backbone.View = Backbone.View.extend({});
 
+      // Drupal.Backbone Models
+      // ---
+      //
+      // Drupal-specific models. Currently just nodes, but terms and files could follow.
+
+      // ### Drupal.Backbone.NodeModel
+      //
       // Node-specific settings for Drupal Services' node resource.
       Drupal.Backbone.NodeModel = Drupal.Backbone.Model.extend({
         urlRoot: "/backbone/rest/node",
@@ -93,6 +113,13 @@
         }
       });
 
+      // Drupal Backbone Collections
+      // ---
+      //
+      // Specific collections for Drupal listing types.
+
+      // ### Drupal.Backbone.NodeIndexCollection
+      //
       // Create collection for Node resource's index interface.
       Drupal.Backbone.NodeIndexCollection = Drupal.Backbone.Collection.extend({
         model: Drupal.Backbone.NodeModel,
@@ -101,6 +128,8 @@
         }
       });
   
+      // ### Drupal.Backbone.NodeViewCollection
+      //
       // Create collection for Views resource's index interface.
       // Note that this is just for views that use the "Content" display
       // for their nodes.  Field views will need to be handled differently.
