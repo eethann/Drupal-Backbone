@@ -24,15 +24,15 @@
       // TODO: Look into $.deffered for handling this more robustly.
       var asyncQueue = $({});
       var newNid = null;
-      
-      // A factory function that uses closures to produce success and error callbacks 
+
+      // A factory function that uses closures to produce success and error callbacks
       // for our Ajaj tests.
       var dequeueFuncs = function(msg) {
         return {
           success: function() {
             ok(true, Drupal.t(msg));
             asyncQueue.dequeue('asyncQueue');
-          }, 
+          },
           error: function() {
             ok(false, Drupal.t(msg));
             // After erroring out, don't continue with tests.
@@ -77,9 +77,9 @@
       asyncQueue.queue('asyncQueue', function() {
         equals(indexCollection.length, 1, Drupal.t('Node Index fetch returned one node.'));
         equals(indexCollection.at(0).get('title'), 'Updated Title', Drupal.t('Top node in Node Index is correct one.'));
-        asyncQueue.dequeue('asyncQueue'); 
+        asyncQueue.dequeue('asyncQueue');
       });
- 
+
       // Test pagesize=0, should always be empty.
       asyncQueue.queue('asyncQueue', function() {
         indexCollection.setParam('pagesize', 0);
@@ -87,9 +87,9 @@
       });
       asyncQueue.queue('asyncQueue', function() {
         equals(indexCollection.length, 0, Drupal.t('Node Index page size setting worked correctly, no nodes returned.'));
-        asyncQueue.dequeue('asyncQueue'); 
+        asyncQueue.dequeue('asyncQueue');
       });
- 
+
       // Test Views, since we have a node created.
       var viewCollection = new Drupal.Backbone.NodeViewCollection();
       viewCollection.viewName = 'backbone_test';
@@ -103,9 +103,9 @@
       asyncQueue.queue('asyncQueue', function() {
         equals(viewCollection.length, 1, Drupal.t('View fetch returned one node.'));
         equals(viewCollection.at(0).get('title'), 'Updated Title', Drupal.t('Top node in View is correct one.'));
-        asyncQueue.dequeue('asyncQueue'); 
+        asyncQueue.dequeue('asyncQueue');
       });
- 
+
       // Delete that node.
       // TODO Attempt to load node again (should fail)
       asyncQueue.queue('asyncQueue', function() {
@@ -123,3 +123,4 @@
   };
 
 })(jQuery);
+

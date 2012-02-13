@@ -57,7 +57,7 @@
         setParam: function(paramName, paramValue) {
           this.params[paramName] = paramValue;
         },
-  
+
         // Setter for multiple params, passed as object with key/value pairs.
         setParams: function(params) {
           if (typeof(params) === 'Object') {
@@ -77,7 +77,7 @@
           if (options.data) {
             // Allow options.data to override any params.
             _.defaults(options.data, this.getParams());
-          } 
+          }
           else if (this.getParams()) {
             options.data = this.getParams();
           }
@@ -101,7 +101,7 @@
       // Node-specific settings for Drupal Services' node resource.
       Drupal.Backbone.NodeModel = Drupal.Backbone.Model.extend({
         urlRoot: "/backbone/rest/node",
-        idAttribute: "nid", 
+        idAttribute: "nid",
 
         // Override toJSON function to nest all attributes in a { node: ... } key
         // to make this work with the Services module implementation of node PUSH/PUT.
@@ -127,14 +127,14 @@
           return this.restEndpoint + "/node.json";
         }
       });
-  
+
       // ### Drupal.Backbone.NodeViewCollection
       //
       // Create collection for Views resource's index interface.
       // Note that this is just for views that use the "Content" display
       // for their nodes.  Field views will need to be handled differently.
-      // 
-      // May be worth considering if field views are really appropriate 
+      //
+      // May be worth considering if field views are really appropriate
       // for backbone, since it deals with collections of model objects,
       // and field views do not fit that mode.
       //
