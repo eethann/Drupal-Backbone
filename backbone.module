@@ -3,6 +3,8 @@
  * @file
  * Integration module for a version of Backbone.js for Drupal.
  *
+ * TODO integrate with Backbone bootstrapping.
+ *   See (http://documentcloud.github.com/backbone/#FAQ-bootstrap).
  */
 
 /**
