@@ -12,7 +12,7 @@
     },
     test: function() {
       // Expect assertions contained in async calls.
-      expect(8);
+      expect(11);
 
       // Stop the test runner, we will restart when all of our async tests have completed.
       // TODO: Look into adding an asyncTest interface for Drupal QUnit.
@@ -68,7 +68,8 @@
       // Test Node Index, since we have a node created.
       var indexCollection = new Drupal.Backbone.NodeIndexCollection();
       asyncQueue.queue('asyncQueue', function() {
-        indexCollection.fetch(_.extend(dequeueFuncs('Fetch Node Index collection'), {data: {pagesize: 1}}));
+        indexCollection.setParam('pagesize', 1);
+        indexCollection.fetch(dequeueFuncs('Fetch Node Index collection'));
       });
 
       // Test returned collection.
@@ -81,10 +82,27 @@
  
       // Test pagesize=0, should always be empty.
       asyncQueue.queue('asyncQueue', function() {
-        indexCollection.fetch(_.extend(dequeueFuncs('Fetch Node Index collection'), {data: {pagesize: 0}}));
+        indexCollection.setParam('pagesize', 0);
+        indexCollection.fetch(dequeueFuncs('Fetch empty Node Index collection'));
       });
       asyncQueue.queue('asyncQueue', function() {
         equals(indexCollection.length, 0, Drupal.t('Node Index page size setting worked correctly, no nodes returned.'));
+        asyncQueue.dequeue('asyncQueue'); 
+      });
+ 
+      // Test Views, since we have a node created.
+      var viewCollection = new Drupal.Backbone.NodeViewCollection();
+      viewCollection.viewName = 'backbone_test';
+      asyncQueue.queue('asyncQueue', function() {
+        viewCollection.setParam('limit', 1);
+        viewCollection.fetch(dequeueFuncs('Fetch View collection'));
+      });
+
+      // Test returned collection.
+      // TODO test offset/page number.
+      asyncQueue.queue('asyncQueue', function() {
+        equals(viewCollection.length, 1, Drupal.t('View fetch returned one node.'));
+        equals(viewCollection.at(0).get('title'), 'Updated Title', Drupal.t('Top node in View is correct one.'));
         asyncQueue.dequeue('asyncQueue'); 
       });
  

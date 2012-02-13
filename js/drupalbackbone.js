@@ -39,17 +39,11 @@
         // Drupal collections are stateful, we store params in the collection.
         params: {},
 
-        // Initialize function allows params to be passed at object creation.
-        initialize: function(params) {
-          if (params) {
-            this.setParams(params);
-          }
-        },
-
         // Setter for individual params, called as setParam('name','value').
         setParam: function(paramName, paramValue) {
           this.params[paramName] = paramValue;
         },
+  
         // Setter for multiple params, passed as object with key/value pairs.
         setParams: function(params) {
           if (typeof(params) === 'Object') {
@@ -66,8 +60,13 @@
 
         // Fetch method passes params as data in AJAX call.
         fetch: function(options) {
-          // Allow options.data to override any params.
-          _.defaults(options.data, this.getParams());
+          if (options.data) {
+            // Allow options.data to override any params.
+            _.defaults(options.data, this.getParams());
+          } 
+          else if (this.getParams()) {
+            options.data = this.getParams();
+          }
           // Call Super fetch function with options array including any collection params.
           Backbone.Collection.prototype.fetch.call(this, options);
         }
@@ -96,6 +95,25 @@
         model: Drupal.Backbone.NodeModel,
         url: function() {
           return this.restEndpoint + "/node.json";
+        }
+      });
+  
+      // Create collection for Views resource's index interface.
+      // Note that this is just for views that use the "Content" display
+      // for their nodes.  Field views will need to be handled differently.
+      // 
+      // May be worth considering if field views are really appropriate 
+      // for backbone, since it deals with collections of model objects,
+      // and field views do not fit that mode.
+      //
+      // TODO require view name at initialization or fetch.
+      // TODO create basic view collection, subclass node and field views.
+      Drupal.Backbone.NodeViewCollection = Drupal.Backbone.Collection.extend({
+        model: Drupal.Backbone.NodeModel,
+        // Name of Drupal view for this collection.
+        viewName: null,
+        url: function() {
+          return this.restEndpoint + "/views/" + this.viewName + ".json";
         }
       });
     }
