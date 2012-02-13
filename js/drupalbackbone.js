@@ -50,6 +50,17 @@
         // Base endpoint, used to create full url for each collection.
         restEndpoint: "/backbone/rest",
 
+        // We bind the param functions to this on initialize, to avoid chain
+        // inheritance issues.
+        //
+        // *NOTE* if you subclass this and have an initialize function in your
+        // subclass, you need to execute Drupal.Backbone.Collection.initialize
+        // explicitly.
+        initialize: function() {
+          _.bindAll(this, 'setParam', 'setParams', 'getParams');
+          this.params = {};
+        },
+
         // Drupal collections are stateful, we store params in the collection.
         params: {},
 
