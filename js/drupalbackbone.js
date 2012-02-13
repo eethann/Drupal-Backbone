@@ -1,12 +1,11 @@
 // A Child of Backbone.JS with Drupal Services defaults
 //
-// TODO Move tests into unit testing library, Jasmine likely
-// TODO Add configurable endpoint path, loaded via Drupal Behaviors
-//   (will remove hard dependency on backbone_base feature)
 // TODO Add .NodeIndexCollection for node index Services resource.
 // TODO Add .ViewsCollection Child for Views integration
 // TODO Add .TaxonomyCollection with support for taxonomy listings.
 // TODO Add .SearchCollection with support for search results.
+// TODO Add configurable endpoint path, loaded via Drupal Behaviors
+//   (will remove hard dependency on backbone_base feature)
 
 (function($) {
 
