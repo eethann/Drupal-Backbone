@@ -99,8 +99,10 @@ to our earlier binding of the view render function to change.</p>             </
       <span class="p">});</span></pre></div>             </td>           </tr>                               <tr id="section-11">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-11">&#182;</a>               </div>               <h3>Start the app!</h3>
 
 <p>Then all we need to do is create an instance of our app view!</p>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AppView</span><span class="p">();</span>
-    <span class="p">},</span>
-    <span class="nx">unattach</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="p">},</span></pre></div>             </td>           </tr>                               <tr id="section-12">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-12">&#182;</a>               </div>               <h2>unattach()</h2>
+
+<p>Just to be consistent with Drupal standards, we provide an unattach
+function as well.</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nx">unattach</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#backbone-example-app&#39;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
     <span class="p">}</span>
   <span class="p">};</span>
