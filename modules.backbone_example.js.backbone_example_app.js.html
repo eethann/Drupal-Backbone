@@ -1,0 +1,111 @@
+<!doctype html>  <html> <head>   <title>backbone_example_app.js</title>   <meta charset="utf-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>        <div id="jump_to">       Jump To &hellip;        <div id="jump_wrapper">   <form id="jump_search_wrapper" name="jump_search_form">     <input id="jump_search" name="jump_search" type="text" placeholder="Search..." tabindex="1">     <a id="clear_search" href="#" title="Clear">x</a>   </form>    <div id="jump_scroller">     <div id="jump_page">                         <a class="source" href="js.drupalbackbone-services.js.html"            title="js/drupalbackbone-services.js" data-path="js/drupalbackbone-services.js">           drupalbackbone-services         </a>                         <a class="source" href="index.html"            title="js/drupalbackbone.js" data-path="js/drupalbackbone.js">           drupalbackbone         </a>                         <a class="source" href="modules.backbone_example.js.backbone_example_app.js.html"            title="modules/backbone_example/js/backbone_example_app.js" data-path="modules/backbone_example/js/backbone_example_app.js">           backbone_example_app         </a>                         <a class="source" href="tests.backbone.test.js.html"            title="tests/backbone.test.js" data-path="tests/backbone.test.js">           backbone.test         </a>            </div>   </div> </div>      </div>        <div id="scroller">       <table id="doc_page" cellpadding="0" cellspacing="0" data-path="modules/backbone_example/js/backbone_example_app.js">         <thead>           <tr>             <th class="docs">               <h1>                 backbone_example_app.js               </h1>             </th>             <th class="code">             </th>           </tr>         </thead>         <tbody>                                     <tr id="section-1">               <td class="docs">                 <div class="pilwrap">                   <a class="pilcrow" href="#section-1">&#182;</a>                 </div>                                </td>               <td class="code">                 <div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">Drupal</span><span class="p">.</span><span class="nx">behaviors</span><span class="p">.</span><span class="nx">backbone_example</span> <span class="o">=</span> <span class="p">{</span></pre></div>               </td>             </tr>                                     <tr id="section-2">               <td class="docs">                 <div class="pilwrap">                   <a class="pilcrow" href="#section-2">&#182;</a>                 </div>                 <h2>attach()</h2>
+
+<p>We start the app in a Drupal.behaviors attach function, this way we can
+be sure that our settings and required libraries have already been
+loaded.</p>
+
+<p>This app consists of 2 views and on model: views for displaying the app
+ui and an individual node, and a model to hold the node data.  Note that
+in Backbone views function much like controlers in more conventional MVC
+architecture, binding actions to events.</p>               </td>               <td class="code">                 <div class="highlight"><pre>    <span class="nx">attach</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span></pre></div>               </td>             </tr>                                     <tr id="section-3">               <td class="docs">                 <div class="pilwrap">                   <a class="pilcrow" href="#section-3">&#182;</a>                 </div>                 <h3>NodeView</h3>
+
+<p>This is our view of a specific node, it takes care of rendering the
+node data once it has been loaded from the server and refreshing the
+display when new data is received.</p>
+
+<p>We use Backbone's extend() method to extend the base
+Drupal.Backbone.View, so that the new module gets all the parent's
+methods and properties.</p>               </td>               <td class="code">                 <div class="highlight"><pre>      <span class="kd">var</span> <span class="nx">NodeView</span> <span class="o">=</span> <span class="nx">Drupal</span><span class="p">.</span><span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        </pre></div>               </td>             </tr>                                     <tr id="section-4">               <td class="docs">                 <div class="pilwrap">                   <a class="pilcrow" href="#section-4">&#182;</a>                 </div>                 <h4>NodeView.templateSelector</h4>
+
+<p>This should be a jQuery CSS selector object or string that matches
+the id of the template you specified in your <code>backbone_add_template</code>
+call (if you're using the Backbone module's standard template
+management functions).</p>               </td>               <td class="code">                 <div class="highlight"><pre>        <span class="nx">templateSelector</span><span class="o">:</span> <span class="s1">&#39;#backbone-example-node-template&#39;</span><span class="p">,</span></pre></div>               </td>             </tr>                                     <tr id="section-5">               <td class="docs">                 <div class="pilwrap">                   <a class="pilcrow" href="#section-5">&#182;</a>                 </div>                 <h4>NodeView.initialize()</h4>
+
+<p>The initialize function binds the "change" event on the model to a
+re-render of the view, so the view is automatically updated whenever
+the properties of the model change.  This allows us to automatically
+re-render the node information after we've loaded the data from
+Drupal...it's magic!</p>
+
+<p>Note that we need to call the parent constructor explicitly, using the
+apply method on the prototype. This is a bit esoteric (except for in
+JavaScript), but it's basically the equivalent of</p>
+
+<pre><code>parent::__contruct()
+</code></pre>
+
+<p>in PHP. This is not required in Backbone.js, but is required in Drupal
+Backbone if you want the template to be prepared for you so the default
+rendering function works at object create.</p>               </td>               <td class="code">                 <div class="highlight"><pre>        <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">opts</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">model</span> <span class="o">=</span> <span class="nx">opts</span><span class="p">.</span><span class="nx">model</span><span class="p">;</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;change&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+          <span class="nx">Drupal</span><span class="p">.</span><span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">initialize</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+        <span class="p">}</span>
+      <span class="p">});</span></pre></div>               </td>             </tr>                                     <tr id="section-6">               <td class="docs">                 <div class="pilwrap">                   <a class="pilcrow" href="#section-6">&#182;</a>                 </div>                 <h3>AppView</h3>
+
+<p>As mentioned above, a standard Backbone pattern is to use one main View
+object as the controller for the application UI.  In this case, that
+view is mainly a form, with bindings for the submit button that request
+the node data from the server, and an initialize function that sets
+everything up for us.</p>               </td>               <td class="code">                 <div class="highlight"><pre>      <span class="kd">var</span> <span class="nx">AppView</span> <span class="o">=</span> <span class="nx">Drupal</span><span class="p">.</span><span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        </pre></div>               </td>             </tr>                                     <tr id="section-7">               <td class="docs">                 <div class="pilwrap">                   <a class="pilcrow" href="#section-7">&#182;</a>                 </div>                 <h4>AppView.templateSelector</h4>
+
+<p>This property functions the same way as NodeView.templateSelector.</p>               </td>               <td class="code">                 <div class="highlight"><pre>        <span class="nx">templateSelector</span><span class="o">:</span> <span class="s1">&#39;#backbone-example-app-template&#39;</span><span class="p">,</span></pre></div>               </td>             </tr>                                     <tr id="section-8">               <td class="docs">                 <div class="pilwrap">                   <a class="pilcrow" href="#section-8">&#182;</a>                 </div>                 <h4>AppView.events</h4>
+
+<p>We use the events property to map jquery event selectors with methods
+of our view object.  In this case, we will call the function
+doLoadNode when the form is submitted.</p>
+
+<p>Note that our form tag is set to return false on submit, so the form
+does not actually submit.  In the real world we'd likely do that with
+jQuery so it would degrade nicely.</p>
+
+<p>TODO integrate Backbone forms with the Drupal Form API.</p>               </td>               <td class="code">                 <div class="highlight"><pre>        <span class="nx">events</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s1">&#39;submit form[name=backbone-example-form]&#39;</span><span class="o">:</span> <span class="s1">&#39;doLoadNode&#39;</span>
+        <span class="p">},</span></pre></div>               </td>             </tr>                                     <tr id="section-9">               <td class="docs">                 <div class="pilwrap">                   <a class="pilcrow" href="#section-9">&#182;</a>                 </div>                 <h4>AppView.initialize()</h4>
+
+<p>The main view's initialize function sets up the view first (via the
+call to the parent's initialize method, same as NodeView), then binds
+the new doLoadNode function to the correct object (see the FAQ in the
+Backbone docs for more on this).</p>
+
+<p>Once that's all done, we can create our child view and it's attendant
+model, then render the main app itself and attach it to the correct
+location on the page.</p>               </td>               <td class="code">                 <div class="highlight"><pre>        <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+          <span class="nx">Drupal</span><span class="p">.</span><span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">initialize</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+          <span class="nx">_</span><span class="p">.</span><span class="nx">bindAll</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="s1">&#39;doLoadNode&#39;</span><span class="p">);</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">nodeModel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Drupal</span><span class="p">.</span><span class="nx">Backbone</span><span class="p">.</span><span class="nx">NodeModel</span><span class="p">();</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">nodeView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NodeView</span><span class="p">({</span><span class="nx">model</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">nodeModel</span><span class="p">});</span>
+          <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#backbone-example-app&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">().</span><span class="nx">el</span><span class="p">);</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#backbone-example-node-container&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">nodeView</span><span class="p">.</span><span class="nx">render</span><span class="p">().</span><span class="nx">el</span><span class="p">);</span>
+        <span class="p">},</span></pre></div>               </td>             </tr>                                     <tr id="section-10">               <td class="docs">                 <div class="pilwrap">                   <a class="pilcrow" href="#section-10">&#182;</a>                 </div>                 <h4>AppView.doLoadNode()</h4>
+
+<p>This is the method that is called whenever the form is submitted.  It
+gets the value of the nid input field, sets the model to have the new
+nid property, then fetches the rest of the node data from the server.</p>
+
+<p>We don't need to worry about doing anything when the results come
+back (whew!), because Backbone will automatically update the model
+when it receives new data.  Once the model has been updated, a change
+event will be called, triggering a re-render of the node view thanks
+to our earlier binding of the view render function to change.</p>               </td>               <td class="code">                 <div class="highlight"><pre>        <span class="nx">doLoadNode</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+          <span class="kd">var</span> <span class="nx">nid</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#nid&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">nodeModel</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;nid&#39;</span><span class="p">,</span> <span class="nx">nid</span><span class="p">);</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">nodeModel</span><span class="p">.</span><span class="nx">fetch</span><span class="p">();</span>
+        <span class="p">}</span>
+      <span class="p">});</span></pre></div>               </td>             </tr>                                     <tr id="section-11">               <td class="docs">                 <div class="pilwrap">                   <a class="pilcrow" href="#section-11">&#182;</a>                 </div>                 <h3>Start the app!</h3>
+
+<p>Then all we need to do is create an instance of our app view!</p>               </td>               <td class="code">                 <div class="highlight"><pre>      <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AppView</span><span class="p">();</span>
+    <span class="p">},</span></pre></div>               </td>             </tr>                                     <tr id="section-12">               <td class="docs">                 <div class="pilwrap">                   <a class="pilcrow" href="#section-12">&#182;</a>                 </div>                 <h2>unattach()</h2>
+
+<p>Just to be consistent with Drupal standards, we provide an unattach
+function as well.</p>               </td>               <td class="code">                 <div class="highlight"><pre>    <span class="nx">unattach</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#backbone-example-app&#39;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+<span class="p">})(</span><span class="nx">jQuery</span><span class="p">);</span>
+
+</pre></div>               </td>             </tr>                    </tbody>       </table>     </div>   </div>   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>   <script src="docco-client.js"></script>        <script>       docco = window.docco || {};       docco.no_results_tpl = function(vars){         vars.msg = vars.msg || 'No results.';         return '<div class="menu-item no-results">'+vars.msg+'</div>';        };       docco.sticky_item_tpl = function(vars){         if (!vars.path || !vars.href) { return; }         return '<a class="source sticky" href="'+vars.href+'"'+             'title="'+vars.path+'" data-path="'+vars.path+'">'+             vars.path.split('/').pop().split('.').shift()+             '<span class="remove" title="Remove sticky">x</span>'+           '</a>';       };     </script>    </body> </html> 

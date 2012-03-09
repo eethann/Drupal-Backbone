@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>backbone.module</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="resources/doxphp.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+        <table cellpadding="0" cellspacing="0">
+      <thead>
+        <tr>
+          <th class="docs">
+            <h1>
+              backbone.module            </h1>
+          </th>
+          <th class="code">
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id="section-1">
+          <td class="docs">
+            <div class="pilwrap">
+              <a class="pilcrow" href="#section-1">&#182;</a>
+            </div>
+            
+          </td>
+          <td class="code"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">function</span> <span class="nf">backbone_help</span><span class="p">(</span><span class="nv">$path</span><span class="p">,</span> <span class="nv">$arg</span><span class="p">)</span>
+</pre></div>
+</td>
+        </tr>
+        <tr id="section-2">
+          <td class="docs">
+            <div class="pilwrap">
+              <a class="pilcrow" href="#section-2">&#182;</a>
+            </div>
+            <p>Implements hook_init().</p>
+
+<p>Add backbone.js and dependency underscore.js to all pages, along with
+related settings.</p>
+
+<p>TODO Make this conditional by page/configurable.</p>
+          </td>
+          <td class="code"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">function</span> <span class="nf">backbone_init</span><span class="p">()</span>
+</pre></div>
+</td>
+        </tr>
+        <tr id="section-3">
+          <td class="docs">
+            <div class="pilwrap">
+              <a class="pilcrow" href="#section-3">&#182;</a>
+            </div>
+            <p>Implements hook_menu().</p>
+          </td>
+          <td class="code"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">function</span> <span class="nf">backbone_menu</span><span class="p">()</span>
+</pre></div>
+</td>
+        </tr>
+        <tr id="section-4">
+          <td class="docs">
+            <div class="pilwrap">
+              <a class="pilcrow" href="#section-4">&#182;</a>
+            </div>
+            <p>Implements hook_permission().</p>
+          </td>
+          <td class="code"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">function</span> <span class="nf">backbone_permission</span><span class="p">()</span>
+</pre></div>
+</td>
+        </tr>
+        <tr id="section-5">
+          <td class="docs">
+            <div class="pilwrap">
+              <a class="pilcrow" href="#section-5">&#182;</a>
+            </div>
+            <p>Implements hook_theme().</p>
+          </td>
+          <td class="code"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">function</span> <span class="nf">backbone_theme</span><span class="p">(</span><span class="nv">$existing</span><span class="p">,</span> <span class="nv">$type</span><span class="p">,</span> <span class="nv">$theme</span><span class="p">,</span> <span class="nv">$path</span><span class="p">)</span>
+</pre></div>
+</td>
+        </tr>
+        <tr id="section-6">
+          <td class="docs">
+            <div class="pilwrap">
+              <a class="pilcrow" href="#section-6">&#182;</a>
+            </div>
+            <p>Theme function for wrapping the template as needed for Backbone.View.render.</p>
+
+<p>By default, Drupal.Backbone.View uses Underscore templating and the
+element's DOM ID to extract the template source.</p>
+
+<p>Variables array containing the id and source for the template.</p>
+
+<p>Note: all template sources provided by modules should be provided by theme
+  functions as well, so they can be overridden at the theme level as desired.</p>
+
+<p>The HTML for the wrapped template.</p>
+          </td>
+          <td class="code"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">function</span> <span class="nf">theme_backbone_template</span><span class="p">(</span><span class="nv">$variables</span> <span class="o">=</span> <span class="k">array</span><span class="p">())</span>
+</pre></div>
+</td>
+        </tr>
+        <tr id="section-7">
+          <td class="docs">
+            <div class="pilwrap">
+              <a class="pilcrow" href="#section-7">&#182;</a>
+            </div>
+            <p>Add template to array of templates to be included in page.</p>
+
+<p>Uses a global to store array, attaches at hook<em>page</em>build.</p>
+
+<p>The id of this template, will be the selector used in Backbone View.
+  The source code of the template.</p>
+
+<p>Note: all template sources provided by modules should be provided by theme
+  functions as well, so they can be overridden at the theme level as desired.</p>
+
+<p>Does not return anything of note.</p>
+          </td>
+          <td class="code"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">function</span> <span class="nf">backbone_add_template</span><span class="p">(</span><span class="nv">$template_id</span><span class="p">,</span> <span class="nv">$template_source</span><span class="p">)</span>
+</pre></div>
+</td>
+        </tr>
+        <tr id="section-8">
+          <td class="docs">
+            <div class="pilwrap">
+              <a class="pilcrow" href="#section-8">&#182;</a>
+            </div>
+            <p>Get the tempalates array.</p>
+
+<p>Abstracts from the global, so implementation can be refactored as needed.</p>
+
+<p>Array of templates, keyed by template id.</p>
+          </td>
+          <td class="code"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">function</span> <span class="nf">backbone_get_templates</span><span class="p">()</span>
+</pre></div>
+</td>
+        </tr>
+        <tr id="section-9">
+          <td class="docs">
+            <div class="pilwrap">
+              <a class="pilcrow" href="#section-9">&#182;</a>
+            </div>
+            <p>Implements hook<em>page</em>build().</p>
+
+<p>Add the templates to the render array for the page, at the bottom of the
+page.  Uses the backbone_template theme hook to wrap in appropriate element
+for the template library being used.  Currently supports _.template()
+function.</p>
+
+<pre><code>  templates.
+</code></pre>
+          </td>
+          <td class="code"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">function</span> <span class="nf">backbone_page_build</span><span class="p">(</span><span class="o">&amp;</span><span class="nv">$page</span><span class="p">)</span>
+</pre></div>
+</td>
+        </tr>
+        <tr id="section-10">
+          <td class="docs">
+            <div class="pilwrap">
+              <a class="pilcrow" href="#section-10">&#182;</a>
+            </div>
+            <p>Implements hook_library().</p>
+          </td>
+          <td class="code"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">function</span> <span class="nf">backbone_library</span><span class="p">()</span>
+</pre></div>
+</td>
+        </tr>
+        <tr id="section-11">
+          <td class="docs">
+            <div class="pilwrap">
+              <a class="pilcrow" href="#section-11">&#182;</a>
+            </div>
+            <p>Implements hook<em>library</em>alter().</p>
+
+<p>Standard method for including qunit tests if qunit is enabled.</p>
+          </td>
+          <td class="code"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">function</span> <span class="nf">backbone_library_alter</span><span class="p">(</span><span class="o">&amp;</span><span class="nv">$libraries</span><span class="p">,</span> <span class="nv">$module</span><span class="p">)</span>
+</pre></div>
+</td>
+        </tr>
+        <tr id="section-12">
+          <td class="docs">
+            <div class="pilwrap">
+              <a class="pilcrow" href="#section-12">&#182;</a>
+            </div>
+            <p>Abstraction function to simplify default variable values.</p>
+
+<p>Variable name, minus the "backbone_" prefix.
+  The default value of the variable, if null, we look up in a defaults array
+  in this function.</p>
+
+<p>Value of variable or default.</p>
+          </td>
+          <td class="code"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">function</span> <span class="nf">_backbone_variable_get</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$default_value</span> <span class="o">=</span> <span class="k">NULL</span><span class="p">)</span>
+</pre></div>
+</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
