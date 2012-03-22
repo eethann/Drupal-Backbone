@@ -1,0 +1,407 @@
+
+<html>
+  <head>
+    <link href="css/reset.css" rel="stylesheet" />
+    <!-- Code Prettifier: -->
+<link href="css/prettify.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="js/prettify.js"></script>
+    <link href="css/style.css" rel="stylesheet" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,800italic,300,400,800' rel='stylesheet' type='text/css'>    
+
+
+  </head>
+
+  <body onload="prettyPrint()">
+    <div id="impress">
+    <div class='step' >
+    
+<h1>Drupal + Backbone.js</h1>
+
+<p><img src="http://drupal.org/files/images/drupal-backbone-tux-logo-small.png" alt="Drupal in a Backbone Tux"></p>
+</div>
+      <div class='step' >
+    
+<h2>It has only just begun</h2>
+</div>
+      <div class='step' >
+    
+<h2>No Demo</h2>
+</div>
+      <div class='step' >
+    
+<h2>Just a pitch</h2>
+</div>
+      <div class='step' >
+    
+<h1>THE WEB-APPS ARE COMING</h1>
+</div>
+      <div class='step' >
+    
+<h2>They will be everywhere soon</h2>
+
+<ul>
+<li>Full web-app sites </li>
+<li>Parse of CMS-driven sites</li>
+<li>On mobile devices</li>
+</ul>
+</div>
+      <div class='step' >
+    
+<h1>jQuery is not enough.</h1>
+</div>
+      <div class='step' >
+    <pre><code class='prettyprint'>$('#my-button').click(function() {
+  $.ajax('/rest-endpoint/node/1.json', {
+      success: function(data) {
+        $('#dynamic-content').append('<h2>'+data.title+'</h2>'+'<div class="content">' + data.body.und[0].safe_value + '</div>');
+      }
+  })
+})
+</code></pre></div>
+      <div class='step' >
+    
+<h1>EWWWWWWWWW!</h1>
+
+<p>(those are my initials)</p>
+</div>
+      <div class='step' >
+    
+<h1>Drupal needs a client-side JavaScript framework.</h1>
+
+<p>(crucial to utilizing Drupal 8 web services initiative)</p>
+</div>
+      <div class='step' >
+    
+<h1>Backbone is one awesome JS framework</h1>
+
+<h2>...and a great fit for Drupal</h2>
+</div>
+      <div class='step' >
+    
+<h1>Jeremy Ashkenas wrote Backbone.js</h1>
+
+<ul>
+<li>Document Cloud is amazing</li>
+<li>Also Underscore.js</li>
+</ul>
+</div>
+      <div class='step' >
+    
+<h1>We are writing the Backbone module for Drupal</h1>
+
+<ul>
+<li>ethanw</li>
+<li>cromac</li>
+<li>lefnire</li>
+</ul>
+</div>
+      <div class='step' >
+    
+<h1>becase Drupal + Backbone = AWESOME</h1>
+</div>
+      <div class='step' >
+    
+<h1>Let&#39;s try that again...</h1>
+</div>
+      <div class='step' >
+    
+<h1>Set up a model to hold our data:</h1>
+</div>
+      <div class='step' >
+    <pre><code class='prettyprint'>var myNode = Drupal.Backbone.Models.Node({nid: 1});
+</code></pre></div>
+      <div class='step' >
+    
+<h1>Set up a view to render it:</h1>
+</div>
+      <div class='step' >
+    <pre><code class='prettyprint'>var AppView = Drupal.Backbone.Views.Base.extend({
+  templateSelector: '#my-app-template',
+  events: {
+    'click #my-button': this.model.fetch()  
+  }
+  initialize: function() {
+    this.model.bind('change', this.render, this);        
+  },
+})
+</code></pre></div>
+      <div class='step' >
+    
+<h1>That&#39;s it.</h1>
+</div>
+      <div class='step' >
+    
+<h1>Clean</h1>
+</div>
+      <div class='step' >
+    
+<h1>Scalable</h1>
+</div>
+      <div class='step' >
+    
+<h1>Responsive</h1>
+
+<h2>As in &quot;snappy&quot;</h2>
+</div>
+      <div class='step' >
+    
+<h1>A thousand words about Drupal Backbone</h1>
+</div>
+      <div class='step' >
+    
+<p><img src="Drupal%20Backbone%20App%20Structure.svg" alt="Drupal Backbone App"></p>
+</div>
+      <div class='step' >
+    
+<h1>Backbone.js in a nutshell</h1>
+</div>
+      <div class='step' >
+    
+<h1>Philosophy</h1>
+
+<ul>
+<li>Minimal</li>
+<li>Extensible</li>
+<li>Interface-based</li>
+<li>Opinionated but flexible</li>
+</ul>
+</div>
+      <div class='step' >
+    
+<h1>Models</h1>
+
+<ul>
+<li>Store</li>
+<li>Sync </li>
+<li>Parse</li>
+<li>Trigger</li>
+</ul>
+</div>
+      <div class='step' >
+    
+<h1>Events are awesome</h1>
+</div>
+      <div class='step' >
+    
+<h1>Views</h1>
+
+<ul>
+<li>Associate model data with the DOM</li>
+<li>Handle browser events</li>
+<li>That&#39;s it</li>
+</ul>
+</div>
+      <div class='step' >
+    
+<h1>Client-side templating</h1>
+
+<ul>
+<li>Underscore</li>
+<li>Handlebars</li>
+</ul>
+</div>
+      <div class='step' >
+    
+<h1>&quot;C&quot; stands for...</h1>
+</div>
+      <div class='step' >
+    
+<h1>Collections</h1>
+
+<ul>
+<li>Groups of models</li>
+<li>Great for Drupal views</li>
+</ul>
+</div>
+      <div class='step' >
+    
+<h1>Backbone Resources</h1>
+
+<ul>
+<li>The <a href="https://peepcode.com/products/backbone-js">Backbone Peepcode screencast</a></li>
+<li>The <a href="https://github.com/addyosmani/backbone-fundamentals">Backbone Fundamentals open source e-book</a></li>
+<li>The <a href="http://documentcloud.github.com/backbone/">Backbone site</a></li>
+<li>The <a href="http://documentcloud.github.com/backbone/docs/backbone.html">Backbone annotated source code</a></li>
+</ul>
+</div>
+      <div class='step' >
+    
+<h1>What the Backbone modules gives you...</h1>
+</div>
+      <div class='step' >
+    
+<h1>A lot of boilerplate:</h1>
+</div>
+      <div class='step' >
+    
+<h1>Models</h1>
+
+<ul>
+<li>Node</li>
+<li>Comments</li>
+<li>Users</li>
+<li>Files</li>
+</ul>
+</div>
+      <div class='step' >
+    
+<h1>Collections</h1>
+
+<ul>
+<li>Views</li>
+<li>Indexes</li>
+</ul>
+</div>
+      <div class='step' >
+    
+<h1>Views</h1>
+
+<ul>
+<li>Theme layer integration</li>
+<li>Drupal helper function</li>
+<li>Standard rendering approach</li>
+</ul>
+</div>
+      <div class='step' >
+    
+<h1>A standard Backbone app page callback:</h1>
+</div>
+      <div class='step' >
+    <pre><code class='prettyprint'>function backbone_presentation_page($nid = 0) {
+  // Add Templates.
+  backbone_add_template('backbone-presentation-slide', theme('backbone_presentation_slide'));
+  backbone_add_template('backbone-presentation-slide-edit-form', theme('backbone_presentation_slide_edit_form'));
+  // Add JS.
+  drupal_add_library('backbone_presentation', 'jmpress');
+  drupal_add_library('backbone', 'drupalbackbone-services');
+  drupal_add_js(drupal_get_path('module', 'backbone_presentation') . '/backbone_presentation_app.js');
+  drupal_add_css(drupal_get_path('module', 'backbone_presentation') . '/backbone_presentation.css');
+  // Return an anchor to render the app into.
+  return theme('backbone_presentation_presentation');
+}
+</code></pre></div>
+      <div class='step' >
+    
+<h1>Other goodies:</h1>
+
+<ul>
+<li>Backbone Base feature</li>
+<li>Backbone makefile</li>
+<li>QUnit Tests</li>
+<li>Drupal 6</li>
+</ul>
+</div>
+      <div class='step' >
+    
+<h1>Drupal Backbone resources:</h1>
+
+<ul>
+<li>The <a href="http://echodittolabs.org/blog/2012/02/introducing-backbone-module-drupal">module introduction blog post</a>.</li>
+<li>The <a href="">example module source code</a>.</li>
+<li>The annotated js source code.</li>
+</ul>
+</div>
+      <div class='step' >
+    
+<h1>Use cases</h1>
+</div>
+      <div class='step' >
+    
+<h1>Rich UIs</h1>
+</div>
+      <div class='step' >
+    
+<h1>Responsive interfaces</h1>
+</div>
+      <div class='step' >
+    
+<h1>Progressive page loading</h1>
+</div>
+      <div class='step' >
+    
+<h1>Mobile</h1>
+</div>
+      <div class='step' >
+    
+<h1>&quot;Promiscuous JavaScript&quot;</h1>
+</div>
+      <div class='step' >
+    
+<p><img src="Promiscuous%20Backbone%20Architecture.svg" alt="Drupal Backbone Promiscous Architecture"></p>
+</div>
+      <div class='step' >
+    
+<h1>WebSocket &amp; NodeJS module integration</h1>
+</div>
+      <div class='step' >
+    
+<h1>In-place editing</h1>
+
+<h2>VieJS</h2>
+</div>
+      <div class='step' >
+    
+<h1>???</h1>
+</div>
+      <div class='step' >
+    
+<h1>What I don&#39;t want to talk about</h1>
+</div>
+      <div class='step' >
+    
+<h1>Duplicate templating.</h1>
+</div>
+      <div class='step' >
+    
+<h1>Field formatters.</h1>
+</div>
+      <div class='step' >
+    
+<h1>Field permissions.</h1>
+</div>
+      <div class='step' >
+    
+<h1>What&#39;s the best approach to REST (RESTws vs. Services)</h1>
+</div>
+      <div class='step' >
+    
+<h1>Read vs. Write data values</h1>
+</div>
+      <div class='step' >
+    
+<h1>What we&#39;re working on now</h1>
+</div>
+      <div class='step' >
+    
+<h1>Support for more entities</h1>
+</div>
+      <div class='step' >
+    
+<h1>Bugs</h1>
+</div>
+      <div class='step' >
+    
+<h1>Collection properties of models</h1>
+</div>
+      <div class='step' >
+    
+<h1>Example modules</h1>
+</div>
+      <div class='step' >
+    
+<h1>NodeJS module websocket integration</h1>
+</div>
+      <div class='step' >
+    
+<h1>Drupal 6 backport</h1>
+</div>
+      <div class='step' >
+    
+<h1>Drupal 8 port (SoC!)</h1>
+
+      </div>
+    <script src="js/impress.js"></script>
+    <script>impress();</script>
+  </body>
+</html>
+    
