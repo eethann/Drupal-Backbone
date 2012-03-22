@@ -41,7 +41,7 @@
 
 <ul>
 <li>Full web-app sites </li>
-<li>Parse of CMS-driven sites</li>
+<li>Parts of CMS-driven sites</li>
 <li>On mobile devices</li>
 </ul>
 </div>
@@ -54,7 +54,8 @@
   $.ajax('/rest-endpoint/node/1.json', {
       success: function(data) {
         $('#dynamic-content').append(
-          '&lt;h2&gt;'+data.title+'&lt;/h2&gt;'+'&lt;div class="content"&gt;' + data.body.und[0].safe_value + '&lt;/div&gt;'
+          '&lt;h2&gt;'+data.title+'&lt;/h2&gt;'+'&lt;div class="content"&gt;' 
+          + data.body.und[0].safe_value + '&lt;/div&gt;'
         );
       }
   })
@@ -101,8 +102,10 @@
     
 <h1>Thanks to EchoDitto</h1>
 
-<h2><img src="echodittologo.png" alt="EchoDitto Logo"></h2>
-
+<p><img src="echodittologo.png" alt="EchoDitto Logo"></p>
+</div>
+      <div class='step' >
+    
 <h1>because Drupal + Backbone = AWESOME</h1>
 </div>
       <div class='step' >
@@ -205,6 +208,8 @@
 <li>Underscore</li>
 <li>Handlebars</li>
 </ul>
+
+<p><code class='inline prettyprint'>&lt;div class="content"&gt;{{body}}&lt;/div&gt;</code></p>
 </div>
       <div class='step' >
     
@@ -275,8 +280,10 @@
       <div class='step' >
     <pre><code class='prettyprint'>function backbone_presentation_page($nid = 0) {
   // Add Templates.
-  backbone_add_template('backbone-presentation-slide', theme('backbone_presentation_slide'));
-  backbone_add_template('backbone-presentation-slide-edit-form', theme('backbone_presentation_slide_edit_form'));
+  backbone_add_template('backbone-presentation-slide', 
+    theme('backbone_presentation_slide'));
+  backbone_add_template('backbone-presentation-slide-edit-form', 
+    theme('backbone_presentation_slide_edit_form'));
   // Add JS.
   drupal_add_library('backbone_presentation', 'jmpress');
   drupal_add_library('backbone', 'drupalbackbone-services');
@@ -330,9 +337,7 @@
       <div class='step' >
     
 <h1>&quot;Promiscuous JavaScript&quot;</h1>
-</div>
-      <div class='step' >
-    
+
 <p><img src="Promiscuous%20Backbone%20Architecture.png" alt="Drupal Backbone Promiscous Architecture"></p>
 </div>
       <div class='step' >
