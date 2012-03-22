@@ -17,7 +17,7 @@
     
 <h1>Drupal + Backbone.js</h1>
 
-<p><img src="http://drupal.org/files/images/drupal-backbone-tux-logo-small.png" alt="Drupal in a Backbone Tux"></p>
+<p><img src="drupal-backbone-square-tux.png" alt="Drupal in a Backbone Tux"></p>
 </div>
       <div class='step' >
     
@@ -53,7 +53,9 @@
     <pre><code class='prettyprint'>$('#my-button').click(function() {
   $.ajax('/rest-endpoint/node/1.json', {
       success: function(data) {
-        $('#dynamic-content').append('<h2>'+data.title+'</h2>'+'<div class="content">' + data.body.und[0].safe_value + '</div>');
+        $('#dynamic-content').append(
+          '&lt;h2&gt;'+data.title+'&lt;/h2&gt;'+'&lt;div class="content"&gt;' + data.body.und[0].safe_value + '&lt;/div&gt;'
+        );
       }
   })
 })
@@ -97,7 +99,11 @@
 </div>
       <div class='step' >
     
-<h1>becase Drupal + Backbone = AWESOME</h1>
+<h1>Thanks to EchoDitto</h1>
+
+<h2><img src="echodittologo.png" alt="EchoDitto Logo"></h2>
+
+<h1>because Drupal + Backbone = AWESOME</h1>
 </div>
       <div class='step' >
     
