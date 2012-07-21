@@ -1,0 +1,1075 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Drupal + Backbone.js @ DrupalCamp NYC</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="Drupal + Backbone.js @ DrupalCamp NYC"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2012-07-21 09:20:30 EDT"/>
+<meta name="author" content="Ethan Winn"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+
+<link rel="stylesheet" type="text/css" href="common.css" />
+<link rel="stylesheet" type="text/css" href="screen.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="projection.css" media="projection" />
+<link rel="stylesheet" type="text/css" href="presenter.css" media="presenter" />
+
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Drupal + Backbone.js @ DrupalCamp NYC</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 Drupal + Backbone.js</a></li>
+<li><a href="#sec-2">2 Why use a client-side framework?</a>
+<ul>
+<li><a href="#sec-2-1">2.1 Because today's JavaScript is complex:</a></li>
+<li><a href="#sec-2-2">2.2 Because of code like this:</a></li>
+<li><a href="#sec-2-3">2.3 Notes</a></li>
+<li><a href="#sec-2-4">2.4 Client-side JS Frameoworks Can Help:</a>
+<ul>
+<li><a href="#sec-2-4-1">2.4.1 Notes</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-5">2.5 What's so great about Backbone.js?</a>
+<ul>
+<li><a href="#sec-2-5-1">2.5.1 Notes</a></li>
+<li><a href="#sec-2-5-2">2.5.2 Other Options:</a></li>
+<li><a href="#sec-2-5-3">2.5.3 Standards</a></li>
+<li><a href="#sec-2-5-4">2.5.4 Awesome Backbone.js examples</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-6">2.6 Why Drupal?</a>
+<ul>
+<li><a href="#sec-2-6-1">2.6.1 Notes</a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-3">3 Let's try that code again&hellip;</a></li>
+<li><a href="#sec-4">4 &hellip;with Backbone!</a>
+<ul>
+<li><a href="#sec-4-1">4.1 The Model</a>
+<ul>
+<li><a href="#sec-4-1-1">4.1.1 Notes</a></li>
+</ul>
+</li>
+<li><a href="#sec-4-2">4.2 The Model: stores all data attributes of each object</a></li>
+<li><a href="#sec-4-3">4.3 The Model: loads &amp; sends data to the server</a>
+<ul>
+<li><a href="#sec-4-3-1">4.3.1 Notes</a></li>
+</ul>
+</li>
+<li><a href="#sec-4-4">4.4 The Model: triggers events when data changes</a></li>
+<li><a href="#sec-4-5">4.5 The View</a>
+<ul>
+<li><a href="#sec-4-5-1">4.5.1 The View: Renders Models to HTML</a></li>
+<li><a href="#sec-4-5-2">4.5.2 The View: Binds Browser Events to Methods</a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-5">5 Other Goodies</a>
+<ul>
+<li><a href="#sec-5-1">5.1 Collections</a>
+<ul>
+<li><a href="#sec-5-1-1">5.1.1 Notes</a></li>
+</ul>
+</li>
+<li><a href="#sec-5-2">5.2 Backbone.Router</a></li>
+<li><a href="#sec-5-3">5.3 Underscore</a>
+<ul>
+<li><a href="#sec-5-3-1">5.3.1 Notes</a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-6">6 Backbone.js Resources</a></li>
+<li><a href="#sec-7">7 Drupal Backbone</a>
+<ul>
+<li><a href="#sec-7-1">7.1 Notes</a></li>
+<li><a href="#sec-7-2">7.2 Drupal Backbone Models</a></li>
+<li><a href="#sec-7-3">7.3 Drupal Backbone Collections</a></li>
+<li><a href="#sec-7-4">7.4 Drupal.Backbone.Views.Base</a></li>
+<li><a href="#sec-7-5">7.5 The Backbone Base Feature</a>
+<ul>
+<li><a href="#sec-7-5-1">7.5.1 Notes</a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-8">8 Anatomy of a Drupal Backbone App Module</a>
+<ul>
+<li><a href="#sec-8-1">8.1 Simple Page Callback</a></li>
+<li><a href="#sec-8-2">8.2 Example .js file</a></li>
+<li><a href="#sec-8-3">8.3 Attach using a behavior</a></li>
+<li><a href="#sec-8-4">8.4 Simple Node View</a></li>
+<li><a href="#sec-8-5">8.5 Top-level Application View</a></li>
+<li><a href="#sec-8-6">8.6 Bind App UI Events</a>
+<ul>
+<li><a href="#sec-8-6-1">8.6.1 Backbone Recs</a></li>
+</ul>
+</li>
+<li><a href="#sec-8-7">8.7 "Promiscuous" Apps</a></li>
+<li><a href="#sec-8-8">8.8 Drupal Backbone Resources</a></li>
+</ul>
+</li>
+<li><a href="#sec-9">9 Potential Applications</a></li>
+<li><a href="#sec-10">10 End</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Drupal + Backbone.js &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-1">
+
+
+<p>
+  <img src="drupal-backbone-square-tux.png"  alt="drupal-backbone-square-tux.png" />
+</p>
+<p>
+  Ethan Winn (ethanw) - _th_n - @eethann - ethan@echoditto.com
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Why use a client-side framework? &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-2">
+
+
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Because today's JavaScript is complex:</h3>
+<div class="outline-text-3" id="text-2-1">
+
+<ul>
+<li>Browsers can do more.
+</li>
+<li>People expect more.
+</li>
+<li>HTML5 is a great/good/decent app platform.
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Because of code like this: &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-2-2">
+
+
+
+
+
+<pre class="src src-javascript">$(<span style="color: #A5C261;">'.my-button'</span>).click(
+  <span style="color: #CC7833;">function</span>() {
+    <span style="color: #CC7833;">var</span> <span style="color: #b0c4de;">myParent</span> = $(<span style="color: #6D9CBE;">this</span>).parent();
+    <span style="color: #CC7833;">var</span> <span style="color: #b0c4de;">myNid</span> = $(myParent).data(<span style="color: #A5C261;">'nid'</span>);
+    <span style="color: #CC7833;">var</span> <span style="color: #b0c4de;">myTitle</span> = $(myParent).find(<span style="color: #A5C261;">'input.title-input'</span>).val();
+    $.ajax({
+      type: <span style="color: #A5C261;">'post'</span>,
+      url: <span style="color: #A5C261;">'/service-endpoint/node/'</span> + myNid + <span style="color: #A5C261;">'.json'</span>,
+      data: { title: myTitle },
+      <span style="color: #FFC66D;">success</span>: <span style="color: #CC7833;">function</span>(<span style="color: #b0c4de;">data</span>) {
+        $(myParent).find(<span style="color: #A5C261;">'div.timestamp'</span>).html(data.modified);
+      }
+    })
+  }
+)
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> Notes &nbsp;&nbsp;&nbsp;<span class="tag"><span class="notes">notes</span></span></h3>
+<div class="outline-text-3" id="text-2-3">
+
+<ul>
+<li>DOM is slow
+</li>
+<li>Impossible to maintain
+</li>
+<li>Hard to read
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> Client-side JS Frameoworks Can Help: &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-2-4">
+
+<ul>
+<li>Store all data in JS objects, not the DOM.
+</li>
+<li>Separate Concerns: decouple data, behavior and presentation.
+</li>
+<li>Structure Complex Code: make it easy to find and extend
+     functionality as apps grow.
+</li>
+</ul>
+
+
+
+</div>
+
+<div id="outline-container-2-4-1" class="outline-4">
+<h4 id="sec-2-4-1"><span class="section-number-4">2.4.1</span> Notes &nbsp;&nbsp;&nbsp;<span class="tag"><span class="notes">notes</span></span></h4>
+<div class="outline-text-4" id="text-2-4-1">
+
+<ul>
+<li>Separation of Concerns standard in MVC programming.
+</li>
+<li>JS code is growing more complex as browser JS engines get faster
+      and more powerful.
+</li>
+<li>Prediction: there are going to be a lot more web applications in
+      the near future.
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> What's so great about Backbone.js?</h3>
+<div class="outline-text-3" id="text-2-5">
+
+
+<ul>
+<li>Flexibility
+</li>
+<li>Extensibility
+</li>
+<li>Simplicity/Minimalism
+</li>
+<li>Great code
+</li>
+<li>Well-rchitected
+</li>
+<li>Healthy community
+</li>
+</ul>
+
+
+<p>
+   Because it's flexible, easily extensible and minimal.
+   (It also has a great user base and is very popular.)
+</p>
+
+</div>
+
+<div id="outline-container-2-5-1" class="outline-4">
+<h4 id="sec-2-5-1"><span class="section-number-4">2.5.1</span> Notes &nbsp;&nbsp;&nbsp;<span class="tag"><span class="notes">notes</span></span></h4>
+<div class="outline-text-4" id="text-2-5-1">
+
+<ul>
+<li>Can be used with all sorts of backends: REST, Webkit, Facebook API
+</li>
+<li>Bareley even a "framework"
+</li>
+<li>Very easy to read source code, ~900 lines.
+</li>
+<li>Mainly structures code.
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-5-2" class="outline-4">
+<h4 id="sec-2-5-2"><span class="section-number-4">2.5.2</span> Other Options: &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-2-5-2">
+
+<ul>
+<li>Knockout.js
+</li>
+<li>Angularjs
+</li>
+<li>Spine
+</li>
+<li>Batman.js
+</li>
+<li>Ember.js
+</li>
+<li>Sproutcore
+</li>
+<li>Cappucino
+</li>
+<li>etc., etc.
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-5-3" class="outline-4">
+<h4 id="sec-2-5-3"><span class="section-number-4">2.5.3</span> Standards &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-2-5-3">
+
+<p>    <img src="xkcd-standards.png"  alt="xkcd-standards.png" />
+</p>
+<p>
+    (thanks XKCD: <a href="http://xkcd.com/927/">http://xkcd.com/927/</a>)
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2-5-4" class="outline-4">
+<h4 id="sec-2-5-4"><span class="section-number-4">2.5.4</span> Awesome Backbone.js examples &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-2-5-4">
+
+
+<ul>
+<li>DocumentCloud
+</li>
+<li>Linked-in's mobile site
+</li>
+<li>Recline.js
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2-6" class="outline-3">
+<h3 id="sec-2-6"><span class="section-number-3">2.6</span> Why Drupal? &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-2-6">
+
+<ul>
+<li>Strcutred Data Back-end
+</li>
+<li>REST
+</li>
+<li>Awesome CMS + Web App engine!
+</li>
+</ul>
+
+
+
+</div>
+
+<div id="outline-container-2-6-1" class="outline-4">
+<h4 id="sec-2-6-1"><span class="section-number-4">2.6.1</span> Notes &nbsp;&nbsp;&nbsp;<span class="tag"><span class="notes">notes</span></span></h4>
+<div class="outline-text-4" id="text-2-6-1">
+
+<ul>
+<li>Drupal's actually a very good platform for buildng web app
+      functionality: we need a structured data factory w/ REST
+      backend.
+</li>
+<li>Drupal gives us a great CMS that can support full-scale web app
+      functionality sections.
+</li>
+<li>Drupal + Backbone make a great pair.
+</li>
+</ul>
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Let's try that code again&hellip; &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-3">
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> &hellip;with Backbone! &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-4">
+
+
+
+
+
+<pre class="src src-javascript"><span style="color: #CC7833;">var</span> <span style="color: #b0c4de;">MyAppNode</span> = Drupal.Backbone.Models.Node.extend();
+<span style="color: #CC7833;">var</span> <span style="color: #b0c4de;">MyAppNodeView</span> = Drupal.Backbone.View.extend({
+  <span style="color: #FFC66D;">initialize</span>: <span style="color: #CC7833;">function</span>() {
+    <span style="color: #6D9CBE;">this</span>.bindAll(<span style="color: #A5C261;">'updateNode'</span>, <span style="color: #A5C261;">'updateNode'</span>);
+    <span style="color: #6D9CBE;">this</span>.model.bind(<span style="color: #A5C261;">'change'</span>, <span style="color: #6D9CBE;">this</span>.render, <span style="color: #6D9CBE;">this</span>);
+  },
+  events: {
+    <span style="color: #A5C261;">'click .my-button'</span>: saveNode,
+    <span style="color: #A5C261;">'change input.title-input'</span>: updateNode
+  },
+  <span style="color: #FFC66D;">updateNode</span>: <span style="color: #CC7833;">function</span>(<span style="color: #b0c4de;">e</span>) {
+    <span style="color: #6D9CBE;">this</span>.model.set(<span style="color: #A5C261;">'title'</span>, e.target.val());
+  },
+  <span style="color: #FFC66D;">saveNode</span>: <span style="color: #CC7833;">function</span>() {
+    <span style="color: #6D9CBE;">this</span>.model.save();
+  }
+})
+</pre>
+
+
+
+</div>
+
+<div id="outline-container-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> The Model &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-4-1">
+
+
+
+
+<pre class="src src-javascript"><span style="color: #CC7833;">var</span> <span style="color: #b0c4de;">MyType</span> = Drupal.Backbone.Models.Node.extend();
+</pre>
+
+
+
+</div>
+
+<div id="outline-container-4-1-1" class="outline-4">
+<h4 id="sec-4-1-1"><span class="section-number-4">4.1.1</span> Notes &nbsp;&nbsp;&nbsp;<span class="tag"><span class="notes">notes</span></span></h4>
+<div class="outline-text-4" id="text-4-1-1">
+
+<ul>
+<li>Backbone.extend() performs deep copy.
+</li>
+<li>Used for inheritence chain.
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> The Model: stores all data attributes of each object &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-4-2">
+
+
+
+
+
+<pre class="src src-javascript">myNode.set(<span style="color: #A5C261;">'property'</span>,<span style="color: #A5C261;">'value'</span>);
+myNode.get(<span style="color: #A5C261;">'property'</span>);
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4-3" class="outline-3">
+<h3 id="sec-4-3"><span class="section-number-3">4.3</span> The Model: loads &amp; sends data to the server &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-4-3">
+
+
+
+
+
+<pre class="src src-javascript"><span style="color: #6D9CBE;">this</span>.model.save();
+Backbone.sync();
+</pre>
+
+
+
+</div>
+
+<div id="outline-container-4-3-1" class="outline-4">
+<h4 id="sec-4-3-1"><span class="section-number-4">4.3.1</span> Notes &nbsp;&nbsp;&nbsp;<span class="tag"><span class="notes">notes</span></span></h4>
+<div class="outline-text-4" id="text-4-3-1">
+
+<ul>
+<li>toJSON and parse methods
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4-4" class="outline-3">
+<h3 id="sec-4-4"><span class="section-number-3">4.4</span> The Model: triggers events when data changes &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-4-4">
+
+
+
+
+
+<pre class="src src-javascript"><span style="color: #6D9CBE;">this</span>.model.bind(<span style="color: #A5C261;">'change'</span>, <span style="color: #6D9CBE;">this</span>.render, <span style="color: #6D9CBE;">this</span>);
+myNode.model.bind(<span style="color: #A5C261;">'change:title'</span>, AppView.toggleTitleStatus);
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4-5" class="outline-3">
+<h3 id="sec-4-5"><span class="section-number-3">4.5</span> The View &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-4-5">
+
+
+
+</div>
+
+<div id="outline-container-4-5-1" class="outline-4">
+<h4 id="sec-4-5-1"><span class="section-number-4">4.5.1</span> The View: Renders Models to HTML &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-4-5-1">
+
+
+<ul>
+<li><code>Backbone.View.render()</code> is "agnostic": a no-op by default, can
+      render however we want.
+</li>
+<li>Drupal Backbone (and most other apps) use a client-side
+      templating language: Handlebars or Mustache with {ctemplate}
+      style vars.
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4-5-2" class="outline-4">
+<h4 id="sec-4-5-2"><span class="section-number-4">4.5.2</span> The View: Binds Browser Events to Methods &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-4-5-2">
+
+
+<p>
+    Easy event binding using the jQuery <code>.delegate()</code> format:
+</p>
+
+
+
+<pre class="src src-javascript">events: {
+  <span style="color: #A5C261;">'click .my-button'</span>: saveNode,
+  <span style="color: #A5C261;">'change input.title-input'</span>: updateNode
+}
+</pre>
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Other Goodies &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-5">
+
+
+
+</div>
+
+<div id="outline-container-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> Collections &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-5-1">
+
+<p>    Collections hold groups of nodes.
+    Perfect for:
+</p><ul>
+<li>Views
+</li>
+<li>Search Results
+</li>
+<li>Node/Entity References
+</li>
+</ul>
+
+
+
+</div>
+
+<div id="outline-container-5-1-1" class="outline-4">
+<h4 id="sec-5-1-1"><span class="section-number-4">5.1.1</span> Notes &nbsp;&nbsp;&nbsp;<span class="tag"><span class="notes">notes</span></span></h4>
+<div class="outline-text-4" id="text-5-1-1">
+
+<ul>
+<li>Events bubble-up from collection models
+</li>
+<li>can load/save collection models all-together
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-5-2" class="outline-3">
+<h3 id="sec-5-2"><span class="section-number-3">5.2</span> Backbone.Router &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-5-2">
+
+<p>    Map URL fragments to JS application states.
+    Uses the History API.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-5-3" class="outline-3">
+<h3 id="sec-5-3"><span class="section-number-3">5.3</span> Underscore &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-5-3">
+
+<p>    Awesome functional programming tools for JS:
+</p><ul>
+<li><code>_.each()</code>
+</li>
+<li><code>_.filter()</code>
+</li>
+<li><code>_.pluck()</code>
+</li>
+<li><code>_.reduce()</code>
+</li>
+<li><code>_.template()</code>
+</li>
+</ul>
+
+
+
+</div>
+
+<div id="outline-container-5-3-1" class="outline-4">
+<h4 id="sec-5-3-1"><span class="section-number-4">5.3.1</span> Notes &nbsp;&nbsp;&nbsp;<span class="tag"><span class="notes">notes</span></span></h4>
+<div class="outline-text-4" id="text-5-3-1">
+
+<ul>
+<li>Template is ERB-style, not great but omni-present.
+</li>
+<li>_.bind
+</li>
+</ul>
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> Backbone.js Resources &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-6">
+
+
+<ul>
+<li>BackboneJS.org
+</li>
+<li>Backbone Annoted Source Code
+</li>
+<li>Addy Osmani's Backbone Fundamentals book (github)
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> Drupal Backbone &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-7">
+
+<p><img src="drupal-backbone-app-structure.svg"  alt="drupal-backbone-app-structure.svg" />
+</p>
+
+</div>
+
+<div id="outline-container-7-1" class="outline-3">
+<h3 id="sec-7-1"><span class="section-number-3">7.1</span> Notes &nbsp;&nbsp;&nbsp;<span class="tag"><span class="notes">notes</span></span></h3>
+<div class="outline-text-3" id="text-7-1">
+
+<p>   Transition to talking about Drupal Backbone
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-7-2" class="outline-3">
+<h3 id="sec-7-2"><span class="section-number-3">7.2</span> Drupal Backbone Models &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-7-2">
+
+
+<ul>
+<li>Nodes, Comments, Users, Terms, ready to go.
+</li>
+<li>Configure Services REST API endpoints.
+</li>
+<li>Perform some basic parsing.
+</li>
+<li>In progress:
+<ul>
+<li>EntityReference parsing to nested models.
+</li>
+<li>Automatic content-type node model generator.
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-7-3" class="outline-3">
+<h3 id="sec-7-3"><span class="section-number-3">7.3</span> Drupal Backbone Collections &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-7-3">
+
+
+<ul>
+<li>Views, Search and Index collections.
+</li>
+<li>Nest Node models, you can override.
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-7-4" class="outline-3">
+<h3 id="sec-7-4"><span class="section-number-3">7.4</span> Drupal.Backbone.Views.Base &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-7-4">
+
+<ul>
+<li>Opinionated:
+<ul>
+<li>Loads templates from HTML script content
+</li>
+<li>renders with _.template or Handlebars
+</li>
+</ul>
+
+</li>
+<li>Templates managed by the theme layer
+</li>
+<li>Great w/ i18n/locale
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-7-5" class="outline-3">
+<h3 id="sec-7-5"><span class="section-number-3">7.5</span> The Backbone Base Feature &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-7-5">
+
+<ul>
+<li>Configures a REST endpoint via Services
+</li>
+<li>Enables most commonly required modules (which can be downloaded
+     via backbone-dev.make.inc).
+</li>
+</ul>
+
+
+
+</div>
+
+<div id="outline-container-7-5-1" class="outline-4">
+<h4 id="sec-7-5-1"><span class="section-number-4">7.5.1</span> Notes &nbsp;&nbsp;&nbsp;<span class="tag"><span class="notes">notes</span></span></h4>
+<div class="outline-text-4" id="text-7-5-1">
+
+<ul>
+<li>Services vs. RestWS vs. Services Views vs. Views Datasource vs. &hellip;
+</li>
+</ul>
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> Anatomy of a Drupal Backbone App Module &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-8">
+
+
+
+</div>
+
+<div id="outline-container-8-1" class="outline-3">
+<h3 id="sec-8-1"><span class="section-number-3">8.1</span> Simple Page Callback &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-8-1">
+
+
+
+
+
+<pre class="src src-php"><span style="color: #CC7833;">function</span> <span style="color: #FFC66D;">backbone_example_admin_page</span>() {
+  <span style="color: #BC9458; font-style: italic;">// </span><span style="color: #BC9458; font-style: italic;">Add templates to page.</span>
+  <span style="color: #E6E1DC; background-color: #232323;">backbone_add_template</span>(<span style="color: #A5C261;">'backbone-example-node-template'</span>, <span style="color: #E6E1DC; background-color: #232323;">theme</span>(<span style="color: #A5C261;">'backbone_example_node_template'</span>));
+  <span style="color: #E6E1DC; background-color: #232323;">backbone_add_template</span>(<span style="color: #A5C261;">'backbone-example-app-template'</span>, <span style="color: #E6E1DC; background-color: #232323;">theme</span>(<span style="color: #A5C261;">'backbone_example_app_template'</span>));
+  <span style="color: #BC9458; font-style: italic;">// </span><span style="color: #BC9458; font-style: italic;">Add app js.</span>
+  <span style="color: #E6E1DC; background-color: #232323;">drupal_add_js</span>(<span style="color: #E6E1DC; background-color: #232323;">drupal_get_path</span>(<span style="color: #A5C261;">'module'</span>, <span style="color: #A5C261;">'backbone_example'</span>) . <span style="color: #A5C261;">'/js/backbone_example_app.js'</span>);
+  <span style="color: #BC9458; font-style: italic;">// </span><span style="color: #BC9458; font-style: italic;">Return a container div for the app to anchor itself to.</span>
+  <span style="color: #CC7833;">return</span> <span style="color: #E6E1DC; background-color: #232323;">array</span>(
+    <span style="color: #A5C261;">'#type'</span> =&gt; <span style="color: #A5C261;">'html_tag'</span>,
+    <span style="color: #A5C261;">'#tag'</span> =&gt; <span style="color: #A5C261;">'div'</span>,
+    <span style="color: #A5C261;">'#attributes'</span> =&gt; <span style="color: #E6E1DC; background-color: #232323;">array</span>(
+      <span style="color: #A5C261;">'id'</span> =&gt; <span style="color: #A5C261;">'backbone-example-app'</span>,
+    ),
+  );
+}
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-8-2" class="outline-3">
+<h3 id="sec-8-2"><span class="section-number-3">8.2</span> Example .js file &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-8-2">
+
+<p>    (from the backbone example module included in the Backbone
+    project).
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-8-3" class="outline-3">
+<h3 id="sec-8-3"><span class="section-number-3">8.3</span> Attach using a behavior &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-8-3">
+
+
+
+
+
+<pre class="src src-javascript">(<span style="color: #CC7833;">function</span>(<span style="color: #b0c4de;">$</span>) {
+  Drupal.behaviors.backbone_example = {
+    <span style="color: #FFC66D;">attach</span>: <span style="color: #CC7833;">function</span>() {
+      <span style="color: #CC7833;">var</span> <span style="color: #b0c4de;">NodeView</span> = Drupal.Backbone.View.extend({<span style="color: #BC9458; font-style: italic;">/*</span><span style="color: #BC9458; font-style: italic;">...*/</span>});
+      <span style="color: #CC7833;">var</span> <span style="color: #b0c4de;">AppView</span> = Drupal.Backbone.View.extend({<span style="color: #BC9458; font-style: italic;">/*</span><span style="color: #BC9458; font-style: italic;">...*/</span>});
+    <span style="color: #BC9458; font-style: italic;">// </span><span style="color: #BC9458; font-style: italic;">...</span>
+    }
+  }
+})
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-8-4" class="outline-3">
+<h3 id="sec-8-4"><span class="section-number-3">8.4</span> Simple Node View &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-8-4">
+
+
+
+
+
+<pre class="src src-javascript"><span style="color: #CC7833;">var</span> <span style="color: #b0c4de;">NodeView</span> = Drupal.Backbone.View.extend({
+  templateSelector: <span style="color: #A5C261;">'#backbone-example-node-template'</span>,
+  <span style="color: #FFC66D;">initialize</span>: <span style="color: #CC7833;">function</span>(<span style="color: #b0c4de;">opts</span>) {
+    <span style="color: #6D9CBE;">this</span>.model = opts.model;
+    <span style="color: #6D9CBE;">this</span>.model.bind(<span style="color: #A5C261;">'change'</span>, <span style="color: #6D9CBE;">this</span>.render, <span style="color: #6D9CBE;">this</span>);
+    Drupal.Backbone.View.<span style="color: #6D9CBE;">prototype</span>.initialize.apply(<span style="color: #6D9CBE;">this</span>);
+  }
+});
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-8-5" class="outline-3">
+<h3 id="sec-8-5"><span class="section-number-3">8.5</span> Top-level Application View &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-8-5">
+
+
+
+
+
+<pre class="src src-javascript"><span style="color: #CC7833;">var</span> <span style="color: #b0c4de;">AppView</span> = Drupal.Backbone.View.extend({
+  templateSelector: <span style="color: #A5C261;">'#backbone-example-app-template'</span>,
+  <span style="color: #FFC66D;">initialize</span>: <span style="color: #CC7833;">function</span>() {
+    Drupal.Backbone.View.<span style="color: #6D9CBE;">prototype</span>.initialize.apply(<span style="color: #6D9CBE;">this</span>);
+    _.bindAll(<span style="color: #6D9CBE;">this</span>, <span style="color: #A5C261;">'doLoadNode'</span>);
+    <span style="color: #BC9458; font-style: italic;">// </span><span style="color: #BC9458; font-style: italic;">SNIP...</span>
+  }
+});
+<span style="color: #CC7833;">var</span> <span style="color: #b0c4de;">app</span> = <span style="color: #CC7833;">new</span> <span style="color: #ffffff;">AppView</span>();
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-8-6" class="outline-3">
+<h3 id="sec-8-6"><span class="section-number-3">8.6</span> Bind App UI Events &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-8-6">
+
+
+
+
+
+<pre class="src src-javascript"><span style="color: #CC7833;">var</span> <span style="color: #b0c4de;">AppView</span> = Drupal.Backbone.View.extend({
+  <span style="color: #BC9458; font-style: italic;">// </span><span style="color: #BC9458; font-style: italic;">SNIP...</span>
+  events: {
+    <span style="color: #A5C261;">'submit form[name=backbone-example-form]'</span>: <span style="color: #A5C261;">'doLoadNode'</span>
+  },
+  <span style="color: #FFC66D;">doLoadNode</span>: <span style="color: #CC7833;">function</span>() {
+    <span style="color: #CC7833;">var</span> <span style="color: #b0c4de;">nid</span> = <span style="color: #6D9CBE;">this</span>.$(<span style="color: #A5C261;">'#nid'</span>).val();
+    <span style="color: #6D9CBE;">this</span>.nodeModel.set(<span style="color: #A5C261;">'nid'</span>, nid);
+    <span style="color: #6D9CBE;">this</span>.nodeModel.fetch();
+  }
+<span style="color: #BC9458; font-style: italic;">// </span><span style="color: #BC9458; font-style: italic;">SNIP...</span>
+});
+</pre>
+
+
+
+</div>
+
+<div id="outline-container-8-6-1" class="outline-4">
+<h4 id="sec-8-6-1"><span class="section-number-4">8.6.1</span> Backbone Recs &nbsp;&nbsp;&nbsp;<span class="tag"><span class="notes">notes</span></span></h4>
+<div class="outline-text-4" id="text-8-6-1">
+
+<ul>
+<li>For advanced apps, store models, views and collection
+       definitions in container objects (.Views, .Models, etc.)
+</li>
+<li>One nice trick is to use a contructor function to populate your
+       views object, and only return the App view, with the other
+       views available to it via the closure.
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-8-7" class="outline-3">
+<h3 id="sec-8-7"><span class="section-number-3">8.7</span> "Promiscuous" Apps &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-8-7">
+
+<p>   <img src="promiscuous-backbone.svg"  alt="promiscuous-backbone.svg" />
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-8-8" class="outline-3">
+<h3 id="sec-8-8"><span class="section-number-3">8.8</span> Drupal Backbone Resources &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-8-8">
+
+<ul>
+<li><a href="http://drupal.org/project/backbone">http://drupal.org/project/backbone</a> doc links
+</li>
+<li>EchoDittoLabs.org Blog Posts
+</li>
+<li>Backbone Todos example sandbox on d.o
+</li>
+<li>DrupalCon Munich session!
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> Potential Applications &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-9">
+
+
+<ul>
+<li>Better administration tools
+</li>
+<li>Engaging UI's for doc-driven sites and apps
+</li>
+<li>In-place editing
+</li>
+<li>Node/Websocket integration
+</li>
+<li>What else?
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-10" class="outline-2">
+<h2 id="sec-10"><span class="section-number-2">10</span> End</h2>
+<div class="outline-text-2" id="text-10">
+
+
+
+
+
+
+<script type="text/javascript" src="org-html-slideshow.js"></script>
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2012-07-21 09:20:30 EDT</p>
+<p class="author">Author: Ethan Winn</p>
+<p class="creator">Org version 7.8.11 with Emacs version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,380 @@
+#+TITLE: Drupal + Backbone.js @ DrupalCamp NYC
+#+AUTHOR: Ethan Winn
+#+EMAIL: ethan@echoditto.com
+
+* Drupal + Backbone.js                                                :slide:
+
+  file:drupal-backbone-square-tux.png
+
+  Ethan Winn (ethanw) - \_th\_n - @eethann - ethan@echoditto.com
+
+* Why use a client-side framework?                                    :slide:
+
+** Because today's JavaScript is complex:
+   * Browsers can do more.
+   * People expect more.
+   * HTML5 is a great/good/decent app platform.
+
+** Because of code like this:                                         :slide:
+
+#+begin_src javascript
+$('.my-button').click(
+  function() {
+    var myParent = $(this).parent();
+    var myNid = $(myParent).data('nid');
+    var myTitle = $(myParent).find('input.title-input').val();
+    $.ajax({
+      type: 'post',
+      url: '/service-endpoint/node/' + myNid + '.json',
+      data: { title: myTitle },
+      success: function(data) {
+        $(myParent).find('div.timestamp').html(data.modified);
+      }
+    })
+  }
+)
+#+end_src
+
+** Notes                                                              :notes:
+   * DOM is slow
+   * Impossible to maintain
+   * Hard to read
+
+** Client-side JS Frameoworks Can Help:                               :slide:
+   * Store all data in JS objects, not the DOM.
+   * Separate Concerns: decouple data, behavior and presentation.
+   * Structure Complex Code: make it easy to find and extend
+     functionality as apps grow.
+
+*** Notes                                                             :notes:
+    * Separation of Concerns standard in MVC programming.
+    * JS code is growing more complex as browser JS engines get faster
+      and more powerful.
+    * Prediction: there are going to be a lot more web applications in
+      the near future.
+
+** What's so great about Backbone.js?
+
+   * Flexibility
+   * Extensibility
+   * Simplicity/Minimalism
+   * Great code
+   * Well-rchitected
+   * Healthy community
+
+   Because it's flexible, easily extensible and minimal.
+   (It also has a great user base and is very popular.)
+
+*** Notes                                                             :notes:
+    * Can be used with all sorts of backends: REST, Webkit, Facebook API
+    * Bareley even a "framework"
+    * Very easy to read source code, ~900 lines.
+    * Mainly structures code.
+
+*** Other Options:                                                    :slide:
+   * Knockout.js
+   * Angularjs
+   * Spine
+   * Batman.js
+   * Ember.js
+   * Sproutcore
+   * Cappucino
+   * etc., etc.
+
+*** Standards                                                         :slide:
+    file:xkcd-standards.png
+
+    (thanks XKCD: http://xkcd.com/927/)
+
+*** Awesome Backbone.js examples                                      :slide:
+
+    * DocumentCloud
+    * Linked-in's mobile site
+    * Recline.js
+
+** Why Drupal?                                                        :slide:
+   * Strcutred Data Back-end
+   * REST
+   * Awesome CMS + Web App engine!
+
+*** Notes                                                             :notes:
+    * Drupal's actually a very good platform for buildng web app
+      functionality: we need a structured data factory w/ REST
+      backend.
+    * Drupal gives us a great CMS that can support full-scale web app
+      functionality sections.
+    * Drupal + Backbone make a great pair.
+
+* Let's try that code again...                                        :slide:
+
+* ...with Backbone!                                                   :slide:
+
+#+begin_src javascript
+var MyAppNode = Drupal.Backbone.Models.Node.extend();
+var MyAppNodeView = Drupal.Backbone.View.extend({
+  initialize: function() {
+    this.bindAll('updateNode', 'updateNode');
+    this.model.bind('change', this.render, this);
+  },
+  events: {
+    'click .my-button': saveNode,
+    'change input.title-input': updateNode
+  },
+  updateNode: function(e) {
+    this.model.set('title', e.target.val());
+  },
+  saveNode: function() {
+    this.model.save();
+  }
+})
+#+end_src
+
+** The Model                                                          :slide:
+#+begin_src javascript
+var MyType = Drupal.Backbone.Models.Node.extend();
+#+end_src
+
+*** Notes                                                             :notes:
+    * Backbone.extend() performs deep copy.
+    * Used for inheritence chain.
+
+** The Model: stores all data attributes of each object               :slide:
+
+#+begin_src javascript
+myNode.set('property','value');
+myNode.get('property');
+#+end_src
+
+** The Model: loads & sends data to the server                        :slide:
+
+#+begin_src javascript
+this.model.save();
+Backbone.sync();
+#+end_src
+
+*** Notes                                                             :notes:
+     * toJSON and parse methods
+
+** The Model: triggers events when data changes                       :slide:
+
+#+begin_src javascript
+this.model.bind('change', this.render, this);
+myNode.model.bind('change:title', AppView.toggleTitleStatus);
+#+end_src
+
+** The View                                                           :slide:
+
+*** The View: Renders Models to HTML                                  :slide:
+
+    * =Backbone.View.render()= is "agnostic": a no-op by default, can
+      render however we want.
+    * Drupal Backbone (and most other apps) use a client-side
+      templating language: Handlebars or Mustache with {ctemplate}
+      style vars.
+
+*** The View: Binds Browser Events to Methods                         :slide:
+
+    Easy event binding using the jQuery =.delegate()= format:
+
+#+begin_src javascript
+  events: {
+    'click .my-button': saveNode,
+    'change input.title-input': updateNode
+  }
+#+end_src
+
+* Other Goodies                                                       :slide:
+
+** Collections                                                        :slide:
+    Collections hold groups of nodes.
+    Perfect for:
+    * Views
+    * Search Results
+    * Node/Entity References
+
+*** Notes                                                             :notes:
+    * Events bubble-up from collection models
+    * can load/save collection models all-together
+
+** Backbone.Router                                                    :slide:
+    Map URL fragments to JS application states.
+    Uses the History API.
+
+** Underscore                                                         :slide:
+    Awesome functional programming tools for JS:
+    * =_.each()=
+    * =_.filter()=
+    * =_.pluck()=
+    * =_.reduce()=
+    * =_.template()=
+
+*** Notes                                                             :notes:
+    * Template is ERB-style, not great but omni-present.
+    * _.bind
+
+* Backbone.js Resources                                               :slide:
+
+  * BackboneJS.org
+  * Backbone Annoted Source Code
+  * Addy Osmani's Backbone Fundamentals book (github)
+
+* Drupal Backbone                                                     :slide:
+file:drupal-backbone-app-structure.svg
+
+** Notes                                                              :notes:
+   Transition to talking about Drupal Backbone
+
+** Drupal Backbone Models                                             :slide:
+
+   * Nodes, Comments, Users, Terms, ready to go.
+   * Configure Services REST API endpoints.
+   * Perform some basic parsing.
+   * In progress:
+     * EntityReference parsing to nested models.
+     * Automatic content-type node model generator.
+
+** Drupal Backbone Collections                                        :slide:
+
+   * Views, Search and Index collections.
+   * Nest Node models, you can override.
+
+** Drupal.Backbone.Views.Base                                         :slide:
+   * Opinionated:
+     * Loads templates from HTML script content
+     * renders with _.template or Handlebars
+   * Templates managed by the theme layer
+   * Great w/ i18n/locale
+
+** The Backbone Base Feature                                          :slide:
+   * Configures a REST endpoint via Services
+   * Enables most commonly required modules (which can be downloaded
+     via backbone-dev.make.inc).
+
+*** Notes                                                             :notes:
+    * Services vs. RestWS vs. Services Views vs. Views Datasource vs. ...
+
+* Anatomy of a Drupal Backbone App Module                             :slide:
+
+** Simple Page Callback                                               :slide:
+
+#+begin_src php
+function backbone_example_admin_page() {
+  // Add templates to page.
+  backbone_add_template('backbone-example-node-template', theme('backbone_example_node_template'));
+  backbone_add_template('backbone-example-app-template', theme('backbone_example_app_template'));
+  // Add app js.
+  drupal_add_js(drupal_get_path('module', 'backbone_example') . '/js/backbone_example_app.js');
+  // Return a container div for the app to anchor itself to.
+  return array(
+    '#type' => 'html_tag',
+    '#tag' => 'div',
+    '#attributes' => array(
+      'id' => 'backbone-example-app',
+    ),
+  );
+}
+#+end_src
+
+** Example .js file                                                   :slide:
+    (from the backbone example module included in the Backbone
+    project).
+
+** Attach using a behavior                                            :slide:
+
+#+begin_src javascript
+(function($) {
+  Drupal.behaviors.backbone_example = {
+    attach: function() {
+      var NodeView = Drupal.Backbone.View.extend({/*...*/});
+      var AppView = Drupal.Backbone.View.extend({/*...*/});
+    // ...
+    }
+  }
+})
+#+end_src
+
+** Simple Node View                                                   :slide:
+
+#+begin_src javascript
+      var NodeView = Drupal.Backbone.View.extend({
+        templateSelector: '#backbone-example-node-template',
+        initialize: function(opts) {
+          this.model = opts.model;
+          this.model.bind('change', this.render, this);
+          Drupal.Backbone.View.prototype.initialize.apply(this);
+        }
+      });
+#+end_src
+
+** Top-level Application View                                         :slide:
+
+#+begin_src javascript
+      var AppView = Drupal.Backbone.View.extend({
+        templateSelector: '#backbone-example-app-template',
+        initialize: function() {
+          Drupal.Backbone.View.prototype.initialize.apply(this);
+          _.bindAll(this, 'doLoadNode');
+          // SNIP...
+        }
+      });
+      var app = new AppView();
+#+end_src
+
+** Bind App UI Events                                                 :slide:
+
+#+begin_src javascript
+      var AppView = Drupal.Backbone.View.extend({
+        // SNIP...
+        events: {
+          'submit form[name=backbone-example-form]': 'doLoadNode'
+        },
+        doLoadNode: function() {
+          var nid = this.$('#nid').val();
+          this.nodeModel.set('nid', nid);
+          this.nodeModel.fetch();
+        }
+      // SNIP...
+      });
+#+end_src
+
+*** Backbone Recs                                                     :notes:
+     * For advanced apps, store models, views and collection
+       definitions in container objects (.Views, .Models, etc.)
+     * One nice trick is to use a contructor function to populate your
+       views object, and only return the App view, with the other
+       views available to it via the closure.
+
+** "Promiscuous" Apps                                                 :slide:
+   file:promiscuous-backbone.svg
+
+** Drupal Backbone Resources                                          :slide:
+   * http://drupal.org/project/backbone doc links
+   * EchoDittoLabs.org Blog Posts
+   * Backbone Todos example sandbox on d.o
+   * DrupalCon Munich session!
+
+* Potential Applications                                              :slide:
+
+  * Better administration tools
+  * Engaging UI's for doc-driven sites and apps
+  * In-place editing
+  * Node/Websocket integration
+  * What else?
+
+* End
+
+#+TAGS: slide(s)
+
+#+STYLE: <link rel="stylesheet" type="text/css" href="common.css" />
+#+STYLE: <link rel="stylesheet" type="text/css" href="screen.css" media="screen" />
+#+STYLE: <link rel="stylesheet" type="text/css" href="projection.css" media="projection" />
+#+STYLE: <link rel="stylesheet" type="text/css" href="presenter.css" media="presenter" />
+
+#+BEGIN_HTML
+<script type="text/javascript" src="org-html-slideshow.js"></script>
+#+END_HTML
+
+# Local Variables:
+# org-export-html-style-include-default: nil
+# org-export-html-style-include-scripts: nil
+# End:
