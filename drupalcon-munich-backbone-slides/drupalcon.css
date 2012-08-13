@@ -1,7 +1,7 @@
 .deck-container {
   font-family: "Helvetica Neue", sans-serif;
   font-size: 1.75em;
-  background-image: url("/body_bg.jpg");
+  background-image: url("body_bg.jpg");
 }
 .deck-container .slide {
   background-color: rgba(255, 255, 255, 0.5);
