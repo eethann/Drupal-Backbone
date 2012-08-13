@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+
+    <title>Backbone Development with Drupal | Drupal Backbone @ DrupalCon Munich</title>
+    <meta name="description" content="The DrupalCon Munich 2012 Drupal and Backbone session slides." />
+    <meta name="keywords" content="drupal, backbone, drupalcon, ethan winn, echoditto, javascript, backbone.js, drupal backbone" />
+    <meta http-equiv="X-Powered-By" content="DocPad"/>
+    
+    <!-- Required stylesheet -->
+    <link rel="stylesheet" href="/vendor/deck.js/core/deck.core.css">
+    
+    <!-- Extension CSS files go here. Remove or add as needed. -->
+    <link rel="stylesheet" href="/vendor/deck.js/extensions/goto/deck.goto.css">
+    <link rel="stylesheet" href="/vendor/deck.js/extensions/menu/deck.menu.css">
+    <link rel="stylesheet" href="/vendor/deck.js/extensions/navigation/deck.navigation.css">
+    <link rel="stylesheet" href="/vendor/deck.js/extensions/status/deck.status.css">
+    <link rel="stylesheet" href="/vendor/deck.js/extensions/hash/deck.hash.css">
+    <!-- <link rel="stylesheet" href="/vendor/deck.js/extensions/scale/deck.scale.css"> -->
+
+    <!-- Transition theme. More available in /themes/transition/ or create your own. -->
+    <link rel="stylesheet" href="/vendor/deck.js/themes/transition/horizontal-slide.css">
+
+    <!-- Style theme. More available in /themes/style/ or create your own. -->
+    <!-- <link rel="stylesheet" href="/vendor/deck.js/themes/style/swiss.css"> -->
+        <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,500,700' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+
+    <!-- CodeMirror Deck Stuff -->
+        <link rel="stylesheet" href="/vendor/deck.js-codemirror/deck.codemirror.css">
+        <!-- <link rel="stylesheet" href="/vendor/codemirror2/theme/monokai.css"> -->
+        <link rel="stylesheet"
+              href="/vendor/deck.js-codemirror/themes/default.css">
+
+    <link rel="stylesheet" href="/drupalcon.css">
+
+    <!-- Required Modernizr file -->
+    <script src="/vendor/deck.js/modernizr.custom.js"></script>
+
+</head>
+<body class="deck-container">
+
+<!-- Begin slides. Just make elements with a class of slide. -->
+
+<!-- TODO: add stack diagram--><!-- TODO: add funny pictures and jokes--><section class="slide"><h1>Using the Drupal Backbone Module</h1></section><section class="slide"><h2>Load a node!</h2><textarea id="node-fetch-js" mode="javascript" class="code">// Load a  node
+var oneNode = Drupal.Backbone.Models.Node({nid: 1});
+myNode.fetch();
+console.log(oneNode.get('title'));
+oneNode.set('title', 'New Title!');
+console.dir(oneNode);
+</textarea></section><section class="slide"><h2>Automatic Parsing</h2><h3>TODO</h3></section><section class="slide"><h2>Create a node & save it:</h2><textarea id="node-create-js" mode="javascript" class="code">// Create and Save a comment
+var myNode = Drupal.Backbone.Models.Node({
+    type: "page",
+    title: "This is a new comment",
+    body: "That's it, really."
+});
+myNode.save();
+</textarea></section><section class="slide"><h2>Other supported entities:</h2><ul><li>comments</li><li>users</li><li>taxonomy terms</li></ul></section><section class="slide"><h2>Depends on your JSON back-end:</h2><ul><li>Services (default)</li><li>RestWS</li><li>ContentAPI</li></ul></section><section class="slide"><h2>Render a node...client-side!</h2></section><section class="slide"><h2>With a twig.js template</h2><p>(handlebars or _.js also work)</p><textarea id="node-display-twig" mode="jinja2" runnable="false" class="code"><article>
+    <header>
+        <title>
+          {{ title }}
+        </title>
+    </header>
+    <div class="body">
+      {{ body }}
+    </div>
+</article>
+</textarea></section><section class="slide"><h2>And a Backbone View:</h2><textarea id="node-display-js" mode="javascript" class="code">// Display a node
+// TODO: include template
+var NodeView = Drupal.Backbone.Views.Base.extend({
+    templateSelector: '#template-one-node'
+})
+var myNodeView = new NodeView({model: myNode});
+myNodeView.render();
+</textarea></section><section class="slide"><h2>Views can refresh automatically</h2><textarea id="node-render-changes-js" mode="javascript" class="code">// Updating a node when it changes
+var NodeView = Drupal.Backbone.Views.Base.extend({
+    templateSelector: '#template-one-node',
+    initialize: function(options) {
+        this.model.bind('change', this.render);
+    }
+});
+var myNodeView = new NodeView({model: myNode});
+myNodeView.render();
+
+// Now we change something: 
+myNode.set('title', 'Magic!');
+</textarea></section><section class="slide"><h2>Load lots of nodes!</h2><h3>(via search!!!)</h3><textarea id="collection-load-js" mode="javascript" class="code">// Load a collection
+var mySearchResults = Drupal.Backbone.Collections.Search({
+    model: Drupal.Backbone.Models.Node,
+    q: "Test"
+});
+mySearchResults.fetch();
+mySearchResults.get(1).set('title', "I was in a collection!");
+mySearchResults.save();
+</textarea></section><section class="slide"><h2>Other supported listing types</h2><ul><li>Views</li><li>Searches</li><li>Entity References (coming soon!)</li></ul></section><section class="slide"><h2>Rendering lots of nodes: the "Collection View" pattern</h2></section><section class="slide"><h2>Another simple template</h2><textarea mode="jinja2" class="code"><h1>Search results for "{{q}}"</h1>
+<ul class="search-results">
+  {# Search results go here, via ViewCollection.render #}
+</ul>
+</textarea></section><section class="slide"><h2>And a Backbone View</h2><textarea mode="javascript" class="code">// Display a collection
+// TODO: make collection view base for Drupal Backbone
+var SearchResultsView = Drupal.Backbone.Views.Collection.extend({
+    modelView: NodeView,
+    templateSelector: "#template-search-results-collection"
+});
+var mySearchResultsView = SearchResultsView({
+    collection: mySearchResults
+});
+mySearchResultsView.render();
+mySearchResults.get(2).set('title', 'Super Magic!!');
+
+</textarea></section><section class="slide"><h2>Backbone Views also handle User Events</h2></section><section class="slide"><h2>We just add a button to our node template</h2><textarea id="event-binding-tpl" mode="jinja2" runnable="false" class="code"><article>
+    <header>
+        <title>
+          {{ title }}
+        </title>
+        {# Add a button element to toggle promote status #}
+        <button value="Promote" class="promote-toggle"/>
+    </header>
+    <div class="body">
+      {{ body }}
+    </div>
+</article>
+</textarea></section><section class="slide"><h2>And add a listener in our view</h2><textarea id="collection-item-event-binding-js" mode="javascript" class="code">// Changing a node example
+var NodeView = Drupal.Backbone.Views.Base.extend({
+    events: {
+        'click .promote-toggle': promoteToggle
+    },
+    initialize: function(options) {
+        _(this).bindAll('promoteToggle');
+        this.model.bind('change', 'render');
+    },
+    promoteToggle: function(e) {
+        this.model.set('promoted', !this.model.get('promoted'));
+        this.model.save();
+    }
+});</textarea></section><section class="slide"><h2>It automatically works in our collection view too!</h2></section><section class="slide"><h2>Backbone is all about delegation</h2></section><section class="slide"><h2>Setting up our Backbone Model</h2></section><section class="slide"><h2>A Simple Page callback</h2><pre><code contenteditable="true" class="PHP">// TODO: mock-module code</code></pre></section><section class="slide"><h2>Make a root element for our app</h2><pre><code contenteditable="true" class="PHP">// TODO: mock-module code</code></pre></section><section class="slide"><h2>Use the theme layer for templates</h2><pre><code contenteditable="true" class="PHP">// TODO: mock-module code</code></pre></section><section class="slide"><h2>Added advantage that we can use t()</h2><pre><code contenteditable="true" class="PHP">// TODO: mock-module code</code></pre></section><section class="slide"><h2>And now for some demos</h2></section><section class="slide"><h2>Node promotion app: buttons</h2></section><section class="slide"><h2>Node promotion app: jQuery UI</h2></section><section class="slide"><h2>Comment moderation: keyboard shortcuts</h2></section>
+
+<!-- End slides. -->
+
+
+<!-- Begin extension snippets. Add or remove as needed. -->
+
+<!-- deck.navigation snippet -->
+<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+<!-- deck.status snippet -->
+<p class="deck-status">
+    <span class="deck-status-current"></span>
+    /
+    <span class="deck-status-total"></span>
+</p>
+
+<!-- deck.goto snippet -->
+<form action="." method="get" class="goto-form">
+    <label for="goto-slide">Go to slide:</label>
+    <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+    <datalist id="goto-datalist"></datalist>
+    <input type="submit" value="Go">
+</form>
+
+<!-- deck.hash snippet -->
+<a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+<!-- End extension snippets. -->
+
+
+<!-- Required JS files. -->
+<script src="/vendor/deck.js/jquery-1.7.2.min.js"></script>
+<script src="/vendor/deck.js/core/deck.core.js"></script>
+
+<!-- Extension JS files. Add or remove as needed. -->
+<script src="/vendor/deck.js/core/deck.core.js"></script>
+<script src="/vendor/deck.js/extensions/hash/deck.hash.js"></script>
+<script src="/vendor/deck.js/extensions/menu/deck.menu.js"></script>
+<script src="/vendor/deck.js/extensions/goto/deck.goto.js"></script>
+<script src="/vendor/deck.js/extensions/status/deck.status.js"></script>
+<script src="/vendor/deck.js/extensions/navigation/deck.navigation.js"></script>
+<script src="/vendor/deck.js/extensions/scale/deck.scale.js"></script>
+<script src="/vendor/codemirror2/lib/codemirror.js"></script>
+<script src="/vendor/codemirror2/mode/xml/xml.js"></script>
+<script src="/vendor/codemirror2/mode/css/css.js"></script>
+<script src="/vendor/codemirror2/mode/htmlmixed/htmlmixed.js"></script>
+<script src="/vendor/codemirror2/mode/jinja2/jinja2.js"></script>
+<script src="/vendor/codemirror2/mode/javascript/javascript.js"></script>
+<script src="/vendor/codemirror2/mode/php/php.js"></script>
+
+<script src="/vendor/deck.js-codemirror/deck.codemirror.js"></script>
+
+<!-- Initialize the deck. You can put this in an external file if desired. -->
+<script>
+    $(function() {
+        $.deck('section.slide', {
+                   codemirror: {
+                     theme: "default",
+                     mode: "javascript",
+                     lineNumbers: true
+                   }
+                });
+    });
+</script>
+</body>
+</html>
