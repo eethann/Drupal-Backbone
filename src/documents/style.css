@@ -220,6 +220,9 @@ td { vertical-align: top; }
 
 
 
+div.CodeMirror {
+    font-size: 0.55em;
+}
 
 
 

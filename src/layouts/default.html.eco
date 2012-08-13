@@ -16,6 +16,11 @@
 	<title><%= @getPreparedTitle() %></title>
 	<meta name="description" content="<%= @getPreparedDescription() %>" />
 	<meta name="keywords" content="<%= @getPreparedKeywords() %>" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style"
+	      content="black-translucent" />
+        <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic'
+	      rel='stylesheet' type='text/css'>
 
 	<!-- Output DocPad produced meta elements -->
 	<%- @getBlock('meta').toHTML() %>
@@ -24,8 +29,7 @@
 	<meta name="viewport" content="width=device-width" />
 
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
-	<%- @getBlock('styles').add(["/style.css"]).toHTML() %>
-
+	<%- @getBlock('styles').add(["/style.css", "/vendor/reveal.js/css/main.css", "/vendor/reveal.js/css/theme/default.css","/vendor/reveal-highlight-monokai.css","/vendor/codemirror2/lib/codemirror.css","/vendor/codemirror2/theme/monokai.css"]).toHTML() %>
 	<!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
 </head>
 <body>
@@ -36,8 +40,12 @@
 
 	</header>
 	<div role="main">
-		<!-- include our document's content -->
-		<%- @content %>
+          <div class="reveal">
+            <div class="slides">
+              <%- @content %>
+            </div>
+          </div>
+
 	</div>
 	<footer>
 
@@ -51,8 +59,59 @@
 	<script>window.jQuery || document.write('<script src="j/vendor/jquery.js"><\/script>')</script>
 
 	<!-- scripts concatenated and minified via build script -->
-	<%- @getBlock('scripts').add(['/vendor/log.js', '/vendor/modernizr.js', "/script.js"]).toHTML() %>
+	<%- @getBlock('scripts').add(['/vendor/log.js','/vendor/modernizr.js', "/script.js"]).toHTML() %>
 	<!-- end scripts -->
+        <script src="/vendor/reveal.js/lib/js/head.min.js"></script>
+        <script src="/vendor/reveal.js/js/reveal.min.js"></script>
+	<script>
+
+	  // Full list of configuration options available here:
+	  // https://github.com/hakimel/reveal.js#configuration
+	  Reveal.initialize({
+  	    controls: true,
+	    progress: true,
+	    history: true,
+            //keyboard: false,
+	    transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/linear(2d)
+
+	  // Optional libraries used to extend on reveal.js
+	  dependencies: [
+	    { src: '/vendor/reveal.js/lib/js/highlight.js',
+              async: true, 
+              callback: function() { 
+                console.log('hl');
+                hljs.initHighlightingOnLoad(); } },
+	  { src: '/vendor/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+	  { src: '/vendor/reveal.js/lib/js/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+	  { src: '/vendor/reveal.js/lib/js/data-markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+	  { src: '/vendor/reveal.js/socket.io/socket.io.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } },
+	  { src: '/vendor/reveal.js/plugin/speakernotes/client.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } },
+	  ]
+	  });
+    head.js('/vendor/codemirror2/lib/codemirror.js',
+              '/vendor/codemirror2/mode/jinja2/jinja2.js',
+             '/vendor/codemirror2/mode/php/php.js',
+             '/vendor/codemirror2/mode/javascript/javascript.js',
+             '/vendor/codemirror2/mode/xml/xml.js',
+             '/vendor/codemirror2/mode/css/css.js',
+             '/vendor/codemirror2/mode/htmlmixed/htmlmixed.js',
+             function() {
+                console.log('Getting textareas...');
+                jQuery('textarea.code').each(function(i, codeblock) {
+                  var editor, mycodeblock;
+                  mycodeblock = jQuery(codeblock);
+                  console.log('yay:' + mycodeblock.data('lang'));
+                  editor = CodeMirror.fromTextArea(mycodeblock[0], {
+                    mode: {
+                      name: mycodeblock.data('lang'),
+                      htmlMode: true
+                    },
+                    theme: "monokai"
+                  });
+                });
+              });
+    
+	</script>
 
 	<!-- Asynchronous Google Analytics snippet. Change UA-XXXXX-X to be your site's ID.
 	mathiasbynens.be/notes/async-analytics-snippet -->

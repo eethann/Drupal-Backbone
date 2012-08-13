@@ -1,0 +1,9 @@
+[submodule "src/files/vendor/reveal.js"]
+	path = src/files/vendor/reveal.js
+	url = git://github.com/hakimel/reveal.js.git
+[submodule "src/files/vendor/codemirror2"]
+	path = src/files/vendor/codemirror2
+	url = git://github.com/marijnh/CodeMirror2.git
+[submodule "src/files/vendor/deck.js-codemirror"]
+	path = src/files/vendor/deck.js-codemirror
+	url = git://github.com/iros/deck.js-codemirror.git

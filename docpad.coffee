@@ -12,25 +12,19 @@ docpadConfig = {
 		# Specify some site properties
 		site:
 			# The production url of our website
-			url: "http://website.com"
-
-			# Here are some old site urls that you would like to redirect from
-			oldUrls: [
-				'www.website.com',
-				'website.herokuapp.com'
-			]
+			url: "http://eethann.github.com/Drupal-Backbone"
 
 			# The default title of our website
-			title: "Your Website"
+			title: "Drupal Backbone @ DrupalCon Munich"
 
 			# The website description (for SEO)
 			description: """
-				When your website appears in search results in say Google, the text here will be shown underneath your website's title.
+                                The DrupalCon Munich 2012 Drupal and Backbone session slides.
 				"""
 
-			# The website keywords (for SEO) separated by commas
+        			# The website keywords (for SEO) separated by commas
 			keywords: """
-				place, your, website, keywoards, here, keep, them, related, to, the, content, of, your, website
+                                drupal, backbone, drupalcon, ethan winn, echoditto, javascript, backbone.js, drupal backbone
 				"""
 
 
@@ -57,7 +51,6 @@ docpadConfig = {
 		getPreparedKeywords: ->
 			# Merge the document keywords with the site keywords
 			@site.keywords.concat(@document.keywords or []).join(', ')
-
 
 	# =================================
 	# DocPad Events
@@ -86,6 +79,12 @@ docpadConfig = {
 					res.redirect(newUrl+req.url, 301)
 				else
 					next()
+
+
+
+        sass: {
+                compass: true
+        }
 }
 
 # Export our DocPad Configuration

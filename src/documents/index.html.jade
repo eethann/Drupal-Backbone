@@ -1,0 +1,111 @@
+---
+layout: 'deck'
+title: 'Backbone Development with Drupal'
+---
+// TODO: add stack diagram
+// TODO: add funny pictures and jokes
+section.slide
+  h1 Using the Drupal Backbone Module
+section.slide
+  h2 Load a node!
+  textarea#node-fetch-js.code(mode="javascript")
+    include code/node-fetch.js
+section.slide
+  h2 Automatic Parsing
+  h3 TODO
+section.slide
+  h2 Create a node & save it:
+  textarea.code#node-create-js(mode="javascript")
+    include code/node-create.js
+section.slide
+  h2 Other supported entities:
+  ul
+    li comments
+    li users
+    li taxonomy terms
+section.slide
+  h2 Depends on your JSON back-end:
+  ul
+    li Services (default)
+    li RestWS
+    li ContentAPI
+section.slide
+  h2 Render a node...client-side!
+section.slide
+  h2 With a twig.js template
+  p (handlebars or _.js also work)
+  textarea.code#node-display-twig(mode="jinja2", runnable="false")
+    include code/node-display.twig.tpl.php
+section.slide
+  h2 And a Backbone View:
+  textarea.code#node-display-js(mode="javascript")
+    include code/node-display.js
+section.slide
+  h2 Views can refresh automatically
+  textarea.code#node-render-changes-js(mode="javascript")
+    include code/node-render-changes.js
+section.slide
+  h2 Load lots of nodes!
+  h3 (via search!!!)
+  textarea.code#collection-load-js(mode="javascript")
+    include code/collection-load.js
+section.slide
+  h2 Other supported listing types
+  ul
+    li Views
+    li Searches
+    li Entity References (coming soon!)
+section.slide
+  h2 Rendering lots of nodes: the "Collection View" pattern
+section.slide
+  h2 Another simple template
+  textarea.code(mode="jinja2")
+    include code/collection-render.twig.tpl.php
+section.slide
+  h2 And a Backbone View
+  textarea.code(mode="javascript")
+    include code/collection-render.js
+section.slide
+  h2 Backbone Views also handle User Events
+section.slide
+  h2 We just add a button to our node template
+  textarea#event-binding-tpl.code(mode="jinja2", runnable="false")
+    include code/collection-item-event-binding.twig.tpl.php
+section.slide
+  h2 And add a listener in our view
+  textarea#collection-item-event-binding-js.code(mode="javascript")
+    include code/collection-item-event-binding.js
+section.slide
+  h2 It automatically works in our collection view too!
+section.slide
+  h2 Backbone is all about delegation
+section.slide
+  h2 Setting up our Backbone Model
+section.slide
+  h2 A Simple Page callback
+  pre
+    code(contenteditable="true", class="PHP")
+      | // TODO: mock-module code
+section.slide
+  h2 Make a root element for our app
+  pre
+    code(contenteditable="true", class="PHP")
+      | // TODO: mock-module code
+section.slide
+  h2 Use the theme layer for templates
+  pre
+    code(contenteditable="true", class="PHP")
+      | // TODO: mock-module code
+section.slide
+  h2 Added advantage that we can use t()
+  pre
+    code(contenteditable="true", class="PHP")
+      | // TODO: mock-module code
+section.slide
+  h2 And now for some demos
+section.slide
+  h2 Node promotion app: buttons
+section.slide
+  h2 Node promotion app: jQuery UI
+section.slide
+  h2 Comment moderation: keyboard shortcuts
