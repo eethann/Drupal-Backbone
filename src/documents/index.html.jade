@@ -4,12 +4,24 @@ title: 'Backbone Development with Drupal'
 ---
 // TODO: add stack diagram
 // TODO: add funny pictures and jokes
+// TODO: organize by theme: Requesting, Rendering, Responding
 section.slide
   h1 Using the Drupal Backbone Module
 section.slide
-  h1 Don\'t forget the enemy: Spagetti Code
+  h1 The enemy is...
 section.slide
-  h1 TODO: Insert image from JS testing talk.
+  h2 Spagetti Code!
+  img(src="images/spaghetti-js.png")
+  p (TODO: insert attribution)
+section.slide
+  h1 Backbone Can Help
+// section.slide
+//   h1 Backbone and Drupal are TOTTALLY BFFs!
+section.slide
+  h2 Let's break it down //'
+  img(src="http://i.chzbgr.com/completestore/2010/10/4/74506b4d-6ad6-47ed-a3b9-8f6c48c5cf07.jpg")
+section.slide
+  h1 Requesting
 section.slide
   h2 Load a node!
   textarea#node-fetch-js.code(mode="javascript")
@@ -32,27 +44,17 @@ section.slide
 section.slide
   h2 ...or files, or flags, or...
 section.slide
-  h2 behind the scenes: saving
-  div.box Drupal.Backbone.Models.Node --> Backbone.Model --> Backbone.sync --> Services REST API
-  // TODO convert that to a diagram
-  // TODO
+  h2 Behind the Scenes: Saving
+  img(src="images/node-save-activity.png")
 section.slide
-  h2 behind the scenes: loading
-  h3 fetch passes id to sync, sync requests data from Drupal, Drupal sends back info through parse method
-  div.box
-    pre
-      | Drupal.Backbone.Model.Node.fetch() --> Backbone.Model --> Backbone.sync --> Services REST API
-      |                                                                                     |
-      |                             Drupal.Backbone.Model.Node.parse() <-- Backbone.sync <--+ 
+  h2 Behind the Scenes: Loading
+  img(src="images/node-load-activity.png")
 section.slide
-  h2 Depends on your JSON back-end:
-  div.box
-    ul
-      li Services (default)
-      li RestWS
-      li ContentAPI (in development)
+  h1 Backbone.sync can point to anything
 section.slide
-  h2 Render a node...client-side!
+  h1 Rendering
+section.slide
+  h2 ...client-side!
 section.slide
   h2 With a twig.js template
   textarea.code#node-display-twig(mode="jinja2")
@@ -66,6 +68,24 @@ section.slide
   h2 Views can refresh automatically
   textarea.code#node-render-changes-js(mode="javascript")
     include code/node-render-changes.js
+section.slide
+  h1 Responding
+section.slide
+  h2 Backbone Views also handle User Events
+section.slide
+  h2 We just add a button to our node template
+  textarea#event-binding-tpl.code(mode="jinja2", runnable="false")
+    include code/collection-item-event-binding.twig.tpl.php
+section.slide
+  h2 And add a listener in our view
+  textarea#collection-item-event-binding-js.code(mode="javascript")
+    include code/collection-item-event-binding.js
+section.slide
+  h1 Plus collections
+section.slide
+  img(src="images/load-all-the-nodes-q.png")
+section.slide
+  img(src="images/load-all-the-nodes-x.png")
 section.slide
   h2 Load lots of nodes!
   h3 (via search!!!)
@@ -88,17 +108,7 @@ section.slide
   textarea.code(mode="javascript")
     include code/collection-render.js
 section.slide
-  h2 Backbone Views also handle User Events
-section.slide
-  h2 We just add a button to our node template
-  textarea#event-binding-tpl.code(mode="jinja2", runnable="false")
-    include code/collection-item-event-binding.twig.tpl.php
-section.slide
-  h2 And add a listener in our view
-  textarea#collection-item-event-binding-js.code(mode="javascript")
-    include code/collection-item-event-binding.js
-section.slide
-  h2 It automatically works in our collection view too!
+  h2 Events automatically works in our collection view too!
 section.slide
   h2 Backbone is all about delegation
 section.slide
