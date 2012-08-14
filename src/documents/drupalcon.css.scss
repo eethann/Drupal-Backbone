@@ -16,48 +16,54 @@ $default-box-shadow-blur: 0px;
 $default-box-shadow-v-offset: 2px;
 $default-box-shadow-h-offset: -2px;
 
+body {
+    background: $strong-blue url(template-bg.png) no-repeat fixed center;
+    padding: 0;
+}
+
+
 .deck-container {
-  font-family: "Helvetica Neue", sans-serif;
-  font-size: 1.75em;
-  background-image: url('body_bg.jpg');
-  .slide {
-    background-color: rgba(255, 255, 255, 0.5);
-    h1, h2 {
-        background-color: white;
-        @include border-radius(0.25em);
-        border-color: #0073AC;
-        border-width: 2px;
-        border-style: solid;
-        @include box-shadow();
-    }
-    h1 {
-      color: $strong-blue;
-      font-family: $h-font;
-      font-weight: 700;
-      font-size: 2.5em; /* */
-      text-transform: uppercase;
-      @include text-shadow();
-      margin: 0px 2em;
-    }
-    h2 {
-      color: $strong-blue;
-      line-height: 100%;
-      padding: 10px;
-      margin-top: 0.5em;
-      font-family: 'Ubuntu',Arial,sans-serif;
-      font-weight: 700;
-      font-size: 1.75em;
-      @include text-shadow();
-    }
+    font-family: $h-font;
+    font-size: 1.75em;
+    width: auto;
+    max-width: 960px;
+    min-height: 474px;
+    margin: 172px auto 50px auto;
+    padding: 0;
+    .slide {
+      background: rgba(#FFF, 0.8);
+      @include box-shadow(4px, 4px, 10px, #000);
+      h1, h2 {
+          border: none;
+      }
+      h1 {
+          color: $strong-blue;
+          font-family: $h-font;
+          font-weight: 700;
+          font-size: 2.5em; /* */
+          text-transform: uppercase;
+          @include text-shadow();
+          margin: 0px 2em;
+      }
+      h2 {
+          color: $strong-blue;
+          line-height: 100%;
+          padding: 10px;
+          margin-top: 0.5em;
+          font-family: 'Ubuntu',Arial,sans-serif;
+          font-weight: 700;
+          font-size: 1.75em;
+          @include text-shadow();
+      }
     h3 {
       color: $strong-blue;
-      background-color: white;
       font-family: 'Ubuntu',Arial,sans-serif;
       font-weight: 400;
       font-size: 1.25em;
     }
     pre, code {
-        font-family: 'Inconsolata-g', 'Inconsolata', monospace;
+        font-family: $m-font;
+        font-size: 0.75em;
     }
     pre {
       border-color: #104877;
@@ -82,14 +88,14 @@ $default-box-shadow-h-offset: -2px;
       }
     }
     ::-moz-selection, ::selection {
-      background: #c00;
+      background: $strong-blue;
       color: #fff;
     }
     a {
-      color: #c00;
+      color: $strong-blue;
       text-decoration: none;
       &:hover, &:focus, &:active, &:visited {
-        color: #c00;
+        color: $strong-blue;
         text-decoration: none;
       }
       &:hover, &:focus {
@@ -170,15 +176,10 @@ $default-box-shadow-h-offset: -2px;
             background-color: white;
             @include box-shadow();
         }
-        .CodeMirror {
-            @include border-top-radius(0.5em);
-        }
-        .deck-codemirror-result {
-            @include border-bottom-radius(0.5em);
-        }
         .CodeMirror-gutter {
-            @include border-left-radius(0.5em);
+            background-color: inherit;
         }
+
     }
 }
 

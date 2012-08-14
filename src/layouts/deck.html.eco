@@ -17,7 +17,7 @@
 	<link rel="stylesheet" href="vendor/deck.js/extensions/goto/deck.goto.css">
 	<link rel="stylesheet" href="vendor/deck.js/extensions/menu/deck.menu.css">
 	<link rel="stylesheet" href="vendor/deck.js/extensions/navigation/deck.navigation.css">
-	<link rel="stylesheet" href="vendor/deck.js/extensions/status/deck.status.css">
+	<!-- <link rel="stylesheet" href="vendor/deck.js/extensions/status/deck.status.css"> -->
 	<link rel="stylesheet" href="vendor/deck.js/extensions/hash/deck.hash.css">
 	<!-- <link rel="stylesheet" href="vendor/deck.js/extensions/scale/deck.scale.css"> -->
 
@@ -34,6 +34,12 @@
         <!-- <link rel="stylesheet" href="vendor/codemirror2/theme/monokai.css"> -->
         <link rel="stylesheet"
               href="vendor/deck.js-codemirror/themes/default.css">
+        <link rel="stylesheet"
+              href="vendor/codemirror2/theme/monokai.css">
+        <link rel="stylesheet"
+              href="vendor/codemirror2/theme/lesser-dark.css">
+        <link rel="stylesheet"
+              href="vendor/codemirror2/theme/vibrant-ink.css">
 
 	<link rel="stylesheet" href="drupalcon.css">
 
@@ -41,40 +47,43 @@
 	<script src="vendor/deck.js/modernizr.custom.js"></script>
 
 </head>
-<body class="deck-container">
+<body>
 
-<!-- Begin slides. Just make elements with a class of slide. -->
+  <article class="deck-container">
 
-<%- @content %>
+    <!-- Begin slides. Just make elements with a class of slide. -->
+    
+    <%- @content %>
+    
+    <!-- End slides. -->
 
-<!-- End slides. -->
 
+    <!-- Begin extension snippets. Add or remove as needed. -->
 
-<!-- Begin extension snippets. Add or remove as needed. -->
+    <!-- deck.navigation snippet -->
+    <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+    <a href="#" class="deck-next-link" title="Next">&#8594;</a>
 
-<!-- deck.navigation snippet -->
-<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
-<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+    <!-- deck.status snippet -->
+    <!-- <p class="deck-status"> -->
+    <!--   <span class="deck-status-current"></span> -->
+    <!--   / -->
+    <!--   <span class="deck-status-total"></span> -->
+    <!-- </p> -->
 
-<!-- deck.status snippet -->
-<p class="deck-status">
-	<span class="deck-status-current"></span>
-	/
-	<span class="deck-status-total"></span>
-</p>
+    <!-- deck.goto snippet -->
+    <form action="." method="get" class="goto-form">
+      <label for="goto-slide">Go to slide:</label>
+      <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+      <datalist id="goto-datalist"></datalist>
+      <input type="submit" value="Go">
+    </form>
 
-<!-- deck.goto snippet -->
-<form action="." method="get" class="goto-form">
-	<label for="goto-slide">Go to slide:</label>
-	<input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
-	<datalist id="goto-datalist"></datalist>
-	<input type="submit" value="Go">
-</form>
+    <!-- deck.hash snippet -->
+    <a href="." title="Permalink to this slide" class="deck-permalink">#</a>
 
-<!-- deck.hash snippet -->
-<a href="." title="Permalink to this slide" class="deck-permalink">#</a>
-
-<!-- End extension snippets. -->
+    <!-- End extension snippets. -->
+  </article>
 
 
 <!-- Required JS files. -->
@@ -86,9 +95,9 @@
 <script src="vendor/deck.js/extensions/hash/deck.hash.js"></script>
 <script src="vendor/deck.js/extensions/menu/deck.menu.js"></script>
 <script src="vendor/deck.js/extensions/goto/deck.goto.js"></script>
-<script src="vendor/deck.js/extensions/status/deck.status.js"></script>
+<!-- <script src="vendor/deck.js/extensions/status/deck.status.js"></script> -->
 <script src="vendor/deck.js/extensions/navigation/deck.navigation.js"></script>
-<script src="vendor/deck.js/extensions/scale/deck.scale.js"></script>
+<!-- <script src="vendor/deck.js/extensions/scale/deck.scale.js"></script> -->
 <script src="vendor/codemirror2/lib/codemirror.js"></script>
 <script src="vendor/codemirror2/mode/xml/xml.js"></script>
 <script src="vendor/codemirror2/mode/css/css.js"></script>
@@ -104,7 +113,7 @@
 	$(function() {
 		$.deck('section.slide', {
                    codemirror: {
-                     theme: "default",
+                     theme: "lesser-dark",
                      mode: "javascript",
                      lineNumbers: true
                    }

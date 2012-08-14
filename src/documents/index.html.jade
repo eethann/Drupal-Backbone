@@ -7,6 +7,10 @@ title: 'Backbone Development with Drupal'
 section.slide
   h1 Using the Drupal Backbone Module
 section.slide
+  h1 Don\'t forget the enemy: Spagetti Code
+section.slide
+  h1 TODO: Insert image from JS testing talk.
+section.slide
   h2 Load a node!
   textarea#node-fetch-js.code(mode="javascript")
     include code/node-fetch.js
@@ -14,28 +18,46 @@ section.slide
   h2 Automatic Parsing
   h3 TODO
 section.slide
-  h2 Create a node & save it:
+  h2 Create a node &amp; save it:
   textarea.code#node-create-js(mode="javascript")
     include code/node-create.js
 section.slide
-  h2 Other supported entities:
-  ul
-    li comments
-    li users
-    li taxonomy terms
+  h2 ...and comments...
+  textarea.code(mode="javascript")
+    include code/comment-model-examples.js
+section.slide
+  h2 ...or users...
+  textarea.code(mode="javascript")
+    include code/user-model-examples.js
+section.slide
+  h2 ...or files, or flags, or...
+section.slide
+  h2 behind the scenes: saving
+  div.box Drupal.Backbone.Models.Node --> Backbone.Model --> Backbone.sync --> Services REST API
+  // TODO convert that to a diagram
+  // TODO
+section.slide
+  h2 behind the scenes: loading
+  h3 fetch passes id to sync, sync requests data from Drupal, Drupal sends back info through parse method
+  div.box
+    pre
+      | Drupal.Backbone.Model.Node.fetch() --> Backbone.Model --> Backbone.sync --> Services REST API
+      |                                                                                     |
+      |                             Drupal.Backbone.Model.Node.parse() <-- Backbone.sync <--+ 
 section.slide
   h2 Depends on your JSON back-end:
-  ul
-    li Services (default)
-    li RestWS
-    li ContentAPI
+  div.box
+    ul
+      li Services (default)
+      li RestWS
+      li ContentAPI (in development)
 section.slide
   h2 Render a node...client-side!
 section.slide
   h2 With a twig.js template
-  p (handlebars or _.js also work)
-  textarea.code#node-display-twig(mode="jinja2", runnable="false")
+  textarea.code#node-display-twig(mode="jinja2")
     include code/node-display.twig.tpl.php
+  p (handlebars or _.js also work)
 section.slide
   h2 And a Backbone View:
   textarea.code#node-display-js(mode="javascript")
