@@ -64,8 +64,8 @@
     margin: 0;
     padding: 0;
     background: transparent;
-    font-family: inherit;
-    font-size: inherit;
+    /* font-family: inherit; */
+    /* font-size: inherit; */
     padding: 0;
     margin: 0;
     white-space: pre;

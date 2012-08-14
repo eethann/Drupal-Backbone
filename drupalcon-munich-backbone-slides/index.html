@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="vendor/deck.js/extensions/goto/deck.goto.css">
     <link rel="stylesheet" href="vendor/deck.js/extensions/menu/deck.menu.css">
     <link rel="stylesheet" href="vendor/deck.js/extensions/navigation/deck.navigation.css">
-    <link rel="stylesheet" href="vendor/deck.js/extensions/status/deck.status.css">
+    <!-- <link rel="stylesheet" href="vendor/deck.js/extensions/status/deck.status.css"> -->
     <link rel="stylesheet" href="vendor/deck.js/extensions/hash/deck.hash.css">
     <!-- <link rel="stylesheet" href="vendor/deck.js/extensions/scale/deck.scale.css"> -->
 
@@ -34,6 +34,12 @@
         <!-- <link rel="stylesheet" href="vendor/codemirror2/theme/monokai.css"> -->
         <link rel="stylesheet"
               href="vendor/deck.js-codemirror/themes/default.css">
+        <link rel="stylesheet"
+              href="vendor/codemirror2/theme/monokai.css">
+        <link rel="stylesheet"
+              href="vendor/codemirror2/theme/lesser-dark.css">
+        <link rel="stylesheet"
+              href="vendor/codemirror2/theme/vibrant-ink.css">
 
     <link rel="stylesheet" href="drupalcon.css">
 
@@ -41,24 +47,53 @@
     <script src="vendor/deck.js/modernizr.custom.js"></script>
 
 </head>
-<body class="deck-container">
+<body>
 
-<!-- Begin slides. Just make elements with a class of slide. -->
+  <article class="deck-container">
 
-<!-- TODO: add stack diagram--><!-- TODO: add funny pictures and jokes--><section class="slide"><h1>Using the Drupal Backbone Module</h1></section><section class="slide"><h2>Load a node!</h2><textarea id="node-fetch-js" mode="javascript" class="code">// Load a  node
+    <!-- Begin slides. Just make elements with a class of slide. -->
+    
+    <!-- TODO: add stack diagram--><!-- TODO: add funny pictures and jokes--><section class="slide"><h1>Using the Drupal Backbone Module</h1></section><section class="slide"><h1>Don\'t forget the enemy: Spagetti Code</h1></section><section class="slide"><h1>TODO: Insert image from JS testing talk.</h1></section><section class="slide"><h2>Load a node!</h2><textarea id="node-fetch-js" mode="javascript" class="code">// Load a  node
 var oneNode = Drupal.Backbone.Models.Node({nid: 1});
 myNode.fetch();
 console.log(oneNode.get('title'));
 oneNode.set('title', 'New Title!');
 console.dir(oneNode);
-</textarea></section><section class="slide"><h2>Automatic Parsing</h2><h3>TODO</h3></section><section class="slide"><h2>Create a node & save it:</h2><textarea id="node-create-js" mode="javascript" class="code">// Create and Save a comment
+</textarea></section><section class="slide"><h2>Automatic Parsing</h2><h3>TODO</h3></section><section class="slide"><h2>Create a node &amp; save it:</h2><textarea id="node-create-js" mode="javascript" class="code">// Create and Save a comment
 var myNode = Drupal.Backbone.Models.Node({
     type: "page",
     title: "This is a new comment",
     body: "That's it, really."
 });
 myNode.save();
-</textarea></section><section class="slide"><h2>Other supported entities:</h2><ul><li>comments</li><li>users</li><li>taxonomy terms</li></ul></section><section class="slide"><h2>Depends on your JSON back-end:</h2><ul><li>Services (default)</li><li>RestWS</li><li>ContentAPI</li></ul></section><section class="slide"><h2>Render a node...client-side!</h2></section><section class="slide"><h2>With a twig.js template</h2><p>(handlebars or _.js also work)</p><textarea id="node-display-twig" mode="jinja2" runnable="false" class="code"><article>
+</textarea></section><section class="slide"><h2>...and comments...</h2><textarea mode="javascript" class="code">// Create a comment
+var myComment = new Drupal.Backbone.Models.Comment({
+  nid: 1,
+  subject: "It's easier with Backbone.js",
+  body: "And it's more fun, too."
+});
+// Save a comment
+myComment.save();
+// Load a comment
+var serverComment = (new Drupal.Backbone.Models.Comment({cid:1})).fetch();
+// (yay chainable methods!)
+
+</textarea></section><section class="slide"><h2>...or users...</h2><textarea mode="javascript" class="code">// Create a user
+var myUser = new Drupal.Backbone.Models.User({
+    name: "Backbone User",
+    pass: "MyPass", // This goes away as soon as we save.
+    mail: "user@backbonejs.org"
+});
+// Save a user
+myUser.save();
+// Load a user
+var serverUser = (new Drupal.Backbone.Models.User({uid:1})).fetch();
+// We can log in too!
+serverUser.login("password") // TODO: implement logging in
+serverUser.logout();
+</textarea></section><section class="slide"><h2>...or files, or flags, or...</h2></section><section class="slide"><h2>behind the scenes: saving</h2><div class="box">Drupal.Backbone.Models.Node --> Backbone.Model --> Backbone.sync --> Services REST API</div><!-- TODO convert that to a diagram--><!-- TODO--></section><section class="slide"><h2>behind the scenes: loading</h2><h3>fetch passes id to sync, sync requests data from Drupal, Drupal sends back info through parse method</h3><div class="box"><pre>Drupal.Backbone.Model.Node.fetch() --&gt; Backbone.Model --&gt; Backbone.sync --&gt; Services REST API
+                                                                                    |
+                            Drupal.Backbone.Model.Node.parse() &lt;-- Backbone.sync &lt;--+ </pre></div></section><section class="slide"><h2>Depends on your JSON back-end:</h2><div class="box"><ul><li>Services (default)</li><li>RestWS</li><li>ContentAPI (in development)</li></ul></div></section><section class="slide"><h2>Render a node...client-side!</h2></section><section class="slide"><h2>With a twig.js template</h2><textarea id="node-display-twig" mode="jinja2" class="code"><article>
     <header>
         <title>
           {{ title }}
@@ -68,7 +103,7 @@ myNode.save();
       {{ body }}
     </div>
 </article>
-</textarea></section><section class="slide"><h2>And a Backbone View:</h2><textarea id="node-display-js" mode="javascript" class="code">// Display a node
+</textarea><p>(handlebars or _.js also work)</p></section><section class="slide"><h2>And a Backbone View:</h2><textarea id="node-display-js" mode="javascript" class="code">// Display a node
 // TODO: include template
 var NodeView = Drupal.Backbone.Views.Base.extend({
     templateSelector: '#template-one-node'
@@ -137,35 +172,36 @@ var NodeView = Drupal.Backbone.Views.Base.extend({
         this.model.save();
     }
 });</textarea></section><section class="slide"><h2>It automatically works in our collection view too!</h2></section><section class="slide"><h2>Backbone is all about delegation</h2></section><section class="slide"><h2>Setting up our Backbone Model</h2></section><section class="slide"><h2>A Simple Page callback</h2><pre><code contenteditable="true" class="PHP">// TODO: mock-module code</code></pre></section><section class="slide"><h2>Make a root element for our app</h2><pre><code contenteditable="true" class="PHP">// TODO: mock-module code</code></pre></section><section class="slide"><h2>Use the theme layer for templates</h2><pre><code contenteditable="true" class="PHP">// TODO: mock-module code</code></pre></section><section class="slide"><h2>Added advantage that we can use t()</h2><pre><code contenteditable="true" class="PHP">// TODO: mock-module code</code></pre></section><section class="slide"><h2>And now for some demos</h2></section><section class="slide"><h2>Node promotion app: buttons</h2></section><section class="slide"><h2>Node promotion app: jQuery UI</h2></section><section class="slide"><h2>Comment moderation: keyboard shortcuts</h2></section>
+    
+    <!-- End slides. -->
 
-<!-- End slides. -->
 
+    <!-- Begin extension snippets. Add or remove as needed. -->
 
-<!-- Begin extension snippets. Add or remove as needed. -->
+    <!-- deck.navigation snippet -->
+    <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+    <a href="#" class="deck-next-link" title="Next">&#8594;</a>
 
-<!-- deck.navigation snippet -->
-<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
-<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+    <!-- deck.status snippet -->
+    <!-- <p class="deck-status"> -->
+    <!--   <span class="deck-status-current"></span> -->
+    <!--   / -->
+    <!--   <span class="deck-status-total"></span> -->
+    <!-- </p> -->
 
-<!-- deck.status snippet -->
-<p class="deck-status">
-    <span class="deck-status-current"></span>
-    /
-    <span class="deck-status-total"></span>
-</p>
+    <!-- deck.goto snippet -->
+    <form action="." method="get" class="goto-form">
+      <label for="goto-slide">Go to slide:</label>
+      <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+      <datalist id="goto-datalist"></datalist>
+      <input type="submit" value="Go">
+    </form>
 
-<!-- deck.goto snippet -->
-<form action="." method="get" class="goto-form">
-    <label for="goto-slide">Go to slide:</label>
-    <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
-    <datalist id="goto-datalist"></datalist>
-    <input type="submit" value="Go">
-</form>
+    <!-- deck.hash snippet -->
+    <a href="." title="Permalink to this slide" class="deck-permalink">#</a>
 
-<!-- deck.hash snippet -->
-<a href="." title="Permalink to this slide" class="deck-permalink">#</a>
-
-<!-- End extension snippets. -->
+    <!-- End extension snippets. -->
+  </article>
 
 
 <!-- Required JS files. -->
@@ -177,9 +213,9 @@ var NodeView = Drupal.Backbone.Views.Base.extend({
 <script src="vendor/deck.js/extensions/hash/deck.hash.js"></script>
 <script src="vendor/deck.js/extensions/menu/deck.menu.js"></script>
 <script src="vendor/deck.js/extensions/goto/deck.goto.js"></script>
-<script src="vendor/deck.js/extensions/status/deck.status.js"></script>
+<!-- <script src="vendor/deck.js/extensions/status/deck.status.js"></script> -->
 <script src="vendor/deck.js/extensions/navigation/deck.navigation.js"></script>
-<script src="vendor/deck.js/extensions/scale/deck.scale.js"></script>
+<!-- <script src="vendor/deck.js/extensions/scale/deck.scale.js"></script> -->
 <script src="vendor/codemirror2/lib/codemirror.js"></script>
 <script src="vendor/codemirror2/mode/xml/xml.js"></script>
 <script src="vendor/codemirror2/mode/css/css.js"></script>
@@ -195,7 +231,7 @@ var NodeView = Drupal.Backbone.Views.Base.extend({
     $(function() {
         $.deck('section.slide', {
                    codemirror: {
-                     theme: "default",
+                     theme: "lesser-dark",
                      mode: "javascript",
                      lineNumbers: true
                    }

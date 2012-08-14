@@ -1,24 +1,25 @@
+body {
+  background: #0073ac url(template-bg.png) no-repeat fixed center;
+  padding: 0;
+}
+
 .deck-container {
-  font-family: "Helvetica Neue", sans-serif;
+  font-family: "Ubuntu", Arial, sans-serif;
   font-size: 1.75em;
-  background-image: url("body_bg.jpg");
+  width: auto;
+  max-width: 960px;
+  min-height: 474px;
+  margin: 172px auto 50px auto;
+  padding: 0;
 }
 .deck-container .slide {
-  background-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.8);
+  -webkit-box-shadow: 4px, 4px, 10px, black;
+  -moz-box-shadow: 4px, 4px, 10px, black;
+  box-shadow: 4px, 4px, 10px, black;
 }
 .deck-container .slide h1, .deck-container .slide h2 {
-  background-color: white;
-  -webkit-border-radius: 0.25em;
-  -moz-border-radius: 0.25em;
-  -ms-border-radius: 0.25em;
-  -o-border-radius: 0.25em;
-  border-radius: 0.25em;
-  border-color: #0073AC;
-  border-width: 2px;
-  border-style: solid;
-  -webkit-box-shadow: -2px 2px 0px #104877;
-  -moz-box-shadow: -2px 2px 0px #104877;
-  box-shadow: -2px 2px 0px #104877;
+  border: none;
 }
 .deck-container .slide h1 {
   color: #0073ac;
@@ -42,13 +43,13 @@
 }
 .deck-container .slide h3 {
   color: #0073ac;
-  background-color: white;
   font-family: 'Ubuntu',Arial,sans-serif;
   font-weight: 400;
   font-size: 1.25em;
 }
 .deck-container .slide pre, .deck-container .slide code {
-  font-family: 'Inconsolata-g', 'Inconsolata', monospace;
+  font-family: "Inconsolata", monospace;
+  font-size: 0.75em;
 }
 .deck-container .slide pre {
   border-color: #104877;
@@ -73,15 +74,15 @@
   color: #888;
 }
 .deck-container .slide ::-moz-selection, .deck-container .slide ::selection {
-  background: #c00;
+  background: #0073ac;
   color: #fff;
 }
 .deck-container .slide a {
-  color: #c00;
+  color: #0073ac;
   text-decoration: none;
 }
 .deck-container .slide a:hover, .deck-container .slide a:focus, .deck-container .slide a:active, .deck-container .slide a:visited {
-  color: #c00;
+  color: #0073ac;
   text-decoration: none;
 }
 .deck-container .slide a:hover, .deck-container .slide a:focus {
@@ -147,27 +148,6 @@
   -moz-box-shadow: -2px 2px 0px #104877;
   box-shadow: -2px 2px 0px #104877;
 }
-.deck-container .slide .CodeMirror {
-  -moz-border-radius-topleft: 0.5em;
-  -webkit-border-top-left-radius: 0.5em;
-  border-top-left-radius: 0.5em;
-  -moz-border-radius-topright: 0.5em;
-  -webkit-border-top-right-radius: 0.5em;
-  border-top-right-radius: 0.5em;
-}
-.deck-container .slide .deck-codemirror-result {
-  -moz-border-radius-bottomleft: 0.5em;
-  -webkit-border-bottom-left-radius: 0.5em;
-  border-bottom-left-radius: 0.5em;
-  -moz-border-radius-bottomright: 0.5em;
-  -webkit-border-bottom-right-radius: 0.5em;
-  border-bottom-right-radius: 0.5em;
-}
 .deck-container .slide .CodeMirror-gutter {
-  -moz-border-radius-topleft: 0.5em;
-  -webkit-border-top-left-radius: 0.5em;
-  border-top-left-radius: 0.5em;
-  -moz-border-radius-bottomleft: 0.5em;
-  -webkit-border-bottom-left-radius: 0.5em;
-  border-bottom-left-radius: 0.5em;
+  background-color: inherit;
 }
