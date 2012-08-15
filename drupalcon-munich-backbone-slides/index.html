@@ -53,7 +53,7 @@
 
     <!-- Begin slides. Just make elements with a class of slide. -->
     
-    <!-- TODO: add stack diagram--><!-- TODO: add funny pictures and jokes--><section class="slide"><h1>Using the Drupal Backbone Module</h1></section><section class="slide"><h1>Don\'t forget the enemy: Spagetti Code</h1></section><section class="slide"><h1>TODO: Insert image from JS testing talk.</h1></section><section class="slide"><h2>Load a node!</h2><textarea id="node-fetch-js" mode="javascript" class="code">// Load a  node
+    <!-- TODO: add funny pictures and jokes--><section class="slide"><h1>Using the Drupal Backbone Module</h1><div class="below">Ethan Winn - ethanw/@eethann/ethan@echoditto.com</div></section><section class="slide"><h1>The enemy is...</h1></section><section class="slide"><h2>Spagetti Code!</h2><img src="images/spaghetti-js.png"/><p>(TODO: insert attribution)</p></section><section class="slide"><h1>Backbone Can Help</h1></section><!-- section.slide--><!--   h1 Backbone and Drupal are TOTTALLY BFFs!--><section class="slide"><h2>Let's break it down</h2><!--'--><img src="http://i.chzbgr.com/completestore/2010/10/4/74506b4d-6ad6-47ed-a3b9-8f6c48c5cf07.jpg"/></section><section class="slide"><h1>1. Requesting</h1></section><section class="slide"><h2>Load a node!</h2><textarea id="node-fetch-js" mode="javascript" class="code">// Load a  node
 var oneNode = Drupal.Backbone.Models.Node({nid: 1});
 myNode.fetch();
 console.log(oneNode.get('title'));
@@ -91,9 +91,7 @@ var serverUser = (new Drupal.Backbone.Models.User({uid:1})).fetch();
 // We can log in too!
 serverUser.login("password") // TODO: implement logging in
 serverUser.logout();
-</textarea></section><section class="slide"><h2>...or files, or flags, or...</h2></section><section class="slide"><h2>behind the scenes: saving</h2><div class="box">Drupal.Backbone.Models.Node --> Backbone.Model --> Backbone.sync --> Services REST API</div><!-- TODO convert that to a diagram--><!-- TODO--></section><section class="slide"><h2>behind the scenes: loading</h2><h3>fetch passes id to sync, sync requests data from Drupal, Drupal sends back info through parse method</h3><div class="box"><pre>Drupal.Backbone.Model.Node.fetch() --&gt; Backbone.Model --&gt; Backbone.sync --&gt; Services REST API
-                                                                                    |
-                            Drupal.Backbone.Model.Node.parse() &lt;-- Backbone.sync &lt;--+ </pre></div></section><section class="slide"><h2>Depends on your JSON back-end:</h2><div class="box"><ul><li>Services (default)</li><li>RestWS</li><li>ContentAPI (in development)</li></ul></div></section><section class="slide"><h2>Render a node...client-side!</h2></section><section class="slide"><h2>With a twig.js template</h2><textarea id="node-display-twig" mode="jinja2" class="code"><article>
+</textarea></section><section class="slide"><h2>...or files, or flags, or...</h2></section><section class="slide"><h2>Behind the Scenes: Saving</h2><img src="images/node-save-activity.png"/></section><section class="slide"><h2>Behind the Scenes: Loading</h2><img src="images/node-load-activity.png"/></section><section class="slide"><h2>Backbone.sync can point to anything:</h2><object data="images/Promiscuous Backbone Architecture.svg" type="image/svg+xml"><img src="images/Promiscuous Backbone Architecture.png"/></object></section><section class="slide"><h1>2. Rendering</h1></section><section class="slide"><h2>...client-side!</h2></section><section class="slide"><h2>With a twig.js template</h2><textarea id="node-display-twig" mode="jinja2" class="code"><article>
     <header>
         <title>
           {{ title }}
@@ -122,31 +120,7 @@ myNodeView.render();
 
 // Now we change something: 
 myNode.set('title', 'Magic!');
-</textarea></section><section class="slide"><h2>Load lots of nodes!</h2><h3>(via search!!!)</h3><textarea id="collection-load-js" mode="javascript" class="code">// Load a collection
-var mySearchResults = Drupal.Backbone.Collections.Search({
-    model: Drupal.Backbone.Models.Node,
-    q: "Test"
-});
-mySearchResults.fetch();
-mySearchResults.get(1).set('title', "I was in a collection!");
-mySearchResults.save();
-</textarea></section><section class="slide"><h2>Other supported listing types</h2><ul><li>Views</li><li>Searches</li><li>Entity References (coming soon!)</li></ul></section><section class="slide"><h2>Rendering lots of nodes: the "Collection View" pattern</h2></section><section class="slide"><h2>Another simple template</h2><textarea mode="jinja2" class="code"><h1>Search results for "{{q}}"</h1>
-<ul class="search-results">
-  {# Search results go here, via ViewCollection.render #}
-</ul>
-</textarea></section><section class="slide"><h2>And a Backbone View</h2><textarea mode="javascript" class="code">// Display a collection
-// TODO: make collection view base for Drupal Backbone
-var SearchResultsView = Drupal.Backbone.Views.Collection.extend({
-    modelView: NodeView,
-    templateSelector: "#template-search-results-collection"
-});
-var mySearchResultsView = SearchResultsView({
-    collection: mySearchResults
-});
-mySearchResultsView.render();
-mySearchResults.get(2).set('title', 'Super Magic!!');
-
-</textarea></section><section class="slide"><h2>Backbone Views also handle User Events</h2></section><section class="slide"><h2>We just add a button to our node template</h2><textarea id="event-binding-tpl" mode="jinja2" runnable="false" class="code"><article>
+</textarea></section><section class="slide"><h1>3. Responding</h1></section><section class="slide"><h2>Backbone Views also handle User Events</h2></section><section class="slide"><h2>We just add a button to our node template</h2><textarea id="event-binding-tpl" mode="jinja2" runnable="false" class="code"><article>
     <header>
         <title>
           {{ title }}
@@ -171,7 +145,31 @@ var NodeView = Drupal.Backbone.Views.Base.extend({
         this.model.set('promoted', !this.model.get('promoted'));
         this.model.save();
     }
-});</textarea></section><section class="slide"><h2>It automatically works in our collection view too!</h2></section><section class="slide"><h2>Backbone is all about delegation</h2></section><section class="slide"><h2>Setting up our Backbone Model</h2></section><section class="slide"><h2>A Simple Page callback</h2><pre><code contenteditable="true" class="PHP">// TODO: mock-module code</code></pre></section><section class="slide"><h2>Make a root element for our app</h2><pre><code contenteditable="true" class="PHP">// TODO: mock-module code</code></pre></section><section class="slide"><h2>Use the theme layer for templates</h2><pre><code contenteditable="true" class="PHP">// TODO: mock-module code</code></pre></section><section class="slide"><h2>Added advantage that we can use t()</h2><pre><code contenteditable="true" class="PHP">// TODO: mock-module code</code></pre></section><section class="slide"><h2>And now for some demos</h2></section><section class="slide"><h2>Node promotion app: buttons</h2></section><section class="slide"><h2>Node promotion app: jQuery UI</h2></section><section class="slide"><h2>Comment moderation: keyboard shortcuts</h2></section>
+});</textarea></section><section class="slide"><h1>Plus collections</h1></section><section class="slide"><img src="images/load-all-the-nodes-q.png"/></section><section class="slide"><img src="images/load-all-the-nodes-x.png"/></section><section class="slide"><h2>Load lots of nodes!</h2><h3>(via search!!!)</h3><textarea id="collection-load-js" mode="javascript" class="code">// Load a collection
+var mySearchResults = Drupal.Backbone.Collections.Search({
+    model: Drupal.Backbone.Models.Node,
+    q: "Test"
+});
+mySearchResults.fetch();
+mySearchResults.get(1).set('title', "I was in a collection!");
+mySearchResults.save();
+</textarea></section><section class="slide"><h2>Other supported listing types</h2><ul><li>Views</li><li>Searches</li><li>Entity References (coming soon!)</li></ul></section><section class="slide"><h2>Rendering lots of nodes: the "Collection View" pattern</h2></section><section class="slide"><h2>Another simple template</h2><textarea mode="jinja2" class="code"><h1>Search results for "{{q}}"</h1>
+<ul class="search-results">
+  {# Search results go here, via ViewCollection.render #}
+</ul>
+</textarea></section><section class="slide"><h2>And a Backbone View</h2><textarea mode="javascript" class="code">// Display a collection
+// TODO: make collection view base for Drupal Backbone
+var SearchResultsView = Drupal.Backbone.Views.Collection.extend({
+    modelView: NodeView,
+    templateSelector: "#template-search-results-collection"
+});
+var mySearchResultsView = SearchResultsView({
+    collection: mySearchResults
+});
+mySearchResultsView.render();
+mySearchResults.get(2).set('title', 'Super Magic!!');
+
+</textarea></section><section class="slide"><h2>Events automatically works in our collection view too!</h2></section><section class="slide"><h2>Backbone is all about delegation</h2></section><section class="slide"><h2>The Drupal Backbone Stack</h2><object data="images/Drupal Backbone App Structure.svg" type="image/svg+xml"><img src="images/Drupal Backbone App Structure.png"/></object></section><section class="slide"><h2>Setting up our Backbone Module</h2></section><section class="slide"><h2>A Simple Page callback</h2><pre><code contenteditable="true" class="PHP">// TODO: mock-module code</code></pre></section><section class="slide"><h2>Make a root element for our app</h2><pre><code contenteditable="true" class="PHP">// TODO: mock-module code</code></pre></section><section class="slide"><h2>Use the theme layer for templates</h2><pre><code contenteditable="true" class="PHP">// TODO: mock-module code</code></pre></section><section class="slide"><h2>Added advantage that we can use t()</h2><pre><code contenteditable="true" class="PHP">// TODO: mock-module code</code></pre></section><section class="slide"><h2>And now for some demos</h2></section><section class="slide"><h2>Node promotion app: buttons</h2></section><section class="slide"><h2>Node promotion app: jQuery UI</h2></section><section class="slide"><h2>Comment moderation: keyboard shortcuts</h2></section>
     
     <!-- End slides. -->
 

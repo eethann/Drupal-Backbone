@@ -1,0 +1,47 @@
+@startuml ../../files/images/node-save-activity.png
+!include "plantuml-skin.plantuml.txt"
+
+box "Client-Side"
+participant MyNodeModel as mynode
+participant Drupal.Backbone.Models.Node as node
+participant "Backbone.sync" as sync
+end box
+box "Server-Side"
+participant "Drupal REST Server" as drupal
+end box
+
+activate mynode
+activate node
+mynode --> node: self/parent.save() method
+note left
+  Drupal Backbone module
+  implements save methods
+  for a variety of backends
+  and entities
+end note
+activate sync
+node --> sync: Run toJSON() and queue sending
+activate drupal
+sync --> drupal: Send JSON Data via REST
+note right
+  REST may be Services,
+  RestWS, Content API,
+  or custom
+end note
+...
+drupal -> sync: Updated Node Data
+note left
+  Includes nid
+  for create
+end note
+deactivate drupal
+sync -> node: Updated JSON
+deactivate sync
+node -> mynode: Update ID and any other props.
+note left
+  model change events
+  triggered after parsing
+end note
+deactivate node
+deactivate mynode
+@enduml

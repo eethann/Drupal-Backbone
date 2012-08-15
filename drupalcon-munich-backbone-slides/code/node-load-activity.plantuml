@@ -1,0 +1,44 @@
+@startuml ../../files/images/node-load-activity.png
+!include "plantuml-skin.plantuml.txt"
+
+box "Client-Side"
+participant MyNodeModel as mynode
+participant Drupal.Backbone.Models.Node as node
+participant "Backbone.sync" as sync
+end box
+box "Server-Side"
+participant "Drupal REST Server" as drupal
+end box
+
+activate mynode
+activate node
+mynode --> node: self/parent.fetch() method
+note left
+  Drupal Backbone module
+  implements fetch methods
+  for a variety of backends
+  and entities
+end note
+activate sync
+node --> sync: Queue request with NID as ID
+activate drupal
+sync --> drupal: REST Request
+note right
+  REST may be Services,
+  RestWS, Content API,
+  or custom
+end note
+...
+drupal -> sync: JSON Node Data
+deactivate drupal
+sync -> node: Raw Data Object for parse()
+deactivate sync
+node -> mynode: Use default Node.parse() or override
+mynode -> mynode: Finish with custom parsing
+note left
+  model change events
+  triggered after parsing
+end note
+deactivate node
+deactivate mynode
+@enduml

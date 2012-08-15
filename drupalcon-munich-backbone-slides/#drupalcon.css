@@ -1,0 +1,195 @@
+@import "compass";
+@import "compass/css3";
+$dark-blue: #104877;
+$strong-blue: #0073AC;
+
+$h-font: 'Ubuntu',Arial,sans-serif;
+$m-font: 'Inconsolata', monospace;
+
+$default-text-shadow-color: $dark-blue;
+$default-text-shadow-blur: 0px;
+$default-text-shadow-v-offset: 3px;
+$default-text-shadow-h-offset: -1px;
+
+$default-box-shadow-color: $dark-blue;
+$default-box-shadow-blur: 0px;
+$default-box-shadow-v-offset: 2px;
+$default-box-shadow-h-offset: -2px;
+
+body {
+    background: $strong-blue url(template-bg.png) no-repeat fixed center;
+    padding: 0;
+}
+
+
+.deck-container {
+    font-family: $h-font;
+    font-size: 1.75em;
+    width: auto;
+    max-width: 960px;
+    min-height: 474px;
+    margin: 172px auto 50px auto;
+    padding: 0;
+    .slide {
+      background: rgba(#FFF, 0.8);
+      @include box-shadow(4px, 4px, 10px, #000);
+      h1, h2 {
+          border: none;
+      }
+      h1 {
+          color: $strong-blue;
+          font-family: $h-font;
+          font-weight: 700;
+          font-size: 2.5em; /* */
+          text-transform: uppercase;
+          @include text-shadow();
+          margin: 0px 2em;
+      }
+      h2 {
+          color: $strong-blue;
+          line-height: 100%;
+          padding: 10px;
+          margin: 0 0 0.5em 0;
+          font-family: 'Ubuntu',Arial,sans-serif;
+          font-weight: 700;
+          font-size: 1.75em;
+          @include text-shadow();
+      }
+    h3 {
+      color: $strong-blue;
+      font-family: 'Ubuntu',Arial,sans-serif;
+      font-weight: 400;
+      font-size: 1.25em;
+    }
+    img {
+            border-color: #0073AC;
+            border-width: 2px;
+            @include box-shadow();    
+    }
+    object {
+            border-color: #0073AC;
+            border-width: 2px;
+            @include box-shadow();
+            height: 100%;
+    }
+    pre, code {
+        font-family: $m-font;
+        font-size: 0.75em;
+    }
+    pre {
+      border-color: #104877;
+    }
+    code {
+      color: #888;
+    }
+    blockquote {
+      font-size: 2em;
+      font-style: italic;
+      padding: 1em 2em;
+      color: #000;
+      border-left: 5px solid #ccc;
+      p {
+        margin: 0;
+      }
+      cite {
+        font-size: .5em;
+        font-style: normal;
+        font-weight: bold;
+        color: #888;
+      }
+    }
+    ::-moz-selection, ::selection {
+      background: $strong-blue;
+      color: #fff;
+    }
+    a {
+      color: $strong-blue;
+      text-decoration: none;
+      &:hover, &:focus, &:active, &:visited {
+        color: $strong-blue;
+        text-decoration: none;
+      }
+      &:hover, &:focus {
+        text-decoration: underline;
+      }
+    }
+  }
+  > .slide {
+    .deck-before, .deck-previous {
+      opacity: 0.4;
+    }
+    .deck-before:not(.deck-child-current) {
+      .deck-before, .deck-previous {
+        opacity: 1;
+      }
+    }
+    .deck-previous:not(.deck-child-current) {
+      .deck-before, .deck-previous {
+        opacity: 1;
+      }
+    }
+    .deck-child-current {
+      opacity: 1;
+    }
+  }
+  .deck-prev-link, .deck-next-link {
+    background: rgba(#ccc,0.5);
+    font-family: serif;
+  }
+  .deck-prev-link {
+    color: #fff;
+    &:hover, &:focus, &:active, &:visited {
+      color: #fff;
+    }
+  }
+  .deck-next-link {
+    color: #fff;
+    &:hover, &:focus, &:active, &:visited {
+      color: #fff;
+    }
+  }
+  .deck-prev-link {
+    &:hover, &:focus {
+      background: rgba($strong-blue,0.5);
+      text-decoration: none;
+    }
+  }
+  .deck-next-link {
+    &:hover, &:focus {
+      background: rgba($strong-blue,0.5);
+      text-decoration: none;
+    }
+  }
+  .deck-status {
+    font-size: 0.6666em;
+  }
+  &.deck-menu {
+    .slide {
+      background: #eee;
+    }
+    .deck-current {
+      background: #ddf;
+    }
+  }
+}
+
+.no-touch .deck-container.deck-menu .slide:hover {
+  background: #ddf;
+}
+
+/* CodeMirror Specific */
+.deck-container {
+    .slide {
+        .deck-codemirror-result,
+        .CodeMirror {
+            border-color: #0073AC;
+            border-width: 2px;
+            background-color: white;
+            @include box-shadow();
+        }
+        .CodeMirror-gutter {
+            background-color: inherit;
+        }
+
+    }
+}

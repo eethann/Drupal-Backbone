@@ -1,5 +1,5 @@
 body {
-  background: #0073ac url(template-bg.png) no-repeat fixed center;
+  background: #0073ac url(template-bg.png) no-repeat fixed center top;
   padding: 0;
 }
 
@@ -9,7 +9,7 @@ body {
   width: auto;
   max-width: 960px;
   min-height: 474px;
-  margin: 172px auto 50px auto;
+  margin: 195px auto 50px auto;
   padding: 0;
 }
 .deck-container .slide {
@@ -35,7 +35,7 @@ body {
   color: #0073ac;
   line-height: 100%;
   padding: 10px;
-  margin-top: 0.5em;
+  margin: 0 0 0.5em 0;
   font-family: 'Ubuntu',Arial,sans-serif;
   font-weight: 700;
   font-size: 1.75em;
@@ -46,6 +46,27 @@ body {
   font-family: 'Ubuntu',Arial,sans-serif;
   font-weight: 400;
   font-size: 1.25em;
+}
+.deck-container .slide .below {
+  position: absolute;
+  bottom: 0px;
+}
+.deck-container .slide img .bordered {
+  -webkit-box-shadow: -2px 2px 0px #104877;
+  -moz-box-shadow: -2px 2px 0px #104877;
+  box-shadow: -2px 2px 0px #104877;
+  border-color: #0073AC;
+  border-width: 2px;
+  border-style: solid;
+}
+.deck-container .slide object {
+  border-color: #0073AC;
+  border-width: 2px;
+  border-style: solid;
+  height: 100%;
+  -webkit-box-shadow: -2px 2px 0px #104877;
+  -moz-box-shadow: -2px 2px 0px #104877;
+  box-shadow: -2px 2px 0px #104877;
 }
 .deck-container .slide pre, .deck-container .slide code {
   font-family: "Inconsolata", monospace;

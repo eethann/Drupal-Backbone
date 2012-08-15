@@ -1,0 +1,11 @@
+    digraph G {
+         node [fontname="Inconsolata-g", fillcolor=gray92, style="filled,rounded", shape="rect"]
+         edge [fontname="Inconsolata-g",fontsize="10"]
+        N [label="Node Model"]
+        B [label="Backbone.sync"]
+        S [label="Drupal REST Service"]
+        N->B [label="Passes Request with NID as REST ID"]
+        B->S [label="Sends Request To",color=blue,fontcolor=blue]
+        S->B [label="Responds with Node JSON Object",color=orange,fontcolor=orange]
+        B->N [label="Calls parse() method of model with values",color=orange,fontcolor=orange]
+    }
