@@ -70,7 +70,7 @@ body {
 }
 .deck-container .slide pre, .deck-container .slide code {
   font-family: "Inconsolata", monospace;
-  font-size: 0.75em;
+  font-size: 0.65em;
 }
 .deck-container .slide pre {
   border-color: #104877;

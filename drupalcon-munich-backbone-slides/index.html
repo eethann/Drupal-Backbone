@@ -9,10 +9,10 @@
     <meta name="description" content="The DrupalCon Munich 2012 Drupal and Backbone session slides." />
     <meta name="keywords" content="drupal, backbone, drupalcon, ethan winn, echoditto, javascript, backbone.js, drupal backbone" />
     <meta http-equiv="X-Powered-By" content="DocPad"/>
-    
+
     <!-- Required stylesheet -->
     <link rel="stylesheet" href="vendor/deck.js/core/deck.core.css">
-    
+
     <!-- Extension CSS files go here. Remove or add as needed. -->
     <link rel="stylesheet" href="vendor/deck.js/extensions/goto/deck.goto.css">
     <link rel="stylesheet" href="vendor/deck.js/extensions/menu/deck.menu.css">
@@ -52,8 +52,10 @@
   <article class="deck-container">
 
     <!-- Begin slides. Just make elements with a class of slide. -->
-    
-    <!-- TODO: add funny pictures and jokes--><section class="slide"><h1>Using the Drupal Backbone Module</h1><div class="below">Ethan Winn - ethanw/@eethann/ethan@echoditto.com</div></section><section class="slide"><h1>The enemy is...</h1></section><section class="slide"><h2>Spagetti Code!</h2><img src="images/spaghetti-js.png"/><p>(TODO: insert attribution)</p></section><section class="slide"><h1>Backbone Can Help</h1></section><!-- section.slide--><!--   h1 Backbone and Drupal are TOTTALLY BFFs!--><section class="slide"><h2>Let's break it down</h2><!--'--><img src="http://i.chzbgr.com/completestore/2010/10/4/74506b4d-6ad6-47ed-a3b9-8f6c48c5cf07.jpg"/></section><section class="slide"><h1>1. Requesting</h1></section><section class="slide"><h2>Load a node!</h2><textarea id="node-fetch-js" mode="javascript" class="code">// Load a  node
+
+    <!-- TODO: add funny pictures and jokes--><section class="slide"><h1>Using the Drupal Backbone Module</h1><div class="below">Ethan Winn - ethanw/@eethann/ethan@echoditto.com</div></section><section class="slide"><h1>Do not forget the enemy:</h1></section><section class="slide"><h2>Spagetti Code!</h2><img src="images/spaghetti-js.png"/><p>(TODO: insert attribution)</p></section><section class="slide"><h1>Backbone Can Help</h1></section><!-- section.slide--><!--   h1 Backbone and Drupal are TOTTALLY BFFs!--><section class="slide"><h2>Let's break it down</h2><!--'--><img src="http://i.chzbgr.com/completestore/2010/10/4/74506b4d-6ad6-47ed-a3b9-8f6c48c5cf07.jpg"/></section><section class="slide"><h1>1. Requesting
+2. Rendering
+3. Responding</h1><!-- NOTE: this is the real threesome for Backbone, more than "MVC"--></section><section class="slide"><h1>1. Requesting</h1></section><section class="slide"><h2>Load a node!</h2><textarea id="node-fetch-js" mode="javascript" class="code">// Load a  node
 var oneNode = Drupal.Backbone.Models.Node({nid: 1});
 myNode.fetch();
 console.log(oneNode.get('title'));
@@ -120,7 +122,8 @@ myNodeView.render();
 
 // Now we change something: 
 myNode.set('title', 'Magic!');
-</textarea></section><section class="slide"><h1>3. Responding</h1></section><section class="slide"><h2>Backbone Views also handle User Events</h2></section><section class="slide"><h2>We just add a button to our node template</h2><textarea id="event-binding-tpl" mode="jinja2" runnable="false" class="code"><article>
+</textarea></section><section class="slide"><h1>3. Responding</h1></section><section class="slide"><h2>Backbone Views also handle User Events</h2></section><section class="slide"><h2>We just add a button to our node template</h2><textarea id="event-binding-tpl" mode="jinja2" runnable="false" class="code"><?php
+<article>
     <header>
         <title>
           {{ title }}
@@ -132,7 +135,7 @@ myNode.set('title', 'Magic!');
       {{ body }}
     </div>
 </article>
-</textarea></section><section class="slide"><h2>And add a listener in our view</h2><textarea id="collection-item-event-binding-js" mode="javascript" class="code">// Changing a node example
+?></textarea></section><section class="slide"><h2>And add a listener in our view</h2><textarea id="collection-item-event-binding-js" mode="javascript" class="code">// Changing a node example
 var NodeView = Drupal.Backbone.Views.Base.extend({
     events: {
         'click .promote-toggle': promoteToggle
@@ -145,7 +148,7 @@ var NodeView = Drupal.Backbone.Views.Base.extend({
         this.model.set('promoted', !this.model.get('promoted'));
         this.model.save();
     }
-});</textarea></section><section class="slide"><h1>Plus collections</h1></section><section class="slide"><img src="images/load-all-the-nodes-q.png"/></section><section class="slide"><img src="images/load-all-the-nodes-x.png"/></section><section class="slide"><h2>Load lots of nodes!</h2><h3>(via search!!!)</h3><textarea id="collection-load-js" mode="javascript" class="code">// Load a collection
+});</textarea></section><section class="slide"><h1>Plus: 4. Collections!!</h1></section><section class="slide"><img src="images/load-all-the-nodes-q.png"/></section><section class="slide"><img src="images/load-all-the-nodes-x.png"/></section><section class="slide"><h2>Load lots of nodes!</h2><h3>(via search!!!)</h3><textarea id="collection-load-js" mode="javascript" class="code">// Load a collection
 var mySearchResults = Drupal.Backbone.Collections.Search({
     model: Drupal.Backbone.Models.Node,
     q: "Test"
@@ -169,8 +172,63 @@ var mySearchResultsView = SearchResultsView({
 mySearchResultsView.render();
 mySearchResults.get(2).set('title', 'Super Magic!!');
 
-</textarea></section><section class="slide"><h2>Events automatically works in our collection view too!</h2></section><section class="slide"><h2>Backbone is all about delegation</h2></section><section class="slide"><h2>The Drupal Backbone Stack</h2><object data="images/Drupal Backbone App Structure.svg" type="image/svg+xml"><img src="images/Drupal Backbone App Structure.png"/></object></section><section class="slide"><h2>Setting up our Backbone Module</h2></section><section class="slide"><h2>A Simple Page callback</h2><pre><code contenteditable="true" class="PHP">// TODO: mock-module code</code></pre></section><section class="slide"><h2>Make a root element for our app</h2><pre><code contenteditable="true" class="PHP">// TODO: mock-module code</code></pre></section><section class="slide"><h2>Use the theme layer for templates</h2><pre><code contenteditable="true" class="PHP">// TODO: mock-module code</code></pre></section><section class="slide"><h2>Added advantage that we can use t()</h2><pre><code contenteditable="true" class="PHP">// TODO: mock-module code</code></pre></section><section class="slide"><h2>And now for some demos</h2></section><section class="slide"><h2>Node promotion app: buttons</h2></section><section class="slide"><h2>Node promotion app: jQuery UI</h2></section><section class="slide"><h2>Comment moderation: keyboard shortcuts</h2></section>
-    
+</textarea></section><section class="slide"><h2>Events automatically works in our collection view too!</h2></section><section class="slide"><h2>Backbone is all about delegation</h2></section><section class="slide"><h2>The Drupal Backbone Stack</h2><!--object(data="images/Drupal Backbone App Structure.svg", type="image/svg+xml")--><img src="images/Drupal Backbone App Structure.png"/></section><section class="slide"><h2>Setting up our Backbone Module</h2></section><section id="callback" class="slide"><h2>Menu Callback: App Path</h2><textarea id="module-hook" mode="php" class="code"><?php
+function backbone_example_menu() {
+  $items['backbone_example'] = array(
+    'title' => 'Backbone Example',
+    'page callback' => 'backbone_example_admin_page',
+    // ...snip...
+  );
+  return $items;
+}
+?></textarea></section><section class="slide"><h2>Page Callback: Includes Backbone Lib and App JS</h2><textarea id="module-inc" mode="php" class="code"><?php
+function backbone_example_admin_page() {
+  // Add templates to page.
+  backbone_add_template('backbone-example-node-template', theme('backbone_example_node_template'));
+  backbone_add_template('backbone-example-app-template', theme('backbone_example_app_template'));
+  // Add app js.
+  drupal_add_js(drupal_get_path('module', 'backbone_example') . '/js/backbone_example_app.js');
+  // ...*snip*...
+}
+?>
+</textarea><!--TODO: dtermine is library should/can be included here--></section><section class="slide"><h2>Make a root element for our app</h2><textarea id="module-root" mode="php" class="code"><?php
+function backbone_example_admin_page() {
+  // ...snip...
+  return array(
+    '#type' => 'html_tag',
+    '#tag' => 'div',
+    '#attributes' => array(
+      'id' => 'backbone-example-app',
+    ),
+  );
+}
+?></textarea></section><section class="slide"><h2>Use the theme layer for templates</h2><textarea id="module-theme" mode="php" class="code"><?php
+function backbone_example_theme($existing, $type, $theme, $path) {
+  return array(
+    'backbone_example_node_template' => array(
+      'variables' => array(),
+    ),
+    'backbone_example_app_template' => array(
+      'template' => 'backbone-example-app-template',
+      'variables' => array(),
+    ),
+  );
+}
+?></textarea></section><section class="slide"><h2>Added advantage that we can use t()</h2><textarea id="module-theme" mode="jinja2" class="code"><?php
+<article>
+    <header>
+        <title>
+          {{ title }}
+        </title>
+        {# Add a button element to toggle promote status #}
+        <button value="<?php t('Promote'); ?>'" class="promote-toggle"/>
+    </header>
+    <div class="body">
+      {{ body }}
+    </div>
+</article>
+?></textarea><!-- NOTE: w/ Twig server-side templates we may lose this awesome bit.  Sigh.--></section><section class="slide"><h2>And now for some demos</h2></section><section class="slide"><h2>Node promotion app: buttons</h2></section><section class="slide"><h2>Node promotion app: jQuery UI</h2></section><section class="slide"><h2>Comment moderation: keyboard shortcuts</h2></section>
+
     <!-- End slides. -->
 
 
@@ -220,6 +278,7 @@ mySearchResults.get(2).set('title', 'Super Magic!!');
 <script src="vendor/codemirror2/mode/htmlmixed/htmlmixed.js"></script>
 <script src="vendor/codemirror2/mode/jinja2/jinja2.js"></script>
 <script src="vendor/codemirror2/mode/javascript/javascript.js"></script>
+<script src="vendor/codemirror2/mode/clike/clike.js"></script>
 <script src="vendor/codemirror2/mode/php/php.js"></script>
 
 <script src="vendor/deck.js-codemirror/deck.codemirror.js"></script>
