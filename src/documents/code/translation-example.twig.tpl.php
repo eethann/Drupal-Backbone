@@ -5,7 +5,7 @@
           {{ title }}
         </title>
         {# Add a button element to toggle promote status #}
-        <button value="Promote" class="promote-toggle"/>
+        <button value="<?php t('Promote'); ?>'" class="promote-toggle"/>
     </header>
     <div class="body">
       {{ body }}

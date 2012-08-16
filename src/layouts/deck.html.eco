@@ -9,10 +9,10 @@
 	<meta name="description" content="<%= @getPreparedDescription() %>" />
 	<meta name="keywords" content="<%= @getPreparedKeywords() %>" />
 	<%- @getBlock('meta').toHTML() %>
-	
+
 	<!-- Required stylesheet -->
 	<link rel="stylesheet" href="vendor/deck.js/core/deck.core.css">
-	
+
 	<!-- Extension CSS files go here. Remove or add as needed. -->
 	<link rel="stylesheet" href="vendor/deck.js/extensions/goto/deck.goto.css">
 	<link rel="stylesheet" href="vendor/deck.js/extensions/menu/deck.menu.css">
@@ -52,9 +52,9 @@
   <article class="deck-container">
 
     <!-- Begin slides. Just make elements with a class of slide. -->
-    
+
     <%- @content %>
-    
+
     <!-- End slides. -->
 
 
@@ -104,6 +104,7 @@
 <script src="vendor/codemirror2/mode/htmlmixed/htmlmixed.js"></script>
 <script src="vendor/codemirror2/mode/jinja2/jinja2.js"></script>
 <script src="vendor/codemirror2/mode/javascript/javascript.js"></script>
+<script src="vendor/codemirror2/mode/clike/clike.js"></script>
 <script src="vendor/codemirror2/mode/php/php.js"></script>
 
 <script src="vendor/deck.js-codemirror/deck.codemirror.js"></script>

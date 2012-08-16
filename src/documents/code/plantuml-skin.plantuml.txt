@@ -1,0 +1,20 @@
+skinparam sequence {
+    TitleFontName "Nimbus Sans"
+	ArrowColor #0073AC
+	ActorBorderColor #0073AC
+	LifeLineBorderColor #0073AC
+	LifeLineBackgroundColor White
+	ParticipantBorderColor #0073AC
+	ParticipantBackgroundColor White
+	ParticipantFontName Inconsolata-g
+	ParticipantFontSize 14
+	ParticipantFontColor #0073AC
+    BoxLineColor #AAAAAA
+    BoxBackgroundColor #EEEEEE
+}
+
+skinparam {
+    NoteBackgroundColor #CCCCCC
+    NoteBorderColor #104877
+}
+

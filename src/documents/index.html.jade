@@ -2,13 +2,12 @@
 layout: 'deck'
 title: 'Backbone Development with Drupal'
 ---
-// TODO: add stack diagram
 // TODO: add funny pictures and jokes
-// TODO: organize by theme: Requesting, Rendering, Responding
 section.slide
   h1 Using the Drupal Backbone Module
+  div.below Ethan Winn - ethanw/@eethann/ethan@echoditto.com
 section.slide
-  h1 The enemy is...
+  h1 Do not forget the enemy:
 section.slide
   h2 Spagetti Code!
   img(src="images/spaghetti-js.png")
@@ -18,10 +17,17 @@ section.slide
 // section.slide
 //   h1 Backbone and Drupal are TOTTALLY BFFs!
 section.slide
-  h2 Let's break it down //'
+  h2 Let's break it down
+  //'
   img(src="http://i.chzbgr.com/completestore/2010/10/4/74506b4d-6ad6-47ed-a3b9-8f6c48c5cf07.jpg")
 section.slide
-  h1 Requesting
+  h1
+    | 1. Requesting
+    | 2. Rendering
+    | 3. Responding
+  // NOTE: this is the real threesome for Backbone, more than "MVC"
+section.slide
+  h1 1. Requesting
 section.slide
   h2 Load a node!
   textarea#node-fetch-js.code(mode="javascript")
@@ -50,9 +56,11 @@ section.slide
   h2 Behind the Scenes: Loading
   img(src="images/node-load-activity.png")
 section.slide
-  h1 Backbone.sync can point to anything
+  h2 Backbone.sync can point to anything:
+  object(data="images/Promiscuous Backbone Architecture.svg",type="image/svg+xml")
+    img(src="images/Promiscuous Backbone Architecture.png")
 section.slide
-  h1 Rendering
+  h1 2. Rendering
 section.slide
   h2 ...client-side!
 section.slide
@@ -69,7 +77,7 @@ section.slide
   textarea.code#node-render-changes-js(mode="javascript")
     include code/node-render-changes.js
 section.slide
-  h1 Responding
+  h1 3. Responding
 section.slide
   h2 Backbone Views also handle User Events
 section.slide
@@ -81,7 +89,7 @@ section.slide
   textarea#collection-item-event-binding-js.code(mode="javascript")
     include code/collection-item-event-binding.js
 section.slide
-  h1 Plus collections
+  h1 Plus: 4. Collections!!
 section.slide
   img(src="images/load-all-the-nodes-q.png")
 section.slide
@@ -112,27 +120,33 @@ section.slide
 section.slide
   h2 Backbone is all about delegation
 section.slide
-  h2 Setting up our Backbone Model
+  h2 The Drupal Backbone Stack
+  //object(data="images/Drupal Backbone App Structure.svg", type="image/svg+xml")
+  img(src="images/Drupal Backbone App Structure.png")
 section.slide
-  h2 A Simple Page callback
-  pre
-    code(contenteditable="true", class="PHP")
-      | // TODO: mock-module code
+  h2 Setting up our Backbone Module
+section.slide#callback
+  h2 Menu Callback: App Path
+  textarea.code#module-hook(mode="php")
+    include code/module-callback.php
+section.slide
+  h2 Page Callback: Includes Backbone Lib and App JS
+  textarea.code#module-inc(mode="php")
+    include code/module-includes.php
+  //TODO: dtermine is library should/can be included here
 section.slide
   h2 Make a root element for our app
-  pre
-    code(contenteditable="true", class="PHP")
-      | // TODO: mock-module code
+  textarea.code#module-root(mode="php")
+    include code/module-root-element.php
 section.slide
   h2 Use the theme layer for templates
-  pre
-    code(contenteditable="true", class="PHP")
-      | // TODO: mock-module code
+  textarea.code#module-theme(mode="php")
+    include code/module-theme.php
 section.slide
   h2 Added advantage that we can use t()
-  pre
-    code(contenteditable="true", class="PHP")
-      | // TODO: mock-module code
+  textarea.code#module-theme(mode="jinja2")
+    include code/translation-example.twig.tpl.php
+  // NOTE: w/ Twig server-side templates we may lose this awesome bit.  Sigh.
 section.slide
   h2 And now for some demos
 section.slide
