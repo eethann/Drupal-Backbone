@@ -1,6 +1,7 @@
 body {
   background: #0073ac url(template-bg.png) no-repeat fixed center top;
   padding: 0;
+  overflow: hidden;
 }
 
 .deck-container {
@@ -51,6 +52,13 @@ body {
   position: absolute;
   bottom: 0px;
 }
+.deck-container .slide .small {
+  font-size: 0.75em;
+  line-height: 100%;
+}
+.deck-container .slide .scroller {
+  overflow: scroll;
+}
 .deck-container .slide img .bordered {
   -webkit-box-shadow: -2px 2px 0px #104877;
   -moz-box-shadow: -2px 2px 0px #104877;
@@ -67,6 +75,11 @@ body {
   -webkit-box-shadow: -2px 2px 0px #104877;
   -moz-box-shadow: -2px 2px 0px #104877;
   box-shadow: -2px 2px 0px #104877;
+}
+.deck-container .slide embed {
+  border-color: #0073AC;
+  border-width: 2px;
+  border-style: solid;
 }
 .deck-container .slide pre, .deck-container .slide code {
   font-family: "Inconsolata", monospace;

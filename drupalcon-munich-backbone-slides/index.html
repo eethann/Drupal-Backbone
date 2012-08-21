@@ -40,6 +40,8 @@
               href="vendor/codemirror2/theme/lesser-dark.css">
         <link rel="stylesheet"
               href="vendor/codemirror2/theme/vibrant-ink.css">
+        <link rel="stylesheet"
+              href="vendor/codemirror2/theme/rubyblue.css">
 
     <link rel="stylesheet" href="drupalcon.css">
 
@@ -53,47 +55,27 @@
 
     <!-- Begin slides. Just make elements with a class of slide. -->
 
-    <!-- TODO: add funny pictures and jokes--><section class="slide"><h1>Using the Drupal Backbone Module</h1><div class="below">Ethan Winn - ethanw/@eethann/ethan@echoditto.com</div></section><section class="slide"><h1>Do not forget the enemy:</h1></section><section class="slide"><h2>Spagetti Code!</h2><img src="images/spaghetti-js.png"/><p>(TODO: insert attribution)</p></section><section class="slide"><h1>Backbone Can Help</h1></section><!-- section.slide--><!--   h1 Backbone and Drupal are TOTTALLY BFFs!--><section class="slide"><h2>Let's break it down</h2><!--'--><img src="http://i.chzbgr.com/completestore/2010/10/4/74506b4d-6ad6-47ed-a3b9-8f6c48c5cf07.jpg"/></section><section class="slide"><h1>1. Requesting
-2. Rendering
-3. Responding</h1><!-- NOTE: this is the real threesome for Backbone, more than "MVC"--></section><section class="slide"><h1>1. Requesting</h1></section><section class="slide"><h2>Load a node!</h2><textarea id="node-fetch-js" mode="javascript" class="code">// Load a  node
+    <section class="slide"><h1>Using the Drupal Backbone Module</h1><div class="below">Ethan Winn - ethanw/@eethann/ethan@echoditto.com</div></section><section class="slide"><h1>a.k.a "A Deep Dive Into the Shallow Side of the Pool"</h1></section><section class="slide"><h1>First: A Simple Drupal + Backbone Demo:</h1></section><section class="slide"><h2>The Classic: Todo</h2><embed src="video/backbone-demo-setvik-todo.mov" height="330" width="860" align="middle" autoplay="false"></embed><p>By Stein Setvik (setvik) of Forum One</p></section><section class="slide"><h1>Do not forget the enemy:</h1></section><section class="slide"><img src="images/spaghetti-js.png"/><div class="small">@searls: https://speakerdeck.com/u/searls/p/confidencejs </div></section><section class="slide"><h1>Backbone Can Help</h1></section><section class="slide"><h1>Let's break it down</h1></section><section class="slide"><!--<NOTE><this>is the real threesome for Backbone, more than "MVC"</this></NOTE><NOTE><this>applies to both spaghetti and app architecture</this></NOTE>--><h1><ol><li>Requesting</li><li>Rendering</li><li>Responding</li></ol></h1></section><section class="slide"><h1>1. Requesting</h1></section><section class="slide"><h2>Load a node!</h2><textarea id="node-fetch-js" mode="javascript" class="code">// Load a  node
 var oneNode = Drupal.Backbone.Models.Node({nid: 1});
 myNode.fetch();
+
+// Then we can run things like:
 console.log(oneNode.get('title'));
 oneNode.set('title', 'New Title!');
-console.dir(oneNode);
-</textarea></section><section class="slide"><h2>Automatic Parsing</h2><h3>TODO</h3></section><section class="slide"><h2>Create a node &amp; save it:</h2><textarea id="node-create-js" mode="javascript" class="code">// Create and Save a comment
+console.dir(oneNode.attributes);
+// -> { nid: 1, promoted: 1, title: "title", etc. }
+</textarea></section><!--<section class="slide"></section><h2>Automatic Parsing</h2><h3>TODO</h3>--><section class="slide"><h2>Create a node &amp; save it:</h2><textarea id="node-create-js" mode="javascript" class="code">// Create our node model object
 var myNode = Drupal.Backbone.Models.Node({
     type: "page",
     title: "This is a new comment",
     body: "That's it, really."
 });
+
+// Save to send the data to the server
 myNode.save();
-</textarea></section><section class="slide"><h2>...and comments...</h2><textarea mode="javascript" class="code">// Create a comment
-var myComment = new Drupal.Backbone.Models.Comment({
-  nid: 1,
-  subject: "It's easier with Backbone.js",
-  body: "And it's more fun, too."
-});
-// Save a comment
-myComment.save();
-// Load a comment
-var serverComment = (new Drupal.Backbone.Models.Comment({cid:1})).fetch();
-// (yay chainable methods!)
 
-</textarea></section><section class="slide"><h2>...or users...</h2><textarea mode="javascript" class="code">// Create a user
-var myUser = new Drupal.Backbone.Models.User({
-    name: "Backbone User",
-    pass: "MyPass", // This goes away as soon as we save.
-    mail: "user@backbonejs.org"
-});
-// Save a user
-myUser.save();
-// Load a user
-var serverUser = (new Drupal.Backbone.Models.User({uid:1})).fetch();
-// We can log in too!
-serverUser.login("password") // TODO: implement logging in
-serverUser.logout();
-</textarea></section><section class="slide"><h2>...or files, or flags, or...</h2></section><section class="slide"><h2>Behind the Scenes: Saving</h2><img src="images/node-save-activity.png"/></section><section class="slide"><h2>Behind the Scenes: Loading</h2><img src="images/node-load-activity.png"/></section><section class="slide"><h2>Backbone.sync can point to anything:</h2><object data="images/Promiscuous Backbone Architecture.svg" type="image/svg+xml"><img src="images/Promiscuous Backbone Architecture.png"/></object></section><section class="slide"><h1>2. Rendering</h1></section><section class="slide"><h2>...client-side!</h2></section><section class="slide"><h2>With a twig.js template</h2><textarea id="node-display-twig" mode="jinja2" class="code"><article>
+// After save, we get nid added to the node
+// model, and any additional properties.</textarea></section><section class="slide"><h1>...or users, or comments, or flags, or...</h1></section><section class="slide"><h2>Behind the Scenes: Saving</h2><img src="images/node-save-activity.png" height="375"/></section><section class="slide"><h2>Behind the Scenes: Loading</h2><img src="images/node-load-activity.png" height="375"/></section><section class="slide"><h2>Backbone.sync can point to anything:</h2><!-- object(data="images/Promiscuous Backbone Architecture.svg",type="image/svg+xml")--><img src="images/Promiscuous Backbone Architecture.png"/></section><section class="slide"><h2>Example: Archive.org Integration</h2><embed src="video/backbone-demo-ybc-archive.mov" height="330" width="860" align="middle" autoplay="false"></embed></section><section class="slide"><h2>Thanks EchoDitto for supporting this module development!</h2><img src="images/EchoDitto_ad_for_guide_hires.png" height="125"/></section><section class="slide"><h1>2. Rendering</h1></section><section class="slide"><h2>...client-side!</h2></section><section class="slide"><h2>With a twig.js template</h2><textarea id="node-display-twig" mode="jinja2" class="code"><article>
     <header>
         <title>
           {{ title }}
@@ -103,39 +85,49 @@ serverUser.logout();
       {{ body }}
     </div>
 </article>
-</textarea><p>(handlebars or _.js also work)</p></section><section class="slide"><h2>And a Backbone View:</h2><textarea id="node-display-js" mode="javascript" class="code">// Display a node
-// TODO: include template
+</textarea><p>(handlebars or _.js also work)</p></section><section class="slide"><h2>And a Backbone View:</h2><textarea id="node-display-js" mode="javascript" class="code">// Create a (Backbone) view for our node (using the Twig.js templating engine)
 var NodeView = Drupal.Backbone.Views.Base.extend({
-    templateSelector: '#template-one-node'
+  templateSelector: '#template-one-node',
+  renderer: 'twig'
 })
-var myNodeView = new NodeView({model: myNode});
-myNodeView.render();
-</textarea></section><section class="slide"><h2>Views can refresh automatically</h2><textarea id="node-render-changes-js" mode="javascript" class="code">// Updating a node when it changes
-var NodeView = Drupal.Backbone.Views.Base.extend({
-    templateSelector: '#template-one-node',
-    initialize: function(options) {
-        this.model.bind('change', this.render);
-    }
-});
-var myNodeView = new NodeView({model: myNode});
-myNodeView.render();
 
-// Now we change something: 
+// Create a demo node model object to display.
+var myNode = new Drupal.Backbone.Models.Node({
+  title: 'Example Node'
+})
+
+// Create an instance of our node view to render this node.
+var myNodeView = new NodeView({model: myNode});
+
+// Run the render function
+myNodeView.render();
+</textarea></section><section class="slide"><h2>Voilà: HTML!</h2><img src="images/backbone-example-node-render.png"/></section><section class="slide"><h2>Views can refresh automatically</h2><textarea id="node-render-changes-js" mode="javascript" class="code">// Updating a node when it changes
+var NodeView = Drupal.Backbone.Views.Base.extend({
+  templateSelector: '#template-one-node',
+  renderer: 'twig',
+  initialize: function(options) {
+    this.constructor.__super__.initialize.call(this, options);
+    this.model.bind('change', this.render);
+  }
+});
+// Asume that we already have a node ready to go:
+var myNodeView = new NodeView({model: myNode});
+// Render first:
+myNodeView.render();
+// And if we change something later, the HTML will update AUTOMATICALLY.
 myNode.set('title', 'Magic!');
-</textarea></section><section class="slide"><h1>3. Responding</h1></section><section class="slide"><h2>Backbone Views also handle User Events</h2></section><section class="slide"><h2>We just add a button to our node template</h2><textarea id="event-binding-tpl" mode="jinja2" runnable="false" class="code"><?php
-<article>
-    <header>
-        <title>
-          {{ title }}
-        </title>
-        {# Add a button element to toggle promote status #}
-        <button value="Promote" class="promote-toggle"/>
-    </header>
-    <div class="body">
-      {{ body }}
-    </div>
-</article>
-?></textarea></section><section class="slide"><h2>And add a listener in our view</h2><textarea id="collection-item-event-binding-js" mode="javascript" class="code">// Changing a node example
+</textarea></section><section class="slide"><h1>3. Responding</h1></section><section class="slide"><h1>Backbone Views also handle User Events</h1></section><section class="slide"><h2>We just add a button to our node template</h2><textarea id="event-binding-tpl" mode="jinja2" class="code">   <div class="node promoted-{{ promote }}">
+     <div class="header">
+       <div class="title">
+	 {{ title }}
+       </div>
+       {# Add a button element to toggle promote status #}
+       <button value="Promote" class="promote-toggle">
+	 {% if promote == 1 %}Un-promote{% else %}Promote{% endif %}
+       </button>
+     </div>
+   </div>
+</textarea></section><section class="slide"><h2>And add a listener in our view</h2><textarea id="collection-item-event-binding-js" mode="javascript" class="code">// Changing a node example
 var NodeView = Drupal.Backbone.Views.Base.extend({
     events: {
         'click .promote-toggle': promoteToggle
@@ -145,34 +137,55 @@ var NodeView = Drupal.Backbone.Views.Base.extend({
         this.model.bind('change', 'render');
     },
     promoteToggle: function(e) {
+	// BAAAAAD: this should use a method on this.model
         this.model.set('promoted', !this.model.get('promoted'));
         this.model.save();
     }
-});</textarea></section><section class="slide"><h1>Plus: 4. Collections!!</h1></section><section class="slide"><img src="images/load-all-the-nodes-q.png"/></section><section class="slide"><img src="images/load-all-the-nodes-x.png"/></section><section class="slide"><h2>Load lots of nodes!</h2><h3>(via search!!!)</h3><textarea id="collection-load-js" mode="javascript" class="code">// Load a collection
-var mySearchResults = Drupal.Backbone.Collections.Search({
-    model: Drupal.Backbone.Models.Node,
-    q: "Test"
 });
+</textarea></section><section class="slide"><embed src="video/backbone-example-node-event.mov" height="400" width="735" align="middle" autoplay="false">   </embed></section><section class="slide"><h1>Plus: 4. Collections!!</h1></section><section class="slide"><img src="images/load-all-the-nodes-q.png"/></section><section class="slide"><img src="images/load-all-the-nodes-x.png"/></section><section class="slide"><h2>Load lots of nodes!</h2><textarea id="collection-load-js" mode="javascript" class="code">// Load a collection for a (Drupal) view:
+var myViewCollection = Drupal.Backbone.Collections.NodeView({
+    model: Drupal.Backbone.Models.Node,
+    viewName: "drupalcon_munich_example_view"
+});
+// Fetch all nodes in the view from the server
 mySearchResults.fetch();
-mySearchResults.get(1).set('title', "I was in a collection!");
+
+// Then, we can run code like this:
+mySearchResults.at(0)
+mySearchResults.at(0).set('title', "I was in a collection!");
 mySearchResults.save();
-</textarea></section><section class="slide"><h2>Other supported listing types</h2><ul><li>Views</li><li>Searches</li><li>Entity References (coming soon!)</li></ul></section><section class="slide"><h2>Rendering lots of nodes: the "Collection View" pattern</h2></section><section class="slide"><h2>Another simple template</h2><textarea mode="jinja2" class="code"><h1>Search results for "{{q}}"</h1>
+</textarea></section><section class="slide"><h2>Rendering lots of nodes: the "Collection View" pattern</h2></section><section class="slide"><h2>Another simple template</h2><textarea mode="jinja2" class="code"><h1>View Results</h1>
 <ul class="search-results">
   {# Search results go here, via ViewCollection.render #}
 </ul>
-</textarea></section><section class="slide"><h2>And a Backbone View</h2><textarea mode="javascript" class="code">// Display a collection
-// TODO: make collection view base for Drupal Backbone
-var SearchResultsView = Drupal.Backbone.Views.Collection.extend({
-    modelView: NodeView,
-    templateSelector: "#template-search-results-collection"
+</textarea></section><section class="slide"><h2>And a Backbone View (a)</h2><textarea mode="javascript" class="code">// Create Collection class
+var collection = new Drupal.Backbone.Collections.NodeView({
+  model: Drupal.Backbone.Models.Node,
+  viewName: 'drupalcon_munich_basic_view'
 });
-var mySearchResultsView = SearchResultsView({
-    collection: mySearchResults
-});
-mySearchResultsView.render();
-mySearchResults.get(2).set('title', 'Super Magic!!');
 
-</textarea></section><section class="slide"><h2>Events automatically works in our collection view too!</h2></section><section class="slide"><h2>Backbone is all about delegation</h2></section><section class="slide"><h2>The Drupal Backbone Stack</h2><!--object(data="images/Drupal Backbone App Structure.svg", type="image/svg+xml")--><img src="images/Drupal Backbone App Structure.png"/></section><section class="slide"><h2>Setting up our Backbone Module</h2></section><section id="callback" class="slide"><h2>Menu Callback: App Path</h2><textarea id="module-hook" mode="php" class="code"><?php
+// Create Node View
+var NodeView = Drupal.Backbone.Views.Base.extend({
+  templateSelector: '#backbone_munich_node_template',
+  renderer: 'twig',
+  tagName: 'li'
+});
+
+</textarea></section><section class="slide"><h3>and (b)</h3><textarea mode="javascript" class="code">// Create Collection View
+var collectionView = new Drupal.Backbone.Views.CollectionView({
+  collection: collection,
+  templateSelector: '#backbone_munich_collection_template',
+  renderer: 'twig',
+  el: '#backbone-munich-collection-render-app',
+  ItemView: NodeView,
+  itemParent: 'ul.search-results'
+});
+
+// Render view (shell, items will attach on collection "add" event)
+collectionView.render();
+// Fetch collection, items automatically rendered into list!
+collection.fetch();
+</textarea></section><section class="slide"><h2>DRY: We re-use our node template</h2><img src="images/backbone-example-collection-render.png"/></section><section class="slide"><h2>Item events work in collections!<embed src="video/backbone-example-collection-event.mov" height="400" width="735" align="middle" autoplay="false">   </embed><!-- NOTE: could be keystrokes, dragging, etc.--></h2></section><section class="slide"><h2>Backbone is all about delegation</h2></section><section class="slide"><h2>The Drupal Backbone Stack</h2><img src="images/Drupal Backbone App Structure.png" height="375"/></section><section class="slide"><h2>Setting up our Backbone Module</h2></section><section id="callback" class="slide"><h2>Menu Callback: App Path</h2><textarea id="module-hook" mode="php" class="code"><?php
 function backbone_example_menu() {
   $items['backbone_example'] = array(
     'title' => 'Backbone Example',
@@ -183,15 +196,27 @@ function backbone_example_menu() {
 }
 ?></textarea></section><section class="slide"><h2>Page Callback: Includes Backbone Lib and App JS</h2><textarea id="module-inc" mode="php" class="code"><?php
 function backbone_example_admin_page() {
+  // Include libs
+  drupal_add_library('backbone', 'drupalbackbone-services');
+  drupal_add_library('backbone', 'twig.js');
   // Add templates to page.
-  backbone_add_template('backbone-example-node-template', theme('backbone_example_node_template'));
-  backbone_add_template('backbone-example-app-template', theme('backbone_example_app_template'));
+  backbone_add_template('backbone_munich_node_event_bind_template', theme('backbone_munich_node_event_bind_template'));
   // Add app js.
-  drupal_add_js(drupal_get_path('module', 'backbone_example') . '/js/backbone_example_app.js');
+  drupal_add_js(drupal_get_path('module', 'backbone_munich') . '/js/collection_event_bind.js');
   // ...*snip*...
 }
 ?>
-</textarea><!--TODO: dtermine is library should/can be included here--></section><section class="slide"><h2>Make a root element for our app</h2><textarea id="module-root" mode="php" class="code"><?php
+</textarea><!--TODO: dtermine is library should/can be included here--></section><section class="slide"><h2>JS: Use Behaviors for App</h2><textarea id="module-js" mode="javascript" class="code">(function ($){
+  Drupal.behaviors.backbone_munich = {
+    attach: function() {
+       // Load a node
+      var myNode = new Drupal.Backbone.Models.Node({
+	nid: 1
+      });
+    }
+  };
+})(jQuery);
+</textarea></section><section class="slide"><h2>Make a root element for our app</h2><textarea id="module-root" mode="php" class="code"><?php
 function backbone_example_admin_page() {
   // ...snip...
   return array(
@@ -227,7 +252,7 @@ function backbone_example_theme($existing, $type, $theme, $path) {
       {{ body }}
     </div>
 </article>
-?></textarea><!-- NOTE: w/ Twig server-side templates we may lose this awesome bit.  Sigh.--></section><section class="slide"><h2>And now for some demos</h2></section><section class="slide"><h2>Node promotion app: buttons</h2></section><section class="slide"><h2>Node promotion app: jQuery UI</h2></section><section class="slide"><h2>Comment moderation: keyboard shortcuts</h2></section>
+?></textarea><!-- NOTE: w/ Twig server-side templates we may lose this awesome bit.  Sigh.--></section><section class="slide"><h1>One more demo...</h1></section><section class="slide"><h2>ShotClip</h2><embed src="video/backbone-demo-cormac-steps.mov" height="330" width="860" align="middle" autoplay="false"></embed><p>By Cormac McGuire (cromac) / Studio Rua</p></section><section class="slide"><h1>WAIT!</h1></section><section class="slide"><h2>We want to know what you thought about this session:</h2><p>Find this session on the DrupalCon Munich site:</p><p class="center"><a href="http://munich2012.drupal.org/program">http://munich2012.drupal.org/program</a></p><p>And click the "Take the Survey" link.<p>(and message us on Drupal.org or Twitter!)</p></p></section><section class="slide"><h1>ALSO: BoF Tomorrow, 13:00-14:00 in the Athen room.</h1></section><section class="slide"><h1>Thank you!</h1></section>
 
     <!-- End slides. -->
 
@@ -288,7 +313,7 @@ function backbone_example_theme($existing, $type, $theme, $path) {
     $(function() {
         $.deck('section.slide', {
                    codemirror: {
-                     theme: "lesser-dark",
+                     theme: "rubyblue",
                      mode: "javascript",
                      lineNumbers: true
                    }

@@ -1,12 +1,33 @@
 // Display a collection
-// TODO: make collection view base for Drupal Backbone
-var SearchResultsView = Drupal.Backbone.Views.Collection.extend({
-    modelView: NodeView,
-    templateSelector: "#template-search-results-collection"
+
+// Create Collection class
+var collection = new Drupal.Backbone.Collections.NodeView({
+  model: Drupal.Backbone.Models.Node,
+  viewName: 'drupalcon_munich_basic_view'
 });
-var mySearchResultsView = SearchResultsView({
-    collection: mySearchResults
+
+// Create Node View
+var NodeView = Drupal.Backbone.Views.Base.extend({
+  templateSelector: '#backbone_munich_node_template',
+  renderer: 'twig',
+  tagName: 'li'
 });
-mySearchResultsView.render();
-mySearchResults.get(2).set('title', 'Super Magic!!');
+
+// Create Collection View
+var collectionView = new Drupal.Backbone.Views.CollectionView({
+  collection: collection,
+  templateSelector: '#backbone_munich_collection_template',
+  renderer: 'twig',
+  el: '#backbone-munich-collection-render-app',
+  ItemView: NodeView,
+  itemTag: 'li',
+  itemParent: 'ul.search-results'
+});
+
+// Render view (shell, items will attach on collection "add" event)
+collectionView.render();
+
+// Fetch collection, triggers adding all individual,
+// rendered models to our collection! (thanks to event binding)
+collection.fetch();
 
